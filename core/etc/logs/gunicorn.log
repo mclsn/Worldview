@@ -1,0 +1,102 @@
+[2017-02-18 22:31:38 +0300] [7617] [DEBUG] Current configuration:
+  worker_connections: 1000
+  graceful_timeout: 30
+  syslog: False
+  reload: False
+  check_config: False
+  capture_output: False
+  syslog_addr: udp://localhost:514
+  syslog_prefix: None
+  syslog_facility: user
+  do_handshake_on_connect: False
+  pidfile: None
+  forwarded_allow_ips: ['127.0.0.1']
+  threads: 2
+  keyfile: None
+  on_reload: <function OnReload.on_reload at 0x7f650852dc80>
+  post_worker_init: <function PostWorkerInit.post_worker_init at 0x7f650853b378>
+  post_request: <function PostRequest.post_request at 0x7f650853bae8>
+  worker_exit: <function WorkerExit.worker_exit at 0x7f650853bc80>
+  default_proc_name: index:wsgi_app
+  raw_env: []
+  worker_class: sync
+  max_requests_jitter: 0
+  keepalive: 2
+  errorlog: /home/projects/snw/core/etc/logs/gunicorn.log
+  logconfig: None
+  statsd_host: None
+  when_ready: <function WhenReady.when_ready at 0x7f650852de18>
+  worker_int: <function WorkerInt.worker_int at 0x7f650853b510>
+  limit_request_field_size: 8190
+  certfile: None
+  cert_reqs: 0
+  bind: ['0.0.0.0:8000']
+  config: core/etc/gunicorn-wsgi.conf
+  limit_request_fields: 100
+  preload_app: False
+  group: 1
+  ciphers: TLSv1
+  pre_request: <function PreRequest.pre_request at 0x7f650853b9d8>
+  umask: 0
+  proxy_allow_ips: ['127.0.0.1']
+  pre_fork: <function Prefork.pre_fork at 0x7f650853b048>
+  statsd_prefix: 
+  ca_certs: None
+  chdir: /home/projects/snw
+  worker_tmp_dir: None
+  user: 1
+  worker_abort: <function WorkerAbort.worker_abort at 0x7f650853b6a8>
+  timeout: 15
+  tmp_upload_dir: None
+  spew: False
+  secure_scheme_headers: {'X-FORWARDED-SSL': 'on', 'X-FORWARDED-PROTO': 'https', 'X-FORWARDED-PROTOCOL': 'ssl'}
+  paste: None
+  on_starting: <function OnStarting.on_starting at 0x7f650852dae8>
+  pre_exec: <function PreExec.pre_exec at 0x7f650853b840>
+  access_log_format: %(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s"
+  pythonpath: None
+  on_exit: <function OnExit.on_exit at 0x7f650853f048>
+  django_settings: None
+  loglevel: debug
+  daemon: True
+  proxy_protocol: False
+  ssl_version: 3
+  proc_name: None
+  accesslog: None
+  logger_class: gunicorn.glogging.Logger
+  enable_stdio_inheritance: False
+  limit_request_line: 4094
+  suppress_ragged_eofs: True
+  post_fork: <function Postfork.post_fork at 0x7f650853b1e0>
+  sendfile: None
+  max_requests: 0
+  backlog: 2048
+  nworkers_changed: <function NumWorkersChanged.nworkers_changed at 0x7f650853be18>
+  workers: 4
+[2017-02-18 22:31:38 +0300] [7617] [INFO] Starting gunicorn 19.6.0
+[2017-02-18 22:31:38 +0300] [7617] [DEBUG] Arbiter booted
+[2017-02-18 22:31:38 +0300] [7617] [INFO] Listening at: http://0.0.0.0:8000 (7617)
+[2017-02-18 22:31:38 +0300] [7617] [INFO] Using worker: threads
+[2017-02-18 22:31:38 +0300] [7620] [INFO] Booting worker with pid: 7620
+[2017-02-18 22:31:38 +0300] [7621] [INFO] Booting worker with pid: 7621
+[2017-02-18 22:31:38 +0300] [7622] [INFO] Booting worker with pid: 7622
+[2017-02-18 22:31:38 +0300] [7623] [INFO] Booting worker with pid: 7623
+[2017-02-18 22:31:38 +0300] [7617] [DEBUG] 4 workers
+[2017-02-18 22:31:39 +0300] [7620] [DEBUG] GET /
+[2017-02-18 22:33:20 +0300] [7620] [DEBUG] Closing connection. 
+[2017-02-18 22:33:20 +0300] [7622] [DEBUG] GET /
+[2017-02-18 22:33:32 +0300] [7622] [DEBUG] Closing connection. 
+[2017-02-19 10:01:36 +0300] [7617] [CRITICAL] WORKER TIMEOUT (pid:7620)
+[2017-02-19 10:01:36 +0300] [7617] [CRITICAL] WORKER TIMEOUT (pid:7621)
+[2017-02-19 10:01:36 +0300] [7620] [INFO] Worker exiting (pid: 7620)
+[2017-02-19 10:01:36 +0300] [7621] [INFO] Worker exiting (pid: 7621)
+[2017-02-19 10:01:36 +0300] [7617] [CRITICAL] WORKER TIMEOUT (pid:7622)
+[2017-02-19 10:01:36 +0300] [7622] [INFO] Worker exiting (pid: 7622)
+[2017-02-19 10:01:36 +0300] [7617] [CRITICAL] WORKER TIMEOUT (pid:7623)
+[2017-02-19 10:01:36 +0300] [7623] [INFO] Worker exiting (pid: 7623)
+[2017-02-19 10:01:36 +0300] [7692] [INFO] Booting worker with pid: 7692
+[2017-02-19 10:01:36 +0300] [7617] [DEBUG] 1 workers
+[2017-02-19 10:01:36 +0300] [7693] [INFO] Booting worker with pid: 7693
+[2017-02-19 10:01:36 +0300] [7695] [INFO] Booting worker with pid: 7695
+[2017-02-19 10:01:36 +0300] [7696] [INFO] Booting worker with pid: 7696
+[2017-02-19 10:01:36 +0300] [7617] [DEBUG] 4 workers
