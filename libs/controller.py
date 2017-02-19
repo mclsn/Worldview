@@ -1,6 +1,6 @@
 import web
 import json
-import libs.template
+import libs.template, libs.models
 
 class signup:
 	def GET(self):
@@ -20,4 +20,9 @@ class signup:
 				return libs.template.renderTemp('signup.html', post_input, error)
 
 		# Search in database
-		return post_input
+		auth = libs.models.Auth()
+		if(auth.checkValidateEmail(str(post_input.signupEmail)) == None):
+			if(auth.register(post_input.signupEmail, post_input.signupPassword)):
+				return True
+
+		return False;

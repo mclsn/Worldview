@@ -6,6 +6,8 @@ import web
 # DB Object to JSON
 def dBJSON(IterBetterList):
 	temp = []
+	if not IterBetterList:
+		return None
 	for i in range(IterBetterList.__len__()):
 		temp.append(json.dumps(IterBetterList.__getitem__(i)))
 	return temp[0]

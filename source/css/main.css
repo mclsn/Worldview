@@ -22,7 +22,7 @@ div#center, div#headersHref{
 }
 div#header{
 	background: white;
-	height: 50px;
+	height: 60px;
 }
 div#highlevel{
 	width: 100%;
@@ -47,8 +47,8 @@ div#headersHref > * > a{
 	float: left;
 	cursor: pointer;
 	top: 2px;
-	height: 18px;
-	padding: 15px
+	height: 30px;
+    padding: 20px;
 }
 div#headersHref > * > a:hover{
 	background: rgba(0,0,0,0.01);
