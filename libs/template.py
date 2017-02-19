@@ -1,4 +1,4 @@
-from jinja2 import Environment, FileSystemLoader
+from jinja2 import Environment, FileSystemLoader, TemplateNotFound
 import os
 import json
 import web
@@ -15,7 +15,10 @@ def JSONtDict(IterBetterList):
 	result = json.loads(IterBetterList)
 	return result
 
-def renderTemp(doc, jsonstr):
+def renderTemp(doc, jsonstr=None, errors=None):
 	env = Environment(loader=FileSystemLoader('/home/projects/snw/views'))
-	template = env.get_template('main.html')
-	return template.render()
+	template = env.get_template(str(doc))
+	try:
+		return template.render(response=jsonstr, error=errors)
+	except TemplateNotFound:
+		raise web.notfound()

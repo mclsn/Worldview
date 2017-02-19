@@ -1,11 +1,45 @@
 <html>
 <head>
+	<meta charset="UTF-8">
     <title>Worldview</title>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
 </head>
+
 <body>
-<div id=""></div>
-    {% for item in range(5) %}
-      Hello {{ name }}!
-    {% endfor %}
+	<div id="scrollFix">
+		<div id="header">
+			<div id="headersHref">
+				<div id="headersHrefLeft">
+					<a href="/">
+						<span>Main</span>
+					</a>
+					<a href="/">
+						<span>Home</span>
+					</a>
+					<a href="/people">
+						<span>People</span>
+					</a>
+				</div>
+				<div id="headersHrefRight">
+					<a href="/login">
+						<span>Login</span>
+					</a>
+					<a href="/signup">
+						<span>Signup</span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<div id="highlevel">
+			<div id="highlevelShadow">
+				<div id="center">
+					{% block highlevel %}
+					{% endblock %}
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
+
+<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 </html>

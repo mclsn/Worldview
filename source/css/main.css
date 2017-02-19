@@ -1,0 +1,173 @@
+*{
+	padding: 0px;
+	margin:  0px;
+}
+body{
+	font-family: Helvetica;
+	font-weight: 100;
+	background: #f9f9f9;
+}
+a{
+	text-decoration: none;
+	color: black;
+}
+@font-face {
+    font-family: "DR";
+    src: url('/fonts/DINPro.ttf') format("truetype");
+}
+
+div#center, div#headersHref{
+	width: 900px;
+	margin: 0 auto;
+}
+div#header{
+	background: white;
+	height: 50px;
+}
+div#highlevel{
+	width: 100%;
+    position: absolute;
+	background: url('/img/test2.jpg');
+	background-size: cover;
+}
+div#highlevelShadow{
+	width: 100%;
+	background: rgba(0,0,0,0.1);
+}
+div#headersHref{
+	width: 900px;
+	position: relative;
+	margin: 0 auto;
+	color: #292f33;
+    font-size: 14px;
+    line-height: 18px;
+}
+div#headersHref > * > a{
+	position: relative;
+	float: left;
+	cursor: pointer;
+	top: 2px;
+	height: 18px;
+	padding: 15px
+}
+div#headersHref > * > a:hover{
+	background: rgba(0,0,0,0.01);
+	box-shadow: 0px -2px 0px 0px #08abff;
+}
+div#headersHref >  * > a > span{
+	border: none;
+    color: #292f33;
+    font-size: 18px;
+    font-weight: 200;
+    margin: 0 auto;
+}
+div#headersHref > div#headersHrefLeft{
+	position: relative;
+	float: left;
+}
+div#headersHref > div#headersHrefRight{
+	position: relative;
+	float: right;
+}
+div#headersHref >  * > input{
+	border: none;
+    color: #292f33;
+    font-size: 18px;
+    font-weight: 200;
+    margin: 0 auto;
+}
+div#highlevelSignupField{
+	margin: 20px;
+	width: 360px;
+	box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	position: relative;
+	float: right;
+	background: white;
+}
+div#highlevelSignupForm{
+	position: relative;
+	margin: 10px 35px;
+}
+
+
+
+label.FormExplain{
+	font-family: "DR";
+	display: flex;
+	font-size: 12px;
+	cursor: pointer;
+	margin: 0px 0px 4px 0px;
+	color: rgba(0,0,0,0.5)
+}
+input.FormDefault{
+	width: 100%;
+	font-family: Helvetica;
+	font-weight: bold;
+	padding: 10px;
+	font-size: 16px;
+	border-radius: 3px;
+	color: rgba(0,0,0,0.4);
+	box-shadow: inset 0px 0px 2px 1px rgba(0,0,0,0.1);
+	border: 1px solid rgba(0,0,0,0.1);
+}
+input.FormDefault:focus{
+	box-shadow: 0px 0px 2px 1px rgba(0,169,255,0.5);
+	outline: none;
+}
+button.FormButton{
+	background: #3498db;
+	background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+	background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+	background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+	background-image: -o-linear-gradient(top, #3498db, #2980b9);
+	background-image: linear-gradient(to bottom, #3498db, #2980b9);
+	-webkit-border-radius: 7;
+	-moz-border-radius: 7;
+	border: none;
+	cursor: pointer;
+	border-radius: 6px;
+	color: #ffffff;
+	font-family: "DR";
+	font-weight: bold;
+	font-size: 14px;
+	padding: 10px 20px 10px 20px;
+	text-decoration: none;
+}
+button.FormButton:hover{
+	background: #3cb0fd;
+	background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+	background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+	background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+	background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+	background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+	text-decoration: none;
+}
+p.Pupper{
+	font-family: "DR";
+	font-weight: bold;
+	padding: 10px 20px 0px 20px;
+	font-size: 25px;
+}
+p.Pexplain{
+	font-family: "DR";
+	padding: 0px 20px;
+	font-size: 14px;
+	color: rgba(0,0,0,0.5)
+}
+hr.HRgradient{
+    border: 0;
+    margin: 10px 0px 0px 0px;
+    height: 1px;
+    background: rgba(0,0,0,0.5);
+    background-image: linear-gradient(to right, #ccc, rgba(0,0,0,0.5), #ccc);
+}
+hr.HRgreyline{
+	border: 0;
+    height: 0;
+    margin: 10px 0px 0px 0px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+div.FormInputField{
+	margin: 15px 0px;
+}

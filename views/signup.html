@@ -1,0 +1,35 @@
+{% extends "main.html" %}
+{% block highlevel %}
+<div id="highlevelSignupField">
+	<p class="Pupper">Sign Up</p>
+	<p class="Pexplain">Want to sign up fill out this form!</p>
+	<hr class="HRgreyline">
+	<div id="highlevelSignupForm">
+		<form action="/signup" method="POST">
+			<div class="FormInputField">
+				<label class="FormExplain" for="signupFName">First Name</label>
+				<input value="{{ response.signupFName }}" class="FormDefault" type="text" name="signupFName" id="signupFName">
+			</div>
+			<div class="FormInputField">
+				<label class="FormExplain" for="signupLName">Last Name</label>
+				<input value="{{ response.signupLName }}" class="FormDefault" type="" name="signupLName" id="signupLName">
+			</div>
+			<div class="FormInputField">
+				<label class="FormExplain" for="signupUsername">Username</label>
+				<input value="{{ response.signupUsername }}" class="FormDefault" type="Password" name="signupUsername" id="signupUsername">
+			</div>
+			<div class="FormInputField">
+				<label class="FormExplain" for="signupEmail">Your email</label>
+				<input value="{{ response.signupEmail }}" class="FormDefault" type="Email" name="signupEmail" id="signupEmail">
+			</div>
+			<div class="FormInputField">
+				<label class="FormExplain" for="signupPassword">Password</label>
+				<input value="{{ response.signupPassword }}" class="FormDefault" type="Password" name="signupPassword" id="signupPassword">
+			</div>
+			<div class="FormInputField">
+				<button class="FormButton" type="submit">Sign up!</button>
+			</div>
+		</form>						
+	</div>
+</div>
+{% endblock %}
