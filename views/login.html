@@ -1,0 +1,23 @@
+{% extends "main.html" %}
+{% block highlevel %}
+<div id="highlevelSignupField">
+	<p class="Pupper">Login</p>
+	<p class="Pexplain">Want to login fill out this form!</p>
+	<hr class="HRgreyline">
+	<div id="highlevelSignupForm">
+		<form action="/login" method="POST">
+			<div class="FormInputField">
+				<label class="FormExplain" for="loginEmail">Your email</label>
+				<input value="{{ response.loginEmail }}" class="FormDefault" type="Email" name="loginEmail" id="loginEmail">
+			</div>
+			<div class="FormInputField">
+				<label class="FormExplain" for="loginPassword">Password</label>
+				<input value="{{ response.loginPassword }}" class="FormDefault" type="Password" name="loginPassword" id="loginPassword">
+			</div>
+			<div class="FormInputField">
+				<button class="FormButton" type="submit">Log In!</button>
+			</div>
+		</form>						
+	</div>
+</div>
+{% endblock %}

@@ -10,4 +10,4 @@ sudo /etc/init.d/nginx restart
 
 sudo pkill -9 gunicorn
 #sudo gunicorn -w 3 --keep-alive 1 index:wsgi_app
-sudo gunicorn -c core/etc/gunicorn-wsgi.conf index:wsgi_app
+sudo gunicorn -c core/etc/gunicorn-wsgi.conf wsgi:application
