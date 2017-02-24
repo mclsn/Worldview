@@ -1,19 +1,52 @@
+@font-face {
+    font-family: "DR";
+    src: url('/fonts/DINPro.ttf') format("truetype");
+}
+@font-face {
+    font-family: "SFthin";
+    src: url('/fonts/sf/thin.otf') format("truetype");
+}
+@font-face {
+    font-family: "SFlight";
+    src: url('/fonts/sf/light.otf') format("truetype");
+}
+@font-face {
+    font-family: "SFmed";
+    src: url('/fonts/sf/medium.otf') format("truetype");
+}
+@font-face {
+    font-family: "CF";
+    src: url('/fonts/California/CF.otf') format("truetype");
+}
+
+
+
+
 *{
 	padding: 0px;
 	margin:  0px;
 }
 body{
-	font-family: Helvetica;
-	font-weight: 100;
-	background: #f9f9f9;
+    font-family: "SFmed";
+    font-weight: 100;
+    background: #f7f7f7;
+    color: rgba(0,0,0,0.8);
 }
 a{
 	text-decoration: none;
 	color: black;
 }
-@font-face {
-    font-family: "DR";
-    src: url('/fonts/DINPro.ttf') format("truetype");
+
+div#debug{
+    font-weight: bold;
+    position: fixed;
+    background: #ff5970;
+    padding: 2px;
+    color: black;
+    width: 300px;
+    border-top-right-radius: 15px;
+    border: 1px solid rgba(125, 0, 0, 0.5);
+    bottom: 0px;
 }
 
 div#center, div#headersHref{
@@ -21,18 +54,68 @@ div#center, div#headersHref{
 	margin: 0 auto;
 }
 div#header{
-	background: white;
-	height: 60px;
-}
-div#highlevel{
-	width: 100%;
     position: absolute;
-	background: url('/img/test2.jpg');
-	background-size: cover;
+    top: 0;
+    box-shadow: 0 1px 0 0 #d7d8db, 0 0 0 1px #e3e4e8;
+    z-index: 10;
+    left: 0;
+    background: rgba(255,255,255,1);
+    width: 100%;
+}
+
+a#headerLogotype{
+	border: none;
+    color: black;
+    float: left;
+    font-size: 18px;
+    font-weight: 200;
+    margin: 0 auto;
+	padding: 0px !important;
+	background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAxIDEiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxsaW5lYXJHcmFkaWVudCBpZD0idnNnZyIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIHgxPSIxMDAlIiB5MT0iMTAwJSIgeDI9IjAlIiB5Mj0iMCUiPjxzdG9wIHN0b3AtY29sb3I9IiM1MGRkZmYiIHN0b3Atb3BhY2l0eT0iMSIgb2Zmc2V0PSIwIi8+PHN0b3Agc3RvcC1jb2xvcj0iIzQ4YjJjYyIgc3RvcC1vcGFjaXR5PSIxIiBvZmZzZXQ9IjAuOTA0Ii8+PC9saW5lYXJHcmFkaWVudD48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI3ZzZ2cpIiAvPjwvc3ZnPg==);
+    background-image: -webkit-gradient(linear, 100% 100%, 0% 0%,color-stop(0, rgb(80, 221, 255)),color-stop(0.904, rgb(72, 178, 204)));
+    /* Android 2.3 */
+    background-image: -webkit-linear-gradient(bottom right,rgb(80, 221, 255) 0%,rgb(72, 178, 204) 90.4%);
+    /* IE10+ */
+    background-image: linear-gradient(to top left,rgb(80, 221, 255) 0%,rgb(72, 178, 204) 90.4%);
+    background-image: -ms-linear-gradient(bottom right,rgb(80, 221, 255) 0%,rgb(72, 178, 204) 90.4%);
+    -webkit-transition: background-color 5000ms linear;
+    -ms-transition: background-color 5000ms linear;
+    transition: background-color 5000ms linear;
+}
+a#headerLogotype:hover{
+	background: rgb(80, 221, 255);
+    -webkit-transition: background-image 5000ms linear;
+    -ms-transition: background-image 5000ms linear;
+    transition: background-image 5000ms linear;
+}
+span#headerLogotype{
+	border: none;
+    color: black;
+    font-size: 18px;
+    font-weight: 200;
+    margin: 0 auto;
+	padding: 0px;
+    display: block;
+    position: relative;
+    background: url('/img/logo/wv.png') no-repeat;
+    background-size: 40px;
+    background-position: 10px;
+    height: 60px;
+    width: 60px;
+}
+
+div#highlevel{
+	position: absolute;
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    background-size: cover;
 }
 div#highlevelShadow{
-	width: 100%;
-	background: rgba(0,0,0,0.1);
+    width: 100%;
+    top: 60px;
+    position: absolute;
+    margin: 20px 0px;
 }
 div#headersHref{
 	width: 900px;
@@ -41,25 +124,25 @@ div#headersHref{
 	color: #292f33;
     font-size: 14px;
     line-height: 18px;
+}			
+ a#headerRef{
+    position: relative;
+    float: left;
+    cursor: pointer;
+    padding: 21px 10px;
 }
-div#headersHref > * > a{
-	position: relative;
-	float: left;
-	cursor: pointer;
-	top: 2px;
-	height: 30px;
-    padding: 20px;
+a#headerRef:hover{
+    box-shadow: inset 0px 2px 0px 0px #50ddff;
+    background: rgba(049, 146, 211, 0.02);
 }
-div#headersHref > * > a:hover{
-	background: rgba(0,0,0,0.01);
-	box-shadow: 0px -2px 0px 0px #08abff;
-}
-div#headersHref >  * > a > span{
+span#headerRef{
 	border: none;
-    color: #292f33;
+    color: black;
     font-size: 18px;
     font-weight: 200;
+    padding: 10px;
     margin: 0 auto;
+    /* border-radius: 12px; */
 }
 div#headersHref > div#headersHrefLeft{
 	position: relative;
@@ -70,25 +153,49 @@ div#headersHref > div#headersHrefRight{
 	float: right;
 }
 div#headersHref >  * > input{
-	border: none;
+    border: 1px solid rgba(0,0,0,0.1);
     color: #292f33;
+    padding: 5px 5px 5px 12px;
     font-size: 18px;
+    border-radius: 15px;
     font-weight: 200;
-    margin: 0 auto;
+    margin: 13.5px auto;
+}
+div#headersHref >  * > input:focus{
+	outline: none;
+}
+div#highlevelSearchLogo{
+    width: 900px;
+    height: 444px;
+    position: relative;
+    float: left;
+    box-shadow: 0 1px 0 0 #d7d8db, 0 0 0 1px #e3e4e8;
+    background: url(/img/test.jpg);
+    background-size: cover;
+}
+div#highlevelField{
+	width: 360px;
+    float: right;
 }
 div#highlevelSignupField{
-	margin: 20px;
-	width: 360px;
-	box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-	position: relative;
-	float: right;
-	background: white;
+    width: 300px;
+    height: 444px;
+    position: relative;
+    float: right;
+    background: white;
 }
 div#highlevelSignupForm{
 	position: relative;
-	margin: 10px 35px;
+    margin: 10px 25px;
 }
-
+div#signupLoginError{
+    font-family: "DR";
+    width: 100%;
+    font-size: 14px;
+    bottom: 0px;
+    text-align: center;
+    color: rgba(0,0,0,0.5);
+}
 
 
 label.FormExplain{
@@ -116,11 +223,11 @@ input.FormDefault:focus{
 }
 button.FormButton{
 	background: #3498db;
-	background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
-	background-image: -moz-linear-gradient(top, #3498db, #2980b9);
-	background-image: -ms-linear-gradient(top, #3498db, #2980b9);
-	background-image: -o-linear-gradient(top, #3498db, #2980b9);
-	background-image: linear-gradient(to bottom, #3498db, #2980b9);
+	background-image: -webkit-linear-gradient(top, #50dcfe, #45c1ea);
+	background-image: -moz-linear-gradient(top, #50dcfe, #45c1ea);
+	background-image: -ms-linear-gradient(top, #50dcfe, #45c1ea);
+	background-image: -o-linear-gradient(top, #50dcfe, #45c1ea);
+	background-image: linear-gradient(to bottom, #50dcfe, #45c1ea);
 	-webkit-border-radius: 7;
 	-moz-border-radius: 7;
 	border: none;

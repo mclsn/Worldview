@@ -3,6 +3,13 @@ import os
 import json
 import web
 
+# Logged function
+def logged():
+    if web.config._session.login==1:
+        return True
+    else:
+        return False
+
 # DB Object to JSON
 def dBJSON(IterBetterList):
 	temp = []
@@ -18,9 +25,10 @@ def JSONtDict(IterBetterList):
 	return result
 
 def renderTemp(doc, jsonstr=None, errors=None):
-	env = Environment(loader=FileSystemLoader('/home/projects/snw/views'))
+	env = Environment(loader=FileSystemLoader('/home/projects/snw/views'), cache_size=0)
 	template = env.get_template(str(doc))
+	session = web.config._session
 	try:
-		return template.render(response=jsonstr, error=errors)
+		return template.render(response=jsonstr, error=errors, session=session)
 	except TemplateNotFound:
 		raise web.notfound()

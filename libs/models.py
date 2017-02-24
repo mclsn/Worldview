@@ -2,8 +2,11 @@ import web
 import itertools
 import libs.template
 import json
+import datetime
+import libs.utils
 
 class Auth:
+
 	db = web.database(dbn='postgres', db='db', user='postgres', pw='2339')
 
 	def selectAll(self):
@@ -15,6 +18,31 @@ class Auth:
 		result = self.db.query("""SELECT * FROM auth WHERE data->>'email' = $email;""", vars={'email':emailCheck}).list()	
 		return libs.template.dBJSON(result)
 
-	def register(self, emailAuth, passwordAuth):
-		results = self.db.query("""INSERT INTO auth (data) VALUES ($e);""", vars={"e" : json.dumps({'email': str(emailAuth), 'password' : str(passwordAuth)})})
+	def ckechUserBase(self, emailCheck, passwordCheck):
+		result = self.db.query("""SELECT * FROM auth WHERE data->>'email' = $email;""", vars={'email':emailCheck}).list()
+		try:
+			result = libs.template.dBJSON(result)
+			result = libs.template.JSONtDict(result)
+			Utils =  libs.utils.utils()
+			hPassword = Utils.Hash(str(passwordCheck))
+			if hPassword == result['data']['password']:
+				return True
+			else:
+				return False
+		except:
+			return False
+
+	def register(self, signupForm):
+		Utils =  libs.utils.utils()
+		hPassword = Utils.Hash(str(signupForm.signupPassword))
+
+		results = self.db.query("""
+			INSERT INTO auth (data) VALUES ($authInfo);
+			INSERT INTO users (data) VALUES ($mainData);
+			""", 
+			vars={
+			"authInfo" : json.dumps({'email': str(signupForm.signupEmail), 'password' : str(hPassword)}),
+			"mainData" : json.dumps({'fname': str(signupForm.signupFName), 'lname' : str(signupForm.signupLName)})
+			})
+
 		return results

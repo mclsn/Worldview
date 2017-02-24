@@ -4,44 +4,55 @@
     <title>Worldview</title>
     <link rel="stylesheet" type="text/css" href="/css/main.css">
 </head>
-
 <body>
 	<div id="scrollFix">
 		<div id="header">
 			<div id="headersHref">
 				<div id="headersHrefLeft">
-					<a href="/">
-						<span>Main</span>
+					<a href="/" id="headerLogotype">
+						<span id="headerLogotype"></span>
 					</a>
-					<a href="/">
-						<span>Home</span>
+					<a href="/" id="headerRef">
+						<span id="headerRef">Home</span>
 					</a>
-					<a href="/people">
-						<span>People</span>
+					<a href="/people" id="headerRef">
+						<span id="headerRef">People</span>
 					</a>
-					<a href="/about">
-						<span>About</span>
+					<a href="/about" id="headerRef">
+						<span id="headerRef">About</span>
 					</a>
+					<input type="text" name="search">
 				</div>
+				{% if session.login == 0 %}
 				<div id="headersHrefRight">
-					<a href="/login">
-						<span>Login</span>
+					<a href="/login" id="headerRef">
+						<span id="headerRef">Login</span>
 					</a>
-					<a href="/signup">
-						<span>Signup</span>
+					<a href="/signup" id="headerRef">
+						<span id="headerRef">Signup</span>
 					</a>
 				</div>
+				{% else %}
+				<div id="headersHrefRight">
+					<a href="/logout" id="headerRef">
+						<span id="headerRef">Logout</span>
+					</a>
+				</div>				
+				{% endif %}
 			</div>
 		</div>
-		<div id="highlevel">
-			<div id="highlevelShadow">
-				<div id="center">
-					{% block highlevel %}
-					{% endblock %}
-				</div>
-			</div>
-		</div>
+		{% if (session.login == 0) %}
+
+			{% block highlevel %}
+
+			{% endblock %}
+
+		{% endif %}
 	</div>
+<div id="debug">
+{{ response }} <br>
+{{ session.login }}
+</div>
 </body>
 
 <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>

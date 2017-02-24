@@ -2,8 +2,8 @@ from libs import controller
 import web
 
 urls = (
-	"/count", controller.count,
-    "/reset", controller.reset,
+    "/logout", controller.logout,
+    "/signup", controller.signup,
 	'/login', controller.login,
-    '/.*', controller.signup,
+    '/.*', controller.main,
 )
