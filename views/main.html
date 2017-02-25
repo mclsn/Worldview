@@ -3,55 +3,37 @@
 	<meta charset="UTF-8">
     <title>Worldview</title>
     <link rel="stylesheet" type="text/css" href="/css/main.css">
+    	<script src="/js/core.js"></script>
 </head>
 <body>
 	<div id="scrollFix">
 		<div id="header">
 			<div id="headersHref">
 				<div id="headersHrefLeft">
-					<a href="/" id="headerLogotype">
+					<!-- <a href="/" id="headerLogotype">
 						<span id="headerLogotype"></span>
-					</a>
+					</a> -->
 					<a href="/" id="headerRef">
 						<span id="headerRef">Home</span>
 					</a>
-					<a href="/people" id="headerRef">
-						<span id="headerRef">People</span>
-					</a>
-					<a href="/about" id="headerRef">
-						<span id="headerRef">About</span>
-					</a>
 					<input type="text" name="search">
 				</div>
-				{% if session.login == 0 %}
-				<div id="headersHrefRight">
-					<a href="/login" id="headerRef">
-						<span id="headerRef">Login</span>
-					</a>
-					<a href="/signup" id="headerRef">
-						<span id="headerRef">Signup</span>
-					</a>
-				</div>
-				{% else %}
-				<div id="headersHrefRight">
-					<a href="/logout" id="headerRef">
-						<span id="headerRef">Logout</span>
-					</a>
-				</div>				
-				{% endif %}
 			</div>
 		</div>
 		{% if (session.login == 0) %}
-
-			{% block highlevel %}
-
-			{% endblock %}
-
+				{% block content %}
+				<div id="highlevelSearchLogo">
+					<div id="AuthWrap">
+						<div id="AuthField">
+							{% include "main.login.html"%}
+						</div>
+						<div id="AuthField">
+							{% include "main.signup.html"%}
+						</div>
+					</div>
+				</div>
+				{% endblock content %}
 		{% endif %}
-	</div>
-<div id="debug">
-{{ response }} <br>
-{{ session.login }}
 </div>
 </body>
 

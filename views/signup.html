@@ -1,31 +1,37 @@
-{% extends "highlevel.html" %}
-{% block signlog %}
+{% extends "main.html" %}
+{% block content %}
 
-	<p class="Pupper">Sign Up</p>
-	<p class="Pexplain">Want to sign up fill out this form!</p>
+<div id="AuthFieldBig">
+	<p class="Pupper">Sign up for Worldview</p>
 	<hr class="HRgreyline">
 	<div id="highlevelSignupForm">
 		<form action="/signup" method="POST">
-			<div class="FormInputField">
-				<label class="FormExplain" for="signupFName">First Name</label>
-				<input value="{{ response.signupFName }}" class="FormDefault" type="text" name="signupFName" id="signupFName">
+			<div class="AuthFormInputField">
+				<input placeholder="First Name" value="{{ response.signupFName }}" class="FormDefault" type="text" name="signupFName" id="signupFName">
+			</div>
+			<div class="AuthFormInputField">
+				<input placeholder="Last Name" value="{{ response.signupLName }}" class="FormDefault" type="text" name="signupLName" id="signupLName">
+			</div>
+			<div class="AuthFormInputField">
+				<input placeholder="Email" value="{{ response.signupEmail }}" class="FormDefault" type="text" name="signupEmail" id="signupEmail">
+			</div>
+			<div class="AuthFormInputField">
+				<input placeholder="Password" value="{{ response.signupPassword }}" class="FormDefault" type="Password" name="signupPassword" id="signupPassword">
 			</div>
 			<div class="FormInputField">
-				<label class="FormExplain" for="signupLName">Last Name</label>
-				<input value="{{ response.signupLName }}" class="FormDefault" type="text" name="signupLName" id="signupLName">
+				<input class="AuthButton AuthFormSignupButton" type="submit" value="Sign up!"/>
 			</div>
-			<div class="FormInputField">
-				<label class="FormExplain" for="signupEmail">Your email</label>
-				<input value="{{ response.signupEmail }}" class="FormDefault" type="Email" name="signupEmail" id="signupEmail">
+			{% if msg != None %}
+				<hr class="HRgreyline">
+				{% if msg.status == 1 %}
+				<div class="success AuthFormError">
+				{% elif msg.status == 0 %}
+				<div class="error AuthFormError">
+				{% endif %}
+				{{ msg.text }}
 			</div>
-			<div class="FormInputField">
-				<label class="FormExplain" for="signupPassword">Password</label>
-				<input value="{{ response.signupPassword }}" class="FormDefault" type="Password" name="signupPassword" id="signupPassword">
-			</div>
-			<div class="FormInputField">
-				<button class="FormButton" type="submit">Sign up!</button>
-			</div>
+			{% endif %}
 		</form>						
 	</div>
-
-{% endblock %}
+</div>
+{% endblock content %}

@@ -1,28 +1,32 @@
-{% extends "highlevel.html" %}
-{% block signlog %}
+{% extends "main.html" %}
+{% block content %}
 
-<p class="Pupper">Login</p>
-<p class="Pexplain">Want to login fill out this form!</p>
-<hr class="HRgreyline">
-<div id="highlevelSignupForm">
-	<form action="/login" method="POST">
-		<div class="FormInputField">
-			<label class="FormExplain" for="loginEmail">Your email</label>
-			<input value="{{ response.email }}" class="FormDefault" type="text" name="loginEmail" id="loginEmail">
-		</div>
-		<div class="FormInputField">
-			<label class="FormExplain" for="loginPassword">Password</label>
-			<input value="" class="FormDefault" type="Password" name="loginPassword" id="loginPassword">
-		</div>
-		<div class="FormInputField">
-			<button class="FormButton" type="submit">Log In!</button>
-		</div>
-		<div id="signupLoginError">
-			{% if error != None %}
+<div id="AuthFieldBig">
+	<p class="Pupper">Login</p>
+	<hr class="HRgreyline">
+	<div id="AuthForm">
+		<form action="/login" method="POST">
+			<div class="AuthFormInputField">
+				<input value="{{ response.email }}" placeholder="Email" class="FormDefault" type="text" name="email">
+			</div>
+			<div class="AuthFormInputField">
+				<input value="" placeholder="Password" class="FormDefault" type="Password" name="password">
+			</div>
+			<div class="AuthFormInputField">
+				<input class="AuthButton AuthFormLoginButton" type="submit" value="Log In!"/>
+			</div>
+			{% if msg != None %}
 				<hr class="HRgreyline">
-				{{ error }}			
+				{% if msg.status == 1 %}
+				<div class="AuthFormError successful">
+				{% elif msg.status == 0 %}
+				<div class="AuthFormError error">
+				{% endif %}
+				{{ msg.text }}
+			</div>
 			{% endif %}
-		</div>
-	</form>	
+		</form>	
+	</div>
+	</div>
 </div>
-{% endblock %}
+{% endblock content %}

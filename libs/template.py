@@ -24,11 +24,11 @@ def JSONtDict(IterBetterList):
 	result = json.loads(IterBetterList)
 	return result
 
-def renderTemp(doc, jsonstr=None, errors=None):
+def renderTemp(doc, jsonstr=None, sys=None):
 	env = Environment(loader=FileSystemLoader('/home/projects/snw/views'), cache_size=0)
 	template = env.get_template(str(doc))
 	session = web.config._session
 	try:
-		return template.render(response=jsonstr, error=errors, session=session)
+		return template.render(response=jsonstr, msg=sys, session=session)
 	except TemplateNotFound:
 		raise web.notfound()
