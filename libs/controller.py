@@ -1,15 +1,35 @@
 import web
 import json
-import libs.template, libs.models
+import libs.template, libs.models, libs.utils
 import urllib
+
+
+def csrf_protected(f):
+	def decorated(*args,**kwargs):
+		session = web.config._session
+		inp = web.input()
+		if not ('csrf' in inp and inp.csrf == session.pop('csrf',None)):
+			raise web.HTTPError(
+				"400 Bad request",
+				{'content-type':'text/html'},
+				inp.items())
+		return f(*args,**kwargs)
+	return decorated
 
 class main:
 	def GET(self):
 		session = web.config._session
+		Utils = libs.utils.utils()
 		if(session.login == 0):
-			return libs.template.renderTemp('main.html')
+			return libs.template.renderTemp(
+				doc = 'main.html', 
+				csrf = Utils.csrf_token()
+			)
 		else:
-			return libs.template.renderTemp('main.html')
+			return libs.template.renderTemp(
+				doc = 'main.html', 
+				csrf = Utils.csrf_token()
+			)
 
 	def POST(self):
 		pass
@@ -17,6 +37,8 @@ class main:
 class signup:
 	def GET(self):
 		params = web.input(_method='get')
+		Utils = libs.utils.utils()
+
 		session = web.config._session
 		msg = dict()
 		if(session.login == 0):
@@ -30,11 +52,21 @@ class signup:
 				elif(params.c == '3'):
 					msg['text'] = "Something went wrong..."
 					msg['status'] = 0
-				return libs.template.renderTemp('signup.html', params, msg)
-			return libs.template.renderTemp('signup.html')
+				return libs.template.renderTemp(
+					doc = 'signup.html', 
+					jsonstr = params, 
+					sys = msg, 
+					csrf = Utils.csrf_token()
+				)
+
+			return libs.template.renderTemp(
+				doc = 'signup.html', 
+				csrf = Utils.csrf_token()
+			)	
 		else:
 			return web.seeother('/')
 
+	@csrf_protected
 	def POST(self):
 		signupData = web.input(_method='post')
 		email = signupData.signupEmail
@@ -47,7 +79,7 @@ class signup:
 		for key, value in signupData.items():
 			if value == "":
 				Fail = True
-			elif key != "signupPassword":
+			elif key != "signupPassword" and key != "csrf":
 				fields.update({key : value})
 
 		if Fail:
@@ -69,21 +101,34 @@ class login:
 	def GET(self):
 		params = web.input(_method='get')
 		session = web.config._session
+		Utils = libs.utils.utils()
+
 		msg = dict()
 		if(session.login == 0):
 			if(params.__contains__('c') == True):
 				if(params.c == '1'):
 					msg['text'] = "Wrong login or password"
 					msg['status'] = 0
-					return libs.template.renderTemp('login.html', params, msg)
+
 				elif(params.c == '2'):
 					msg['text'] = "Successful registration"
 					msg['status'] = 1
-				return libs.template.renderTemp('login.html', params, msg)
-			return libs.template.renderTemp('login.html')
+
+				return libs.template.renderTemp(
+					doc = 'login.html',
+					jsonstr = params,
+					sys = msg,
+					csrf = Utils.csrf_token()
+				)
+
+			return libs.template.renderTemp(
+				doc = 'login.html',
+				csrf = Utils.csrf_token()
+			)
 		else:
 			return web.found(web.ctx.env.get(u'HTTP_REFERER', u'/'))
 
+	@csrf_protected
 	def POST(self):
 		loginData = web.input(_method='post')
 		email = loginData.email
@@ -95,7 +140,7 @@ class login:
 		for key, value in loginData.items():
 			if value == "":
 				Fail = True
-			elif key != "password":
+			elif key != "password" and key != "csrf":
 				fields.update({key : value})
 
 		fields.update({'c' : 1})
@@ -103,7 +148,8 @@ class login:
 			return web.seeother('/%s' % str('login?' + urllib.parse.urlencode(fields)))
 
 		auth = libs.models.Auth()
-		if(auth.ckechUserBase(str(loginData.email), str(loginData.password)) == True):
+		user = auth.ckechUserBase(str(loginData.email), str(loginData.password))
+		if(user):
 			session = web.config._session
 			session.login = 1
 			return web.seeother('/%s' % str(''))

@@ -24,7 +24,7 @@ class Auth:
 			result = libs.template.dBJSON(result)
 			result = libs.template.JSONtDict(result)
 			Utils =  libs.utils.utils()
-			hPassword = Utils.Hash(str(passwordCheck))
+			hPassword = Utils.HashKey(str(passwordCheck))
 			if hPassword == result['data']['password']:
 				return True
 			else:
@@ -34,7 +34,7 @@ class Auth:
 
 	def register(self, signupForm):
 		Utils =  libs.utils.utils()
-		hPassword = Utils.Hash(str(signupForm.signupPassword))
+		hPassword = Utils.HashKey(str(signupForm.signupPassword))
 
 		results = self.db.query("""
 			INSERT INTO auth (data) VALUES ($authInfo);

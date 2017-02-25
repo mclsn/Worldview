@@ -1,6 +1,7 @@
 {% extends "main.html" %}
 {% block content %}
-
+{{ session.items() }}
+{{ csrf }}
 <div id="AuthFieldBig">
 	<p class="Pupper">Login</p>
 	<hr class="HRgreyline">
@@ -15,6 +16,7 @@
 			<div class="AuthFormInputField">
 				<input class="AuthButton AuthFormLoginButton" type="submit" value="Log In!"/>
 			</div>
+			<input type=hidden name=csrf value="{{ csrf }}">
 			{% if msg != None %}
 				<hr class="HRgreyline">
 				{% if msg.status == 1 %}
