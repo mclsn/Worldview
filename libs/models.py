@@ -26,7 +26,7 @@ class Auth:
 			Utils =  libs.utils.utils()
 			hPassword = Utils.HashKey(str(passwordCheck))
 			if hPassword == result['data']['password']:
-				return True
+				return self.returnUserInfo(result['id'])
 			else:
 				return False
 		except:
@@ -46,3 +46,10 @@ class Auth:
 			})
 
 		return results
+
+	def returnUserInfo(self, userId):
+		result = self.db.query("""SELECT * FROM users WHERE id = $IDu;""", vars={'IDu':userId}).list()
+		try:
+			return libs.template.JSONtDict(libs.template.dBJSON(result))
+		except:
+			return False

@@ -3,13 +3,6 @@ import os
 import json
 import web
 
-# Logged function
-def logged():
-    if web.config._session.login==1:
-        return True
-    else:
-        return False
-
 # DB Object to JSON
 def dBJSON(IterBetterList):
 	temp = []

@@ -1,91 +1,87 @@
-[2017-02-25 22:31:33 +0300] [14702] [DEBUG] Current configuration:
-  tmp_upload_dir: None
-  cert_reqs: 0
-  timeout: 30
-  limit_request_line: 4094
-  bind: ['0.0.0.0:8000']
-  threads: 4
-  ca_certs: None
-  preload_app: False
-  config: core/etc/gunicorn-wsgi.conf
-  syslog_addr: udp://localhost:514
-  check_config: False
-  worker_abort: <function WorkerAbort.worker_abort at 0x7f4f744f66a8>
-  max_requests_jitter: 0
-  chdir: /home/projects/snw
-  pidfile: None
-  max_requests: 0
-  pre_fork: <function Prefork.pre_fork at 0x7f4f744f6048>
-  umask: 0
-  secure_scheme_headers: {'X-FORWARDED-PROTOCOL': 'ssl', 'X-FORWARDED-PROTO': 'https', 'X-FORWARDED-SSL': 'on'}
-  post_fork: <function Postfork.post_fork at 0x7f4f744f61e0>
-  capture_output: False
-  logger_class: gunicorn.glogging.Logger
-  do_handshake_on_connect: False
-  limit_request_fields: 100
-  default_proc_name: wsgi:application
-  post_worker_init: <function PostWorkerInit.post_worker_init at 0x7f4f744f6378>
-  pre_exec: <function PreExec.pre_exec at 0x7f4f744f6840>
-  proxy_protocol: False
-  keyfile: None
-  syslog_prefix: None
-  worker_class: gthread
-  group: 0
-  paste: None
-  ssl_version: 3
-  worker_connections: 1000
-  logconfig: None
-  on_starting: <function OnStarting.on_starting at 0x7f4f744e8ae8>
-  nworkers_changed: <function NumWorkersChanged.nworkers_changed at 0x7f4f744f6e18>
-  workers: 1
-  proc_name: None
-  suppress_ragged_eofs: True
-  on_reload: <function OnReload.on_reload at 0x7f4f744e8c80>
-  errorlog: /home/projects/snw/core/etc/logs/gunicorn.log
+[2017-02-25 23:09:51 +0300] [19918] [DEBUG] Current configuration:
+  raw_env: []
   backlog: 2048
-  spew: False
-  proxy_allow_ips: ['127.0.0.1']
   django_settings: None
-  keepalive: 2
-  access_log_format: %(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s"
-  loglevel: debug
-  statsd_host: None
-  statsd_prefix: 
-  sendfile: None
+  reload: False
+  post_fork: <function Postfork.post_fork at 0x7f8ca2f9b1e0>
+  pre_exec: <function PreExec.pre_exec at 0x7f8ca2f9b840>
+  umask: 0
+  pre_fork: <function Prefork.pre_fork at 0x7f8ca2f9b048>
+  post_worker_init: <function PostWorkerInit.post_worker_init at 0x7f8ca2f9b378>
+  worker_exit: <function WorkerExit.worker_exit at 0x7f8ca2f9bc80>
+  daemon: True
   user: 0
-  forwarded_allow_ips: ['127.0.0.1']
   pythonpath: None
+  suppress_ragged_eofs: True
+  threads: 4
+  preload_app: False
+  pidfile: None
+  worker_tmp_dir: None
+  tmp_upload_dir: None
+  limit_request_line: 4094
   limit_request_field_size: 8190
   ciphers: TLSv1
-  when_ready: <function WhenReady.when_ready at 0x7f4f744e8e18>
-  pre_request: <function PreRequest.pre_request at 0x7f4f744f69d8>
-  post_request: <function PostRequest.post_request at 0x7f4f744f6ae8>
-  on_exit: <function OnExit.on_exit at 0x7f4f744fa048>
-  graceful_timeout: 30
-  daemon: True
-  raw_env: []
-  worker_exit: <function WorkerExit.worker_exit at 0x7f4f744f6c80>
-  reload: False
-  accesslog: None
-  worker_tmp_dir: None
-  syslog: False
-  worker_int: <function WorkerInt.worker_int at 0x7f4f744f6510>
+  syslog_addr: udp://localhost:514
+  post_request: <function PostRequest.post_request at 0x7f8ca2f9bae8>
+  worker_connections: 1000
+  on_starting: <function OnStarting.on_starting at 0x7f8ca2f8dae8>
+  capture_output: False
+  proxy_allow_ips: ['127.0.0.1']
+  on_exit: <function OnExit.on_exit at 0x7f8ca2f9f048>
   syslog_facility: user
-  enable_stdio_inheritance: False
+  statsd_prefix: 
+  paste: None
+  default_proc_name: wsgi:application
+  timeout: 30
+  group: 0
+  access_log_format: %(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s"
+  keepalive: 2
+  keyfile: None
+  limit_request_fields: 100
+  syslog_prefix: None
   certfile: None
-[2017-02-25 22:31:33 +0300] [14702] [INFO] Starting gunicorn 19.6.0
-[2017-02-25 22:31:33 +0300] [14702] [DEBUG] Arbiter booted
-[2017-02-25 22:31:33 +0300] [14702] [INFO] Listening at: http://0.0.0.0:8000 (14702)
-[2017-02-25 22:31:33 +0300] [14702] [INFO] Using worker: gthread
-[2017-02-25 22:31:33 +0300] [14706] [INFO] Booting worker with pid: 14706
-[2017-02-25 22:31:33 +0300] [14702] [DEBUG] 1 workers
-[2017-02-25 22:31:33 +0300] [14706] [DEBUG] GET /
-[2017-02-25 22:31:34 +0300] [14706] [DEBUG] GET /
-[2017-02-25 22:31:34 +0300] [14706] [DEBUG] POST /login
-[2017-02-25 22:31:34 +0300] [14706] [DEBUG] GET /login
-[2017-02-25 22:31:35 +0300] [14706] [DEBUG] GET /login
-[2017-02-25 22:31:38 +0300] [14706] [DEBUG] GET /
-[2017-02-25 22:31:39 +0300] [14706] [DEBUG] POST /login
-[2017-02-25 22:31:39 +0300] [14706] [DEBUG] GET /login
-[2017-02-25 22:31:39 +0300] [14706] [DEBUG] GET /
-[2017-02-25 22:32:42 +0300] [14706] [DEBUG] GET /
+  worker_class: gthread
+  on_reload: <function OnReload.on_reload at 0x7f8ca2f8dc80>
+  proxy_protocol: False
+  enable_stdio_inheritance: False
+  cert_reqs: 0
+  worker_abort: <function WorkerAbort.worker_abort at 0x7f8ca2f9b6a8>
+  graceful_timeout: 30
+  pre_request: <function PreRequest.pre_request at 0x7f8ca2f9b9d8>
+  errorlog: /home/projects/snw/core/etc/logs/gunicorn.log
+  when_ready: <function WhenReady.when_ready at 0x7f8ca2f8de18>
+  nworkers_changed: <function NumWorkersChanged.nworkers_changed at 0x7f8ca2f9be18>
+  workers: 1
+  max_requests_jitter: 0
+  do_handshake_on_connect: False
+  sendfile: None
+  ca_certs: None
+  max_requests: 0
+  worker_int: <function WorkerInt.worker_int at 0x7f8ca2f9b510>
+  check_config: False
+  logger_class: gunicorn.glogging.Logger
+  config: core/etc/gunicorn-wsgi.conf
+  secure_scheme_headers: {'X-FORWARDED-PROTO': 'https', 'X-FORWARDED-PROTOCOL': 'ssl', 'X-FORWARDED-SSL': 'on'}
+  loglevel: debug
+  ssl_version: 3
+  logconfig: None
+  statsd_host: None
+  bind: ['0.0.0.0:8000']
+  chdir: /home/projects/snw
+  forwarded_allow_ips: ['127.0.0.1']
+  syslog: False
+  proc_name: None
+  spew: False
+  accesslog: None
+[2017-02-25 23:09:51 +0300] [19918] [INFO] Starting gunicorn 19.6.0
+[2017-02-25 23:09:51 +0300] [19918] [DEBUG] Arbiter booted
+[2017-02-25 23:09:51 +0300] [19918] [INFO] Listening at: http://0.0.0.0:8000 (19918)
+[2017-02-25 23:09:51 +0300] [19918] [INFO] Using worker: gthread
+[2017-02-25 23:09:51 +0300] [19918] [DEBUG] 1 workers
+[2017-02-25 23:09:51 +0300] [19921] [INFO] Booting worker with pid: 19921
+[2017-02-25 23:09:52 +0300] [19921] [DEBUG] GET /
+[2017-02-25 23:09:52 +0300] [19921] [DEBUG] GET /logout
+[2017-02-25 23:09:52 +0300] [19921] [DEBUG] GET /
+[2017-02-25 23:09:55 +0300] [19921] [DEBUG] POST /login
+[2017-02-25 23:09:55 +0300] [19921] [DEBUG] GET /
+[2017-02-25 23:09:56 +0300] [19921] [DEBUG] GET /1

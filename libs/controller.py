@@ -151,7 +151,9 @@ class login:
 		user = auth.ckechUserBase(str(loginData.email), str(loginData.password))
 		if(user):
 			session = web.config._session
-			session.login = 1
+			session.login = user['id']
+			session.fname = user['data']['fname']
+			session.lname = user['data']['lname']
 			return web.seeother('/%s' % str(''))
 
 
@@ -160,7 +162,7 @@ class login:
 class logout:
 	def GET(self):
 		session = web.config._session
-		if(session.login == 1):
+		if(session.login != 0):
 			session.kill()
 			web.seeother('/')
 		return libs.template.renderTemp('404.html')

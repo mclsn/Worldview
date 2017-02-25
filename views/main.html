@@ -18,11 +18,16 @@
 					</a>
 					<input type="text" name="search">
 				</div>
-				{% if (session.login == 1) %}
+				{% if (session.login != 0) %}
 				<div id="headersHrefRight">
 					<a href="/logout?csrf={{csrf}}" id="headerRef">
 						<span id="headerRef">Log out</span>
 					</a>					
+				</div>
+				<div id="headersHrefRight">
+					<a href="/{{ session.login }}" id="headerRef">
+						<span id="headerRef">{{ session.fname }} {{ session.lname }}</span>
+					</a>						
 				</div>
 				{% endif %}
 			</div>
