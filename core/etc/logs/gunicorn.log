@@ -1,87 +1,97 @@
-[2017-02-25 23:09:51 +0300] [19918] [DEBUG] Current configuration:
-  raw_env: []
-  backlog: 2048
-  django_settings: None
-  reload: False
-  post_fork: <function Postfork.post_fork at 0x7f8ca2f9b1e0>
-  pre_exec: <function PreExec.pre_exec at 0x7f8ca2f9b840>
-  umask: 0
-  pre_fork: <function Prefork.pre_fork at 0x7f8ca2f9b048>
-  post_worker_init: <function PostWorkerInit.post_worker_init at 0x7f8ca2f9b378>
-  worker_exit: <function WorkerExit.worker_exit at 0x7f8ca2f9bc80>
-  daemon: True
-  user: 0
-  pythonpath: None
-  suppress_ragged_eofs: True
+[2017-03-02 22:24:57 +0300] [1608] [DEBUG] Current configuration:
   threads: 4
-  preload_app: False
-  pidfile: None
-  worker_tmp_dir: None
-  tmp_upload_dir: None
-  limit_request_line: 4094
-  limit_request_field_size: 8190
-  ciphers: TLSv1
-  syslog_addr: udp://localhost:514
-  post_request: <function PostRequest.post_request at 0x7f8ca2f9bae8>
-  worker_connections: 1000
-  on_starting: <function OnStarting.on_starting at 0x7f8ca2f8dae8>
-  capture_output: False
-  proxy_allow_ips: ['127.0.0.1']
-  on_exit: <function OnExit.on_exit at 0x7f8ca2f9f048>
-  syslog_facility: user
-  statsd_prefix: 
-  paste: None
-  default_proc_name: wsgi:application
-  timeout: 30
-  group: 0
-  access_log_format: %(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s"
-  keepalive: 2
-  keyfile: None
-  limit_request_fields: 100
-  syslog_prefix: None
-  certfile: None
-  worker_class: gthread
-  on_reload: <function OnReload.on_reload at 0x7f8ca2f8dc80>
-  proxy_protocol: False
-  enable_stdio_inheritance: False
-  cert_reqs: 0
-  worker_abort: <function WorkerAbort.worker_abort at 0x7f8ca2f9b6a8>
-  graceful_timeout: 30
-  pre_request: <function PreRequest.pre_request at 0x7f8ca2f9b9d8>
+  worker_int: <function WorkerInt.worker_int at 0x7fe3d78de510>
   errorlog: /home/projects/snw/core/etc/logs/gunicorn.log
-  when_ready: <function WhenReady.when_ready at 0x7f8ca2f8de18>
-  nworkers_changed: <function NumWorkersChanged.nworkers_changed at 0x7f8ca2f9be18>
-  workers: 1
-  max_requests_jitter: 0
-  do_handshake_on_connect: False
-  sendfile: None
+  post_worker_init: <function PostWorkerInit.post_worker_init at 0x7fe3d78de378>
   ca_certs: None
-  max_requests: 0
-  worker_int: <function WorkerInt.worker_int at 0x7f8ca2f9b510>
-  check_config: False
-  logger_class: gunicorn.glogging.Logger
-  config: core/etc/gunicorn-wsgi.conf
-  secure_scheme_headers: {'X-FORWARDED-PROTO': 'https', 'X-FORWARDED-PROTOCOL': 'ssl', 'X-FORWARDED-SSL': 'on'}
-  loglevel: debug
-  ssl_version: 3
-  logconfig: None
-  statsd_host: None
-  bind: ['0.0.0.0:8000']
-  chdir: /home/projects/snw
-  forwarded_allow_ips: ['127.0.0.1']
-  syslog: False
+  tmp_upload_dir: None
+  on_exit: <function OnExit.on_exit at 0x7fe3d78e3048>
   proc_name: None
+  worker_abort: <function WorkerAbort.worker_abort at 0x7fe3d78de6a8>
+  limit_request_fields: 100
+  statsd_prefix: 
+  limit_request_line: 4094
+  paste: None
+  worker_exit: <function WorkerExit.worker_exit at 0x7fe3d78dec80>
+  keyfile: None
+  worker_tmp_dir: None
+  proxy_protocol: False
+  syslog_facility: user
+  user: 0
+  limit_request_field_size: 8190
+  worker_class: gthread
+  preload_app: False
+  graceful_timeout: 30
+  pythonpath: None
+  when_ready: <function WhenReady.when_ready at 0x7fe3d78d1e18>
+  pre_request: <function PreRequest.pre_request at 0x7fe3d78de9d8>
+  logconfig: None
+  on_starting: <function OnStarting.on_starting at 0x7fe3d78d1ae8>
+  django_settings: None
+  bind: ['0.0.0.0:8000']
+  pidfile: None
+  do_handshake_on_connect: False
+  backlog: 2048
   spew: False
+  forwarded_allow_ips: ['127.0.0.1']
+  on_reload: <function OnReload.on_reload at 0x7fe3d78d1c80>
+  pre_exec: <function PreExec.pre_exec at 0x7fe3d78de840>
+  nworkers_changed: <function NumWorkersChanged.nworkers_changed at 0x7fe3d78dee18>
+  default_proc_name: wsgi:application
+  max_requests_jitter: 0
+  reload: False
+  syslog_addr: udp://localhost:514
+  statsd_host: None
+  max_requests: 0
+  chdir: /home/projects/snw
+  raw_env: []
+  umask: 0
+  secure_scheme_headers: {'X-FORWARDED-PROTOCOL': 'ssl', 'X-FORWARDED-PROTO': 'https', 'X-FORWARDED-SSL': 'on'}
+  ssl_version: 3
+  workers: 1
+  worker_connections: 1000
+  certfile: None
+  group: 0
+  cert_reqs: 0
+  config: core/etc/gunicorn-wsgi.conf
+  timeout: 30
+  keepalive: 2
+  post_request: <function PostRequest.post_request at 0x7fe3d78deae8>
   accesslog: None
-[2017-02-25 23:09:51 +0300] [19918] [INFO] Starting gunicorn 19.6.0
-[2017-02-25 23:09:51 +0300] [19918] [DEBUG] Arbiter booted
-[2017-02-25 23:09:51 +0300] [19918] [INFO] Listening at: http://0.0.0.0:8000 (19918)
-[2017-02-25 23:09:51 +0300] [19918] [INFO] Using worker: gthread
-[2017-02-25 23:09:51 +0300] [19918] [DEBUG] 1 workers
-[2017-02-25 23:09:51 +0300] [19921] [INFO] Booting worker with pid: 19921
-[2017-02-25 23:09:52 +0300] [19921] [DEBUG] GET /
-[2017-02-25 23:09:52 +0300] [19921] [DEBUG] GET /logout
-[2017-02-25 23:09:52 +0300] [19921] [DEBUG] GET /
-[2017-02-25 23:09:55 +0300] [19921] [DEBUG] POST /login
-[2017-02-25 23:09:55 +0300] [19921] [DEBUG] GET /
-[2017-02-25 23:09:56 +0300] [19921] [DEBUG] GET /1
+  access_log_format: %(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s"
+  loglevel: debug
+  capture_output: False
+  logger_class: gunicorn.glogging.Logger
+  check_config: False
+  pre_fork: <function Prefork.pre_fork at 0x7fe3d78de048>
+  suppress_ragged_eofs: True
+  syslog_prefix: None
+  enable_stdio_inheritance: False
+  sendfile: None
+  daemon: True
+  proxy_allow_ips: ['127.0.0.1']
+  ciphers: TLSv1
+  post_fork: <function Postfork.post_fork at 0x7fe3d78de1e0>
+  syslog: False
+[2017-03-02 22:24:57 +0300] [1608] [INFO] Starting gunicorn 19.6.0
+[2017-03-02 22:24:57 +0300] [1608] [DEBUG] Arbiter booted
+[2017-03-02 22:24:57 +0300] [1608] [INFO] Listening at: http://0.0.0.0:8000 (1608)
+[2017-03-02 22:24:57 +0300] [1608] [INFO] Using worker: gthread
+[2017-03-02 22:24:57 +0300] [1611] [INFO] Booting worker with pid: 1611
+[2017-03-02 22:24:57 +0300] [1608] [DEBUG] 1 workers
+[2017-03-02 22:24:59 +0300] [1611] [DEBUG] GET /login
+[2017-03-02 22:25:01 +0300] [1611] [DEBUG] POST /login
+[2017-03-02 22:25:01 +0300] [1611] [DEBUG] GET /
+[2017-03-02 22:25:04 +0300] [1611] [DEBUG] GET /logout
+[2017-03-02 22:25:04 +0300] [1611] [DEBUG] GET /
+[2017-03-02 22:25:06 +0300] [1611] [DEBUG] POST /login
+[2017-03-02 22:25:06 +0300] [1611] [DEBUG] GET /
+[2017-03-02 22:25:07 +0300] [1611] [DEBUG] GET /1
+[2017-03-02 22:25:07 +0300] [1611] [DEBUG] GET /1
+[2017-03-02 22:25:09 +0300] [1611] [DEBUG] GET /logout
+[2017-03-02 22:25:09 +0300] [1611] [DEBUG] GET /
+[2017-03-02 22:25:11 +0300] [1611] [DEBUG] POST /login
+[2017-03-02 22:25:11 +0300] [1611] [DEBUG] GET /login
+[2017-03-02 22:25:12 +0300] [1611] [DEBUG] POST /login
+[2017-03-02 22:25:12 +0300] [1611] [DEBUG] GET /
+[2017-03-02 22:25:14 +0300] [1611] [DEBUG] GET /1

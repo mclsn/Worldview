@@ -87,9 +87,10 @@ class signup:
 			return web.seeother('/%s' % str('signup?' + urllib.parse.urlencode(fields)))
 
 		# Search in database
-		auth = libs.models.Auth()
-		if(auth.checkValidateEmail(str(signupData.signupEmail)) == None):
-			if(auth.register(signupData)):
+		if(libs.models.Auth().checkValidateEmail(str(signupData.signupEmail)) == None):
+			userGetId = libs.models.Auth().register(signupData)
+			if(userGetId):
+				libs.models.Users().insertOnce(userGetId, signupData)
 				return web.seeother('/%s' % str('login?' + urllib.parse.urlencode(fields)))
 			else:
 				fields['c'] = 3
@@ -147,13 +148,14 @@ class login:
 		if Fail:
 			return web.seeother('/%s' % str('login?' + urllib.parse.urlencode(fields)))
 
-		auth = libs.models.Auth()
-		user = auth.ckechUserBase(str(loginData.email), str(loginData.password))
+		user = libs.models.Auth().ckechUserBase(str(loginData.email), str(loginData.password))
 		if(user):
+			user_information = libs.models.Users().getUser(user)
+
 			session = web.config._session
-			session.login = user['id']
-			session.fname = user['data']['fname']
-			session.lname = user['data']['lname']
+			session.login = user_information['user_id']
+			session.fname = user_information['first_name']
+			session.lname = user_information['last_name']
 			return web.seeother('/%s' % str(''))
 
 

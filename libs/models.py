@@ -4,6 +4,25 @@ import libs.template
 import json
 import datetime
 import libs.utils
+from neo4j.v1 import GraphDatabase, basic_auth
+
+class Users:
+	driver = GraphDatabase.driver("bolt://localhost:7687", auth=basic_auth("neo4j", "Mun152339"))
+	session = driver.session()
+
+	def insertOnce(self, userId, dataPart):
+		self.session.run("CREATE (a:Person {first_name: {first_name}, last_name: {last_name}, user_id: {user_id}})",
+			{"first_name": str(dataPart.signupFName), "last_name": str(dataPart.signupLName), "user_id": str(userId)})
+		return True
+
+	def getUser(self, userId):
+		result = self.session.run("MATCH (a:Person) WHERE a.user_id = {userId} "
+		           "RETURN properties(a)", {"userId": str(userId)})
+
+		for i in result:
+			user_information = i[0]			
+
+		return user_information
 
 class Auth:
 
@@ -26,7 +45,7 @@ class Auth:
 			Utils =  libs.utils.utils()
 			hPassword = Utils.HashKey(str(passwordCheck))
 			if hPassword == result['data']['password']:
-				return self.returnUserInfo(result['id'])
+				return result['id']
 			else:
 				return False
 		except:
@@ -36,16 +55,10 @@ class Auth:
 		Utils =  libs.utils.utils()
 		hPassword = Utils.HashKey(str(signupForm.signupPassword))
 
-		results = self.db.query("""
-			INSERT INTO auth (data) VALUES ($authInfo);
-			INSERT INTO users (data) VALUES ($mainData);
-			""", 
-			vars={
-			"authInfo" : json.dumps({'email': str(signupForm.signupEmail), 'password' : str(hPassword)}),
-			"mainData" : json.dumps({'fname': str(signupForm.signupFName), 'lname' : str(signupForm.signupLName)})
-			})
+		results = self.db.query("""INSERT INTO auth (data) VALUES ($authInfo); SELECT currval('auth_id_seq');""", 
+			vars={"authInfo" : json.dumps({'email': str(signupForm.signupEmail), 'password' : str(hPassword)})})[0]
 
-		return results
+		return results.currval
 
 	def returnUserInfo(self, userId):
 		result = self.db.query("""SELECT * FROM users WHERE id = $IDu;""", vars={'IDu':userId}).list()
