@@ -2,7 +2,7 @@ import web
 import json
 import libs.template, libs.models, libs.utils
 import urllib
-
+import os
 
 def csrf_protected(f):
 	def decorated(*args,**kwargs):
@@ -16,20 +16,60 @@ def csrf_protected(f):
 		return f(*args,**kwargs)
 	return decorated
 
+class edit:
+	def GET(self):
+		session = web.config._session
+		user_information = libs.models.Users().getUser(session.login)
+		return (libs.template.renderTemp(doc = 'edit.html', jsonstr = user_information) if (user_information) \
+			else libs.template.renderTemp(doc = '404.html'))
+
+	def POST(self):
+		editData = web.input(_method='post')
+		session = web.config._session
+		fields = dict()
+		for key, value in editData.items():
+			if (key != "password" and key != "csrf" and value != ""):
+				fields.update({key : value})
+
+		user_setProperties = libs.models.Users().setProperty(session.login, fields)
+		if(user_setProperties):
+			user_information = libs.models.Users().getUser(session.login)
+			session.fname = user_information['first_name']
+			session.lname = user_information['last_name']
+			return (libs.template.renderTemp(doc = 'edit.html', jsonstr = user_information) if (user_information) \
+				else libs.template.renderTemp(doc = '404.html'))
+		else:
+			libs.template.renderTemp(doc = '404.html')
+
+class profile:
+	def GET(self, userID):
+		Utils = libs.utils.utils()
+		user_information = libs.models.Users().getUser(userID)
+		if(user_information):
+			if('HTTP_X_REQUESTED_WITH' in web.ctx.env and web.ctx.env['HTTP_X_REQUESTED_WITH'] == "XMLHttpRequest"):
+				data = libs.template.renderTemp(doc = 'profile.html', jsonstr = user_information, csrf = Utils.csrf_token(), XML = True)
+				return {'data' : data, 'page' : 'profile', 'block' : 'page', 'type' : 'id'}
+			else:
+				return libs.template.renderTemp(doc = 'profile.html', jsonstr = user_information, csrf = Utils.csrf_token())
+		else:
+			return libs.template.renderTemp(doc = '404.html')
+
+	def POST(self):
+		pass
+
 class main:
 	def GET(self):
 		session = web.config._session
 		Utils = libs.utils.utils()
-		if(session.login == 0):
-			return libs.template.renderTemp(
-				doc = 'main.html', 
-				csrf = Utils.csrf_token()
-			)
+
+		if(session.login != 0):
+			if('HTTP_X_REQUESTED_WITH' in web.ctx.env and web.ctx.env['HTTP_X_REQUESTED_WITH'] == "XMLHttpRequest"):
+				data = libs.template.renderTemp(doc = 'im.html', csrf = Utils.csrf_token(), XML = True)
+				return {'data' : data, 'page' : 'profile', 'block' : 'page', 'type' : 'id'}
+			else:
+				return libs.template.renderTemp(doc = 'im.html', csrf = Utils.csrf_token())
 		else:
-			return libs.template.renderTemp(
-				doc = 'main.html', 
-				csrf = Utils.csrf_token()
-			)
+			return web.seeother('/login')
 
 	def POST(self):
 		pass
@@ -162,6 +202,7 @@ class login:
 		return web.seeother('/%s' % str('login?' + urllib.parse.urlencode(fields)))
 
 class logout:
+	@csrf_protected
 	def GET(self):
 		session = web.config._session
 		if(session.login != 0):

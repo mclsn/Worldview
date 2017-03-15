@@ -1,0 +1,52 @@
+{% extends "main.html" %}
+{% block page %}
+<div id="profileCover" style="background: url('/img/sys/nocover2.jpg'); background-size: cover"></div>
+	<div id="profileWrap">
+		<div id="profileAvatar">
+			{% if response.user_avatar %}
+				<img id="profilveAvatarImg" src="/336690cf7e4a4766887fda3beeeeaa41.jpg">
+			{% else %}
+				<img id="profilveAvatarImg" src="/img/sys/noavatar.png">
+			{% endif%}
+		</div>
+		<div id="ProfileInformation">
+			<div id="profileName">{{ response.first_name }} {{response.last_name }}</div>
+		</div>
+		<div id="profileMenu">
+			<a class="profileMenuH" href="/id{{ response.user_id }}?friends">
+				<span>Friends</span>
+				<span>0</span>
+			</a>
+			<a class="profileMenuH" href="/id{{ response.user_id }}?photos">
+				<span>Photos</span>
+				<span>0</span>
+			</a>
+			<a class="profileMenuH" href="/id{{ response.user_id }}?photos">
+				<span>Followers</span>
+				<span>0</span>
+			</a>
+		</div>
+		<div id="profileLinks">
+			
+			<a class="profileLinksH" href="/edit">
+				<span>Edit</span>
+			</a>
+			
+			<a class="profileLinksH" href="/id{{ response.user_id }}?photos">
+				<span>Upload</span>
+			</a>
+			<a class="profileLinksH" href="/id{{ response.user_id }}?photos">
+				<span>All photos</span>
+			</a>
+			<a class="profileLinksH" href="/id{{ response.user_id }}?photos">
+				<span>Albums</span>
+			</a>
+		</div>
+	</div>
+	<div id="profilePhotoBlock">
+		
+		<div id="profilePhotoBlockUpload">
+			<span>Click to add a new photo</span>
+		</div>
+	</div>
+{% endblock %}

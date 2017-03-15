@@ -1,22 +1,6 @@
 @font-face {
-    font-family: "DR";
-    src: url('/fonts/DINPro.ttf') format("truetype");
-}
-@font-face {
-    font-family: "SFthin";
-    src: url('/fonts/sf/thin.otf') format("truetype");
-}
-@font-face {
-    font-family: "SFlight";
-    src: url('/fonts/sf/light.otf') format("truetype");
-}
-@font-face {
-    font-family: "SFmed";
-    src: url('/fonts/sf/medium.otf') format("truetype");
-}
-@font-face {
-    font-family: "CF";
-    src: url('/fonts/California/CF.otf') format("truetype");
+    font-family: "openSans";
+    src: url('/fonts/opensans/opensans.ttf') format("truetype");
 }
 
 * {
@@ -24,11 +8,15 @@
  padding: 0;
 }
 
+html{
+	overflow: auto;
+}
 
 body{
-    font-family: "SFmed";
+    font-family: openSans;
     font-weight: 100;
     color: rgba(0,0,0,0.8);
+    overflow: hidden;
 }
 
 a{
@@ -70,7 +58,7 @@ div#header{
     z-index: 10;
     left: 0;
     background: rgba(255,255,255,1);
-    width: calc(100vw - 20px);
+    width: 100vw;
 }
 
 a#headerLogotype{
@@ -110,7 +98,7 @@ span#headerLogotype{
     background: url('/img/logo/wv.png') no-repeat;
     background-size: 40px;
     background-position: 10px;
-    height: 60px;
+    height: 40px;
     width: 60px;
 }
 
@@ -118,32 +106,60 @@ div#highlevel{
     height: 100vh;
     background-size: cover;
 }
+div#searchBg, div#highlevelBackground{
+    background-repeat: no-repeat;
+    background: url('/img/sys/palms.jpg');
+    background-size: cover;
+    background-position: 50% 50%;
+}
+div#searchBg{
+    margin: -20px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    z-index: 1;
+    -webkit-filter: blur(20px);
+    filter: url(/media/blur.svg#blur);
+    filter: blur(20px);
+}
+div#highlevelBackground{
+    width: 980px;
+    height: 592px;
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 60px;
+}
 div#headersHref{
 	width: 980px;
-	position: relative;
-	margin: 0 auto;
 	color: #292f33;
     font-size: 14px;
-    line-height: 18px;
 }			
 a#headerRef{
+	line-height: 40px;
     position: relative;
     float: left;
     cursor: pointer;
-    padding: 21px 10px;
+    padding: 0 10px;
 }
 a#headerRef:hover{
     box-shadow: inset 0px 2px 0px 0px #50ddff;
     background: rgba(049, 146, 211, 0.02);
 }
+img#headerAvatar{
+    position: relative;
+    float: left;
+    width: 25px;
+    height: 25px;
+    margin: 18px 8px 16px 0px;
+    border-radius: 100%;
+}
 span#headerRef{
-	border: none;
-    color: black;
-    font-size: 18px;
-    font-weight: 200;
-    padding: 10px;
-    margin: 0 auto;
-    /* border-radius: 12px; */
+    padding: 10px 0;
+    display: inline-block;
+    vertical-align: top;
 }
 div#headersHref > div#headersHrefLeft{
 	position: relative;
@@ -158,36 +174,47 @@ div#headersHref >  * > input{
     color: #292f33;
     padding: 5px 5px 5px 12px;
     font-size: 18px;
+    height: 30px;
     border-radius: 15px;
     font-weight: 200;
-    margin: 13.5px auto;
+    padding: 6px 6px 6px 19px;
+    margin: 15px auto
 }
 div#headersHref >  * > input:focus{
 	outline: none;
 }
 div#highlevelSearchLogo{
-	width: 980px;
-    height: 653px;
-    box-shadow: 0 1px 0 0 #d7d8db, 0 0 0 1px #e3e4e8;
-    background: url(/img/test5.jpg);
+    width: 980px;
+    height: 553px;
     margin: 0 auto;
-    margin-top: 60px;
+    clear: both;
+    position: relative;
+    margin-top: 62px;
     background-size: cover;
 }
 div#AuthWrap{
+    position: relative;
+    z-index: 100;
+    background: rgba(34, 34, 34, 0.19);
+    z-index: 2;
+    position: relative;
+    float: right;
+}
+div#signup_rightColoumn{
+  overflow: hidden;
+    position: relative;
     float: right;
 }
 
 div#AuthFieldBig, div#AuthField{
 	position: relative;
-    background: #fff;
+    background: #fff; */
     border-radius: 2px;
-    box-shadow: 0 1px 0 0 #d7d8db, 0 0 0 1px #e3e4e8;
-    background: white;
+    box-shadow: 0 1px 0 0 #d7d8db, 0 0 0 1px #e3e4e8; */
 }
 div#AuthField{
-    margin: 20px 20 20px;
-    padding: 25px;	
+    margin: 25px 20 20px;
+    padding: 25px;
 }
 div#AuthFieldBig{
     margin: 100px auto;
@@ -202,7 +229,6 @@ div#AuthForm{
 div.AuthFormError{
 	font-size: 16px;
     font-weight: bold;
-    font-family: "DR";
     width: 100%;
     border-radius: 2px;
     margin: 10px 0;
@@ -214,7 +240,6 @@ div.AuthFormError{
 
 
 label.FormExplain{
-	font-family: "DR";
 	display: flex;
 	font-size: 12px;
 	cursor: pointer;
@@ -226,17 +251,24 @@ input.FormDefault{
     width: 270px;
     color: #000;
     padding: 3px 5px;
+    font-family: opensans;
     margin: 0;
-    border: 1px solid #d3d9de;
-	font-size: 14px;
-    padding: 6px 12px 8px;
+    border: 1px solid #dbdbdb;
+	font-size: 13px;
+    padding: 6px 12px;
     box-sizing: border-box;
 	height: 35px;
     border-radius: 3px;
+
+    box-sizing: border-box;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 1 355px;
+    flex: 0 1 355px;
+    padding: 0 10px;
+    height: 32px;
 }
 input.FormDefault:focus{
-	box-shadow: 0px 0px 2px 1px rgba(0,169,255,0.5);
-	outline: none;
+	border: 1px solid #dbdbdb;
 }
 
 input.AuthButton{
@@ -246,7 +278,6 @@ input.AuthButton{
 	cursor: pointer;
 	color: #ffffff;
 	width: 100%;
-	font-family: "DR";
 	font-weight: bold;
 	font-size: 14px;
 	padding: 10px 20px 10px 20px;
@@ -268,14 +299,12 @@ input.AuthFormLoginButton:hover{
 }
 
 p.Pupper{
-	margin: -4px 0 0;
+    margin: -4px 0 0;
     font-size: 20px;
     text-align: center;
-	font-family: "DR";
-	font-weight: bold;
+    font-weight: bold;
 }
 p.Pexplain{
-	font-family: "DR";
 	font-size: 14px;
 	color: rgba(0,0,0,0.5)
 }
@@ -290,17 +319,256 @@ hr.HRgreyline{
 	border: 0;
     height: 0;
     margin: 10px 0px 0px 0px;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
-div.AuthFormInputField{
-	margin: 15px 0px;
+div.FormDefaultInputField{
+	margin: 10px 0px;
 }
-
-
 
 div#loginpageContent{
 	 margin: 50px auto;
     padding: 37px 30px;
     width: 680px;
+}
+
+
+
+
+
+
+
+
+
+div#page{
+	overflow: hidden;
+    width: 900px;
+    height: auto;
+    color: black;
+    margin: 0 auto;
+}
+div.worldUserBlock{
+    margin: 15px;
+    border: 1px solid rgb(247, 247, 247);
+    padding: 15px;
+    font-size: 20px;
+}
+div#profileCover{
+    display: block;
+    height: 220px;
+    position: absolute;
+    z-index: 1;
+    top: 60px;
+    left: 0;
+    background: url('https://vk.com/images/blog/about_cover.jpg') no-repeat;
+    width: 100%;
+}
+div#profileCover:before{
+    content: "";
+    opacity: 0.6;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 9999;
+    position: absolute;
+    background: rgba(0, 0, 0, 1);
+    background-size: cover;
+}
+div#profileMain{
+    width: 200px;
+    background: white;
+    padding: 0px;
+    border-radius: 200px;
+    border: 1px solid rgba(0,0,0,.1);
+}
+div#profileWrap{
+    margin-top: 62px;
+    z-index: 2;
+    padding: 0px 20px;
+    position: relative;
+}
+div#profileInformation{
+    float: left;
+    position: relative;
+    text-align: left;
+    margin-top: 70px;
+    padding: 15px 20px;
+}
+
+div#profileAvatar{
+    float: left;
+    margin-top: 50px;
+    position: relative;
+    text-align: center;
+}
+img#profilveAvatarImg{
+    width: 90px;
+    background: white;
+    height: 90px;
+    border-radius: 100px;
+}
+div#profileName{
+    color: white;
+    font-size: 29px;
+}
+div#profileMenu{
+    left: 0;
+    clear: both;
+    float: left;
+    position: relative;
+    height: 75px;
+    margin-top: 6px;
+}
+div#profileMenu > a{
+	display: inline-block;
+    padding: 13.5px;
+    color: white;
+}
+div#profileMenu > a > span{
+	padding: 0 3px;
+	display: block;
+}
+div#profileMenu > a > span:first-child{
+	display: block;
+    color: #fff;
+    font-size: 14px;
+}
+div#profileMenu > a > span:last-child{
+    display: block;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+}
+div#profileLinks{
+	left: 0;
+    float: right;
+    position: relative;
+    margin-top: 24px;
+}
+div#profileLinks > a{
+	display: inline-block;
+    padding: 15.5px;
+    color: white;
+}
+div#profileLinks > a > span{
+	display: inline-block;
+    font-size: 14px;
+    color: white;
+}
+div#profilePhotoBlock{
+	width: 100%;
+}
+div#profilePhotoBlockUpload{
+    position: relative;
+    float: left;
+    height: 220px;
+    width: 250px;
+    margin: 20px;
+    border: 1px dashed rgba(0,0,0,0.2);
+}
+div#profilePhotoBlockUpload > span{
+    padding: 5px 39.5px;
+    display: block;
+    padding: 97px 0;
+    font-size: 20px;
+    color: rgba(0,0,0,0.5);
+    width: 100%;
+    text-align: center;
+}
+
+div#editWrap{
+    overflow: hidden;
+    margin: 70px auto 20px;
+    position: relative;
+    width: 600px;
+    box-shadow: 0 1px 0 0 #d7d8db, 0 0 0 1px #e3e4e8;	
+}
+div#editAvatar{
+	overflow: hidden;
+	width: 90px;
+    position: relative;
+    margin: 30px;
+    float: left;
+}
+div#editInputBlock{
+    position: relative;
+    float: right;
+    margin: 15px 20px;
+    width: 408px;
+}
+div#editInputBlock >  * >label{
+	padding: 7px 12px;
+    position: relative;
+    width: 70px;
+    float: left;
+    text-align: right;
+    font-size: 13px;
+}
+input.editSaveButton{
+	color: rgba(74, 125, 181, 1);
+    margin-top: 30px;
+    border: 1px solid rgba(74, 125, 181, 1);
+    background: none;
+    padding: 4px;
+}
+select.formDefault{
+    background: 0 0;
+    border: 1px solid #dbdbdb;
+    border-radius: 3px;
+    color: #262626;
+    font-family: openSans;
+    height: 32px;
+    padding: 0 30px 0 10px;
+    -moz-appearance: none;
+}
+
+
+/* ERROR PAGE */
+div#page404_Background{
+    background: rgb(226, 98, 98);
+    width: 100vw;
+    height: 100vh;
+}
+div#page404_Request{
+    color: white;
+    text-align: center;
+    font-size: 40px;
+    line-height: 100vh;
+}
+
+/* EDIT PAGE */
+div#editPage_block{
+    top: 60px;
+    height: 500px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    width: 600px;
+    margin: 60px auto 0;
+}
+div#editPage_field{
+    padding: 40px;
+    position: relative;
+    height: 390px;
+}
+div#editPage_fieldAvatar{
+    height: 100%;
+    position: relative;
+    float: left;
+    width: 200px;
+}
+div#editPage_fieldForm{
+    height: 100%;
+    position: relative;
+    float: right;
+    width: 270px;
+}
+div#editPage_fieldAvatar > div{
+    height: 200px;
+    width: 200px;
+}
+div#editPage_fieldAvatar > div > img{
+    width: 100%;
+    height: 100%;
+    background: none;
+    border: none;
+    border-radius: 100%;
 }

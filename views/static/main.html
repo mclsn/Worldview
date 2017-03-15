@@ -1,0 +1,66 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+    <title>Worldview</title>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <script src="/js/core.js"></script>
+</head>
+<body>
+	{% block errorPage %}
+	<div id="scrollFix">
+		<div id="header">
+			<div id="headersHref">
+				<div id="headersHrefLeft">
+					<!-- <a href="/" id="headerLogotype">
+						<span id="headerLogotype"></span>
+					</a> -->
+					<a href="/" id="headerRef">
+						<span id="headerRef">Worldview</span>
+					</a>
+				</div>
+				{% if (session.login != 0) %}
+				<div id="headersHrefRight">
+					<a href="/logout?csrf={{csrf}}" id="headerRef">
+						<span id="headerRef">Log out</span>
+					</a>					
+				</div>
+				<div id="headersHrefRight">			
+					<a href="/id{{ session.login }}" id="headerRef">
+							{% if session.avatar %}
+								<img id="headerAvatar" src="./Worldview_files/336690cf7e4a4766887fda3beeeeaa41.jpg">
+							{% else %}
+								<img id="headerAvatar" src="/img/sys/noavatar.png">
+							{% endif %}
+						<span id="headerRef">{{ session.fname }} {{ session.lname }}</span>
+					</a>						
+				</div>
+				{% endif %}
+			</div>
+		</div>
+		{% if (session.login == 0) %}
+				{% block content %}
+				<div id="highlevelBackground">
+					<div id="signup_rightColoumn">
+						<div id="searchBg"></div>
+						<div id="AuthWrap">
+							<div id="AuthField">
+								{% include "main.login.html"%}
+							</div>
+							<div id="AuthField">
+								{% include "main.signup.html"%}
+							</div>
+						</div>
+					</div>
+				</div>
+				{% endblock content %}
+		{% else %}
+			<div id="page">
+				{% block page %}
+				{% endblock %}
+			</div>
+		{% endif %}
+		{% endblock errorPage %}
+	</div>
+	<script src="/js/handler.js"></script>
+</body>
+</html>

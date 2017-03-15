@@ -1,8 +1,0 @@
-<svg>
-  <defs>                   
-    <filter id="blur">
-      <feGaussianBlur stdDeviation="5" />
-     <feColorMatrix type="saturate" values="1.2" />
-    </filter>
-  </defs>
-</svg>

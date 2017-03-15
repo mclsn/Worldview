@@ -19,10 +19,18 @@ class Users:
 		result = self.session.run("MATCH (a:Person) WHERE a.user_id = {userId} "
 		           "RETURN properties(a)", {"userId": str(userId)})
 
+		user_information = False
 		for i in result:
 			user_information = i[0]			
-
 		return user_information
+
+	def setProperty(self, userId, jsonSet):
+		result = self.session.run("MATCH (user:Person) WHERE user.user_id = {userId} "
+		           "SET user += {jsonSet}", {"userId": str(userId), "jsonSet": jsonSet})
+		if(result): 
+			return True
+		else:
+			return False
 
 class Auth:
 
