@@ -1,4 +1,4 @@
-var Core = {
+﻿var Core = {
 
 	getXmlHttp : function(){
 		var xmlhttp;
@@ -24,14 +24,14 @@ var Core = {
 		if(target){
 			var req = Core.getXmlHttp()         
 
-			req.onreadystatechange = function() {  
+			req.onreadystatechange = function() {
 				if (req.readyState == 4) { 
 					if(req.status == 200){
-						console.log("Start Callback: EngineGet");
+						console.log("[EngineGet]: callback");
 						callback(req.responseText);
 					}
 					else{
-						console.log("Error EngineGet: status " + req.status);
+						console.log("[EngineGet]: success with status " + req.status);
 					}
 				}
 			}
@@ -39,35 +39,52 @@ var Core = {
 			req.open('GET', target, true);  
 			req.setRequestHeader("X-Requested-With", "XMLHttpRequest");
 			req.send(null);
+			return false;
 		}
 	},
 
-	EnginePost : function(target, callback, data) {
+	EnginePost : function(target, callback, data, typer) {
 		if(target && data){
+			type = typer || 'application/x-www-form-urlencoded';
 			var req = Core.getXmlHttp()         
 
 			req.onreadystatechange = function() {  
 				if (req.readyState == 4) { 
 					if(req.status == 200){
 						if(callback){
-							console.log("Start Callback: EngineGet");
+							console.log("[EnginePost]: callback");
 							callback(req.responseText);
 						}
 						else{
-							console.log("EnginePost : Success");
+							console.log("[EnginePost]: success");
+							console.log("[EnginePost]: " + req.responseText)
 						}
 					}
 					else{
 						console.log("Error EngineGet: status " + req.status);
+						console.log(req.responseText)
 					}
 				}
 			}
 
 			req.open('POST', target, true);
-			req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+			req.setRequestHeader("Content-Type", type)
 			req.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+
 			req.send(data);
 		}
+	},
+
+	MultipartData : function(data){
+		var body = [''];
+		var boundary = String(Math.random()).slice(2);
+		var boundaryMiddle = '--' + boundary + '\r\n';
+		var boundaryLast = '--' + boundary + '--\r\n';
+		for (var key in data) {
+			body.push('Content-Disposition: form-data; name="' + key + '"\r\n\r\n' + data[key] + '\r\n');
+		}
+		body = body.join(boundaryMiddle) + boundaryLast;
+		return [body, boundary];
 	}
 
 }
@@ -75,21 +92,28 @@ var Core = {
 var Profile = {
 
 	Edit : function(event, obj){
-		_valid = ['first_name', 'last_name']
-		_data = ""
+		_valid = ['first_name', 'last_name', 'csrf']
+		var data = {}
 
 		event.preventDefault();
-		r = document.querySelectorAll('.FormDefault');
-		r.forEach(function(entry) {
-			if (entry.id in _valid){
-				console.log(entry.id);
-			}
-			else{
-				_data += entry.id + "=" + encodeURIComponent(entry.value) + "&"
-			}
-			console.log(_data);
-		});
-		Core.EnginePost('/edit', null, _data)
+		try{
+			r = document.querySelectorAll('.FormDefault');
+			r.forEach(function(entry) {
+				if (_valid.indexOf(entry.id) >= 0){
+					data[entry.id] = encodeURIComponent(entry.value);
+				}
+				else{
+					throw "[Edit]: error key";
+				}
+			});
+			multipart = Core.MultipartData(data);
+			Core.EnginePost('/edit', Data.loader, multipart[0], 'multipart/form-data; boundary=' + multipart[1])
+			
+		}
+		catch(e){
+			console.log(e)
+		}
+
 		return false; 
 	}
 }
@@ -97,42 +121,27 @@ var Profile = {
 var Data = {
 
 	loader : function(data){
-		//document.body.innerHTML = data;
-		// if(data){
-		console.log(data)
-		data = data.replace(/"/g, "\\'").replace(/'/g, "\"");
-		console.log(data)
-		data = JSON.parse(data);
-		console.log(data)
-
-		if(data.type == "id"){
-			targetBlock = document.getElementById(data.block);
-			targetBlock.innerHTML = data.data;
+		try{
+			data = (data.replace(/"/g, "\\'")).replace(/'/g, "\"");
+			data = JSON.parse(data);
+			data.forEach(function(entry) {
+				if(entry.act == "add"){
+					targetBlock = document.querySelector(entry.selector)
+					targetBlock.innerHTML = entry.data;
+				}
+				if(entry.act == "attr"){
+					targetBlock = document.querySelector(entry.selector)
+					targetBlock[entry.type] = entry.data;
+				}
+				if(entry.act == "reload"){
+					window.location.href = "/";
+				}
+			});
+		}
+		catch(e){
+			console.log(e)
 		}
 
-
-		// 	if(data.sys.type == "id"){
-		// 		var xmlhttp = Core.getXmlHttp();
-		//          xmlhttp.open("GET", data.sys.page + ".html", true);
-		//          console.log(data)
-		//          xmlhttp.onreadystatechange = function() {  
-		// 			if (xmlhttp.readyState == 4) { 
-		// 				if(xmlhttp.status == 200){
-		// 					targetBlock = document.getElementById(data.sys.block);
-		// 					targetBlock.innerHTML = xmlhttp.responseText;
-		// 					data.add.forEach(function(entry) {
-		// 						switch(entry.type){
-		// 							case 'attr':
-		// 								console.log(entry);
-		// 								break;
-		// 						}
-		// 					});
-		// 				}
-		// 			}
-		// 		}
-		// 		xmlhttp.send();
-		// 	}
-		// }
 		return false;
 	}
 

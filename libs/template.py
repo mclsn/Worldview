@@ -17,16 +17,13 @@ def JSONtDict(IterBetterList):
 	result = json.loads(IterBetterList)
 	return result
 
-def renderTemp(doc, jsonstr=None, sys=None, csrf=None, XML=None):
+def renderTemp(doc, jsonstr=None, sys=None, csrf=None, extender=None):
 	
-	if XML:
-		env = Environment(loader=FileSystemLoader('/home/projects/snw/views/dynamic'), cache_size=0)
-	else:
-		env = Environment(loader=FileSystemLoader('/home/projects/snw/views/static'), cache_size=0)
+	env = Environment(loader=FileSystemLoader('/home/projects/snw/views'), cache_size=0)
 
 	template = env.get_template(str(doc))
 	session = web.config._session
 	try:
-		return template.render(response=jsonstr, msg=sys, session=session, csrf=csrf)
+		return template.render(response=jsonstr, msg=sys, session=session, csrf=csrf, extender=extender)
 	except TemplateNotFound:
 		raise web.notfound()

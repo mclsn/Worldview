@@ -1,0 +1,44 @@
+{% if extender %}
+	{% extends extender %}
+{% endif %}
+
+{% block page %}
+<div id="editPage_block">
+	<div id="editPage_field">
+		<div id="editPage_fieldAvatar">
+			<div>
+				<label>
+				{% if response.user_avatar %}
+					<img src="/336690cf7e4a4766887fda3beeeeaa41.jpg">
+				{% else %}
+					<img src="/img/sys/nocover2.jpg">
+				{% endif%}
+				</label>
+				<input type="hidden" name="csrf" value="{{ csrf }}">
+			</div>
+		</div>
+		<div id="editPage_fieldForm">
+			<input type="hidden" class="FormDefault" id="csrf" value="{{ csrf }}">
+			<div class="FormDefaultInputField">
+				<input placeholder="First Name" value="{{ response.first_name }}" class="FormDefault" type="text" id="first_name">
+			</div>
+			<div class="FormDefaultInputField">
+				<input placeholder="Last Name" value="{{ response.last_name }}" class="FormDefault" type="text" id="last_name">
+			</div>
+			<div class="FormDefaultInputField">
+				<input class="AuthButton AuthFormLoginButton" onclick="Profile.Edit(event, this);" type="submit" value="Edit"/>
+			</div>
+			{% if msg != None %}
+				<hr class="HRgreyline">
+				{% if msg.status == 1 %}
+				<div class="success AuthFormError">
+				{% elif msg.status == 0 %}
+				<div class="error AuthFormError">
+				{% endif %}
+				{{ msg.text }}
+			</div>
+			{% endif %}
+		</div>
+	</div>
+</div>
+{% endblock page %}

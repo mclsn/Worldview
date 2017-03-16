@@ -1,114 +1,106 @@
-[2017-03-15 22:32:26 +0300] [14620] [DEBUG] Current configuration:
-  keyfile: None
-  ciphers: TLSv1
-  graceful_timeout: 30
-  on_reload: <function OnReload.on_reload at 0x7f41c7294c80>
-  worker_exit: <function WorkerExit.worker_exit at 0x7f41c72a2c80>
-  ssl_version: 3
-  logconfig: None
-  statsd_host: None
-  workers: 1
-  umask: 0
-  worker_abort: <function WorkerAbort.worker_abort at 0x7f41c72a26a8>
-  pre_request: <function PreRequest.pre_request at 0x7f41c72a29d8>
-  nworkers_changed: <function NumWorkersChanged.nworkers_changed at 0x7f41c72a2e18>
-  capture_output: False
-  do_handshake_on_connect: False
-  worker_tmp_dir: None
-  certfile: None
-  timeout: 30
-  pre_fork: <function Prefork.pre_fork at 0x7f41c72a2048>
-  max_requests: 0
-  keepalive: 2
-  on_exit: <function OnExit.on_exit at 0x7f41c72a5048>
+[2017-03-16 20:37:25 +0300] [23983] [DEBUG] Current configuration:
+  check_config: False
+  preload_app: False
   pidfile: None
-  user: 0
-  secure_scheme_headers: {'X-FORWARDED-PROTOCOL': 'ssl', 'X-FORWARDED-PROTO': 'https', 'X-FORWARDED-SSL': 'on'}
-  paste: None
-  proxy_protocol: False
+  capture_output: False
+  worker_connections: 1000
   proxy_allow_ips: ['127.0.0.1']
+  spew: False
+  worker_abort: <function WorkerAbort.worker_abort at 0x7f00496e66a8>
+  raw_env: []
+  pythonpath: None
+  when_ready: <function WhenReady.when_ready at 0x7f00496d8e18>
+  pre_fork: <function Prefork.pre_fork at 0x7f00496e6048>
+  do_handshake_on_connect: False
+  paste: None
+  limit_request_line: 4094
+  limit_request_field_size: 8190
+  on_reload: <function OnReload.on_reload at 0x7f00496d8c80>
+  worker_tmp_dir: None
+  keyfile: None
   accesslog: None
+  access_log_format: %(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s"
+  errorlog: /home/projects/snw/core/etc/logs/gunicorn.log
+  statsd_host: None
+  post_request: <function PostRequest.post_request at 0x7f00496e6ae8>
   syslog: False
-  syslog_prefix: None
+  statsd_prefix: 
+  user: 0
+  group: 0
+  on_starting: <function OnStarting.on_starting at 0x7f00496d8ae8>
+  max_requests: 0
+  default_proc_name: wsgi:application
+  max_requests_jitter: 0
+  proc_name: None
+  umask: 0
+  suppress_ragged_eofs: True
+  logger_class: gunicorn.glogging.Logger
+  forwarded_allow_ips: ['127.0.0.1']
   bind: ['0.0.0.0:8000']
   backlog: 2048
-  on_starting: <function OnStarting.on_starting at 0x7f41c7294ae8>
-  reload: False
-  default_proc_name: wsgi:application
-  post_request: <function PostRequest.post_request at 0x7f41c72a2ae8>
-  cert_reqs: 0
-  spew: False
-  limit_request_field_size: 8190
-  syslog_facility: user
-  proc_name: None
-  worker_class: gthread
-  worker_int: <function WorkerInt.worker_int at 0x7f41c72a2510>
-  suppress_ragged_eofs: True
-  tmp_upload_dir: None
-  threads: 4
-  chdir: /home/projects/snw
-  worker_connections: 1000
-  post_worker_init: <function PostWorkerInit.post_worker_init at 0x7f41c72a2378>
-  statsd_prefix: 
-  raw_env: []
-  pre_exec: <function PreExec.pre_exec at 0x7f41c72a2840>
-  config: core/etc/gunicorn-wsgi.conf
-  errorlog: /home/projects/snw/core/etc/logs/gunicorn.log
-  max_requests_jitter: 0
+  post_fork: <function Postfork.post_fork at 0x7f00496e61e0>
+  post_worker_init: <function PostWorkerInit.post_worker_init at 0x7f00496e6378>
+  worker_int: <function WorkerInt.worker_int at 0x7f00496e6510>
+  pre_request: <function PreRequest.pre_request at 0x7f00496e69d8>
+  worker_exit: <function WorkerExit.worker_exit at 0x7f00496e6c80>
   loglevel: debug
   enable_stdio_inheritance: False
-  sendfile: None
-  syslog_addr: udp://localhost:514
-  check_config: False
-  ca_certs: None
-  post_fork: <function Postfork.post_fork at 0x7f41c72a21e0>
-  preload_app: False
-  access_log_format: %(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s"
+  timeout: 30
   daemon: True
+  syslog_addr: udp://localhost:514
   limit_request_fields: 100
-  group: 0
-  forwarded_allow_ips: ['127.0.0.1']
-  pythonpath: None
-  logger_class: gunicorn.glogging.Logger
-  when_ready: <function WhenReady.when_ready at 0x7f41c7294e18>
+  workers: 1
+  threads: 4
+  ssl_version: 3
+  config: core/etc/gunicorn-wsgi.conf
+  certfile: None
+  cert_reqs: 0
   django_settings: None
-  limit_request_line: 4094
-[2017-03-15 22:32:26 +0300] [14620] [INFO] Starting gunicorn 19.6.0
-[2017-03-15 22:32:26 +0300] [14620] [DEBUG] Arbiter booted
-[2017-03-15 22:32:26 +0300] [14620] [INFO] Listening at: http://0.0.0.0:8000 (14620)
-[2017-03-15 22:32:26 +0300] [14620] [INFO] Using worker: gthread
-[2017-03-15 22:32:26 +0300] [14623] [INFO] Booting worker with pid: 14623
-[2017-03-15 22:32:26 +0300] [14620] [DEBUG] 1 workers
-[2017-03-15 22:32:26 +0300] [14623] [DEBUG] GET /
-[2017-03-15 22:32:27 +0300] [14623] [DEBUG] GET /
-[2017-03-15 22:32:27 +0300] [14623] [DEBUG] GET /
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.5/dist-packages/web.py-0.40.dev0-py3.5.egg/web/application.py", line 257, in process
-    return self.handle()
-  File "/usr/local/lib/python3.5/dist-packages/web.py-0.40.dev0-py3.5.egg/web/application.py", line 248, in handle
-    return self._delegate(fn, self.fvars, args)
-  File "/usr/local/lib/python3.5/dist-packages/web.py-0.40.dev0-py3.5.egg/web/application.py", line 473, in _delegate
-    return handle_class(f)
-  File "/usr/local/lib/python3.5/dist-packages/web.py-0.40.dev0-py3.5.egg/web/application.py", line 466, in handle_class
-    return tocall(*args)
-  File "/home/projects/snw/libs/controller.py", line 67, in GET
-    data = libs.template.renderTemp(doc = 'im.html', csrf = Utils.csrf_token(), XML = True)
-  File "/home/projects/snw/libs/template.py", line 27, in renderTemp
-    template = env.get_template(str(doc))
-  File "/usr/lib/python3/dist-packages/jinja2/environment.py", line 812, in get_template
-    return self._load_template(name, self.make_globals(globals))
-  File "/usr/lib/python3/dist-packages/jinja2/environment.py", line 774, in _load_template
-    cache_key = self.loader.get_source(self, name)[1]
-  File "/usr/lib/python3/dist-packages/jinja2/loaders.py", line 187, in get_source
-    raise TemplateNotFound(template)
-jinja2.exceptions.TemplateNotFound: im.html
-
-[2017-03-15 22:32:55 +0300] [14623] [DEBUG] GET /
-[2017-03-15 22:32:56 +0300] [14623] [DEBUG] GET /
-[2017-03-15 22:32:57 +0300] [14623] [DEBUG] GET /id1
-[2017-03-15 22:32:59 +0300] [14623] [DEBUG] GET /
-[2017-03-15 22:33:01 +0300] [14623] [DEBUG] GET /id1
-[2017-03-15 22:33:02 +0300] [14623] [DEBUG] GET /edit
-[2017-03-15 22:33:04 +0300] [14623] [DEBUG] GET /id1
-[2017-03-15 22:33:05 +0300] [14623] [DEBUG] GET /
-[2017-03-15 22:33:06 +0300] [14623] [DEBUG] GET /id1
+  secure_scheme_headers: {'X-FORWARDED-PROTOCOL': 'ssl', 'X-FORWARDED-PROTO': 'https', 'X-FORWARDED-SSL': 'on'}
+  logconfig: None
+  syslog_prefix: None
+  graceful_timeout: 30
+  ciphers: TLSv1
+  worker_class: gthread
+  syslog_facility: user
+  pre_exec: <function PreExec.pre_exec at 0x7f00496e6840>
+  nworkers_changed: <function NumWorkersChanged.nworkers_changed at 0x7f00496e6e18>
+  on_exit: <function OnExit.on_exit at 0x7f00496e9048>
+  sendfile: None
+  chdir: /home/projects/snw
+  tmp_upload_dir: None
+  keepalive: 2
+  reload: False
+  proxy_protocol: False
+  ca_certs: None
+[2017-03-16 20:37:25 +0300] [23983] [INFO] Starting gunicorn 19.6.0
+[2017-03-16 20:37:25 +0300] [23983] [DEBUG] Arbiter booted
+[2017-03-16 20:37:25 +0300] [23983] [INFO] Listening at: http://0.0.0.0:8000 (23983)
+[2017-03-16 20:37:25 +0300] [23983] [INFO] Using worker: gthread
+[2017-03-16 20:37:25 +0300] [23986] [INFO] Booting worker with pid: 23986
+[2017-03-16 20:37:25 +0300] [23983] [DEBUG] 1 workers
+[2017-03-16 20:37:27 +0300] [23986] [DEBUG] GET /login
+[2017-03-16 20:37:30 +0300] [23986] [DEBUG] POST /login
+[2017-03-16 20:37:30 +0300] [23986] [DEBUG] GET /
+[2017-03-16 20:37:31 +0300] [23986] [DEBUG] GET /id1
+[2017-03-16 20:37:32 +0300] [23986] [DEBUG] GET /logout
+[2017-03-16 20:37:32 +0300] [23986] [DEBUG] GET /
+[2017-03-16 20:37:32 +0300] [23986] [DEBUG] GET /login
+[2017-03-16 20:37:34 +0300] [23986] [DEBUG] POST /login
+[2017-03-16 20:37:34 +0300] [23986] [DEBUG] GET /
+[2017-03-16 20:37:35 +0300] [23986] [DEBUG] GET /id1
+[2017-03-16 20:37:38 +0300] [23986] [DEBUG] GET /edit
+[2017-03-16 20:37:40 +0300] [23986] [DEBUG] GET /id1
+[2017-03-16 20:37:41 +0300] [23986] [DEBUG] GET /logout
+[2017-03-16 20:37:41 +0300] [23986] [DEBUG] GET /
+[2017-03-16 20:37:41 +0300] [23986] [DEBUG] GET /login
+[2017-03-16 20:37:47 +0300] [23986] [DEBUG] POST /login
+[2017-03-16 20:37:47 +0300] [23986] [DEBUG] GET /
+[2017-03-16 20:37:50 +0300] [23986] [DEBUG] GET /logout
+[2017-03-16 20:37:50 +0300] [23986] [DEBUG] GET /
+[2017-03-16 20:37:50 +0300] [23986] [DEBUG] GET /login
+[2017-03-16 20:37:52 +0300] [23986] [DEBUG] POST /login
+[2017-03-16 20:37:52 +0300] [23986] [DEBUG] GET /
+[2017-03-16 20:37:53 +0300] [23986] [DEBUG] GET /id1
+[2017-03-16 20:37:54 +0300] [23986] [DEBUG] GET /edit
+[2017-03-16 20:37:55 +0300] [23986] [DEBUG] GET /id1

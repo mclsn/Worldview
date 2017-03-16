@@ -2,8 +2,8 @@
 <head>
 	<meta charset="UTF-8">
     <title>Worldview</title>
+    <link rel="shortcut icon" type="image/png" href="/img/sys/noavatar.png">
     <link rel="stylesheet" type="text/css" href="/css/main.css">
-    <script src="/js/core.js"></script>
 </head>
 <body>
 	{% block errorPage %}
@@ -15,13 +15,13 @@
 						<span id="headerLogotype"></span>
 					</a> -->
 					<a href="/" id="headerRef">
-						<span id="headerRef">Worldview</span>
+						<span class="headerRef">Worldview</span>
 					</a>
 				</div>
 				{% if (session.login != 0) %}
 				<div id="headersHrefRight">
 					<a href="/logout?csrf={{csrf}}" id="headerRef">
-						<span id="headerRef">Log out</span>
+						<span class="headerRef">Log out</span>
 					</a>					
 				</div>
 				<div id="headersHrefRight">			
@@ -31,7 +31,7 @@
 							{% else %}
 								<img id="headerAvatar" src="/img/sys/noavatar.png">
 							{% endif %}
-						<span id="headerRef">{{ session.fname }} {{ session.lname }}</span>
+						<span class="headerRef" id="headerName">{{ session.fname }} {{ session.lname }}</span>
 					</a>						
 				</div>
 				{% endif %}
@@ -61,6 +61,7 @@
 		{% endif %}
 		{% endblock errorPage %}
 	</div>
+	<script src="/js/core.js"></script>
 	<script src="/js/handler.js"></script>
 </body>
 </html>

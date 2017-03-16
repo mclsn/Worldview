@@ -1,11 +1,18 @@
+{% if extender %}
+	{% extends extender %}
+{% endif %}
+
+{% block page %}
 <div id="profileCover" style="background: url(/img/sys/nocover2.jpg); background-size: cover"></div>
 	<div id="profileWrap">
 		<div id="profileAvatar">
-			{% if response.user_avatar %}
-				<img id="profilveAvatarImg" src="/336690cf7e4a4766887fda3beeeeaa41.jpg">
-			{% else %}
-				<img id="profilveAvatarImg" src="/img/sys/noavatar.png">
-			{% endif%}
+			<label>
+				{% if response.user_avatar %}
+					<img id="profilveAvatarImg" src="/336690cf7e4a4766887fda3beeeeaa41.jpg">
+				{% else %}
+					<img id="profilveAvatarImg" src="/img/sys/noavatar.png">
+				{% endif%}
+			</label>
 		</div>
 		<div id="ProfileInformation">
 			<div id="profileName">{{ response.first_name }} {{response.last_name }}</div>
@@ -47,3 +54,4 @@
 			<span>Click to add a new photo</span>
 		</div>
 	</div>
+{% endblock page %}

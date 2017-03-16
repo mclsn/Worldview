@@ -1,4 +1,7 @@
-{% extends "main.html" %}
+{% if extender %}
+	{% extends extender %}
+{% endif %}
+
 {% block errorPage %}
 <div id="page404_Background">
 	<div id="page404_Request">

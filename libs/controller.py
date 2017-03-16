@@ -1,8 +1,10 @@
+﻿# -*- coding: utf-8 -*-
 import web
 import json
 import libs.template, libs.models, libs.utils
 import urllib
 import os
+from urllib import parse
 
 def csrf_protected(f):
 	def decorated(*args,**kwargs):
@@ -17,40 +19,58 @@ def csrf_protected(f):
 	return decorated
 
 class edit:
+
 	def GET(self):
+		Utils = libs.utils.utils()
 		session = web.config._session
 		user_information = libs.models.Users().getUser(session.login)
-		return (libs.template.renderTemp(doc = 'edit.html', jsonstr = user_information) if (user_information) \
-			else libs.template.renderTemp(doc = '404.html'))
+		if(user_information):
+			if('HTTP_X_REQUESTED_WITH' in web.ctx.env and web.ctx.env['HTTP_X_REQUESTED_WITH'] == "XMLHttpRequest"):
+				data = libs.template.renderTemp(doc = 'edit.html', jsonstr = user_information, csrf = Utils.csrf_token())
+				return [{'act' : 'add', 'data' : data, 'selector' : '#page'}]
+			else:
+				return libs.template.renderTemp(doc = 'edit.html', jsonstr = user_information, csrf = Utils.csrf_token(), extender="main.html")
+		else:
+			return libs.template.renderTemp(doc = '404.html')
 
+
+	@csrf_protected
 	def POST(self):
+		Utils = libs.utils.utils()
 		editData = web.input(_method='post')
 		session = web.config._session
 		fields = dict()
+
 		for key, value in editData.items():
 			if (key != "password" and key != "csrf" and value != ""):
-				fields.update({key : value})
+				fields.update({key : parse.unquote(value)})
 
 		user_setProperties = libs.models.Users().setProperty(session.login, fields)
 		if(user_setProperties):
 			user_information = libs.models.Users().getUser(session.login)
 			session.fname = user_information['first_name']
 			session.lname = user_information['last_name']
-			return (libs.template.renderTemp(doc = 'edit.html', jsonstr = user_information) if (user_information) \
-				else libs.template.renderTemp(doc = '404.html'))
+
+			data = libs.template.renderTemp(doc = 'edit.html', jsonstr = user_information, csrf = Utils.csrf_token())
+			return [
+				{'act' : 'add', 'data' : data, 'selector' : '#page'},
+				{'act' : 'add', 'data' : user_information['first_name'] + " " + user_information['last_name'], 'selector' : '#headerName'}
+				] if (user_information) \
+				else libs.template.renderTemp(doc = '404.html')
 		else:
 			libs.template.renderTemp(doc = '404.html')
 
 class profile:
+
 	def GET(self, userID):
 		Utils = libs.utils.utils()
 		user_information = libs.models.Users().getUser(userID)
 		if(user_information):
 			if('HTTP_X_REQUESTED_WITH' in web.ctx.env and web.ctx.env['HTTP_X_REQUESTED_WITH'] == "XMLHttpRequest"):
-				data = libs.template.renderTemp(doc = 'profile.html', jsonstr = user_information, csrf = Utils.csrf_token(), XML = True)
-				return {'data' : data, 'page' : 'profile', 'block' : 'page', 'type' : 'id'}
+				data = libs.template.renderTemp(doc = 'profile.html', jsonstr = user_information, csrf = Utils.csrf_token())
+				return [{'act' : 'add', 'data' : data, 'selector' : '#page'}]
 			else:
-				return libs.template.renderTemp(doc = 'profile.html', jsonstr = user_information, csrf = Utils.csrf_token())
+				return libs.template.renderTemp(doc = 'profile.html', jsonstr = user_information, csrf = Utils.csrf_token(), extender="main.html")
 		else:
 			return libs.template.renderTemp(doc = '404.html')
 
@@ -64,10 +84,10 @@ class main:
 
 		if(session.login != 0):
 			if('HTTP_X_REQUESTED_WITH' in web.ctx.env and web.ctx.env['HTTP_X_REQUESTED_WITH'] == "XMLHttpRequest"):
-				data = libs.template.renderTemp(doc = 'im.html', csrf = Utils.csrf_token(), XML = True)
-				return {'data' : data, 'page' : 'profile', 'block' : 'page', 'type' : 'id'}
+				data = libs.template.renderTemp(doc = 'im.html', csrf = Utils.csrf_token())
+				return [{'act' : 'add', 'data' : data, 'selector' : '#page'}]
 			else:
-				return libs.template.renderTemp(doc = 'im.html', csrf = Utils.csrf_token())
+				return libs.template.renderTemp(doc = 'im.html', csrf = Utils.csrf_token(), extender="main.html")
 		else:
 			return web.seeother('/login')
 
@@ -159,12 +179,14 @@ class login:
 					doc = 'login.html',
 					jsonstr = params,
 					sys = msg,
-					csrf = Utils.csrf_token()
+					csrf = Utils.csrf_token(),
+					extender="main.html"
 				)
 
 			return libs.template.renderTemp(
 				doc = 'login.html',
-				csrf = Utils.csrf_token()
+				csrf = Utils.csrf_token(),
+				extender="main.html"
 			)
 		else:
 			return web.found(web.ctx.env.get(u'HTTP_REFERER', u'/'))
@@ -198,7 +220,6 @@ class login:
 			session.lname = user_information['last_name']
 			return web.seeother('/%s' % str(''))
 
-
 		return web.seeother('/%s' % str('login?' + urllib.parse.urlencode(fields)))
 
 class logout:
@@ -207,5 +228,5 @@ class logout:
 		session = web.config._session
 		if(session.login != 0):
 			session.kill()
-			web.seeother('/')
+			return [{'act' : 'reload'}]
 		return libs.template.renderTemp('404.html')

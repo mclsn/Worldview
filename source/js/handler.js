@@ -1,4 +1,4 @@
-document.body.addEventListener("click", function(e) {
+﻿document.body.addEventListener("click", function(e) {
 	event = e;
 
 	for (var k in event.path){

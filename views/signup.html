@@ -1,4 +1,7 @@
-{% extends "main.html" %}
+{% if extender %}
+	{% extends extender %}
+{% endif %}
+
 {% block content %}
 <div id="AuthFieldBig">
 	<p class="Pupper">Sign up for Worldview</p>
