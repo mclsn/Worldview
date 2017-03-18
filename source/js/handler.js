@@ -2,7 +2,8 @@
 	event = e;
 
 	for (var k in event.path){
-	    if (event.path[k].nodeName == "A") {
+		el = event.path[k];
+	    if (el.nodeName == "A" && !(el.hasAttribute("onclick"))) {
 	    	 e.preventDefault();
 	    	 elem = event.path[k];
 	    	 window.history.pushState('', '', elem.pathname + elem.search);

@@ -62,7 +62,7 @@
 					}
 					else{
 						console.log("Error EngineGet: status " + req.status);
-						//console.log(req.responseText)
+						console.log(req.responseText)
 					}
 				}
 			}
@@ -96,7 +96,7 @@
 	        }
 
 			req.upload.onprogress = function(event) {
-			  console.log( 'Загружено на сервер ' + event.loaded + ' байт из ' + event.total );
+				document.querySelector("#main_progressBar").style.width = event.total / 100 * event.loaded + "wv";
 			}
 
 			req.onreadystatechange = function() {  
@@ -167,6 +167,7 @@ var Profile = {
 
 			//console.log(body)
 			Core.EnginePut('/edit', Data.loader, body, boundary);
+			input.value = null;
 		};
 
 		reader.readAsBinaryString(file);
@@ -174,7 +175,8 @@ var Profile = {
 	},
 
 	Edit : function(event, obj){
-		_valid = ['first_name', 'last_name', 'csrf']
+		_valid = ['first_name', 'last_name', 'csrf', 'user_name']
+		_error = ['', '', '']
 		var data = {}
 
 		event.preventDefault();
@@ -191,6 +193,22 @@ var Profile = {
 			multipart = Core.MultipartData(data);
 			Core.EnginePost('/edit', Data.loader, multipart[0], 'multipart/form-data; boundary=' + multipart[1])
 			
+		}
+		catch(e){
+			console.log(e)
+		}
+
+		return false; 
+	},
+
+	Logout : function(event, obj){
+		event.preventDefault();
+		var urlParams = new URLSearchParams(obj.search);
+		try{
+			var csrf = urlParams.get('csrf');
+			multipart = Core.MultipartData({'csrf' : encodeURIComponent(csrf)});
+			console.log(multipart);
+			Core.EnginePost('/logout', Data.loader, multipart[0], 'multipart/form-data; boundary=' + multipart[1])
 		}
 		catch(e){
 			console.log(e)

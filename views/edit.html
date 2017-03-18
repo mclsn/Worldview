@@ -29,6 +29,9 @@
 				<input placeholder="Last Name" value="{{ response.last_name }}" class="FormDefault" type="text" id="last_name">
 			</div>
 			<div class="FormDefaultInputField">
+				<input placeholder="Username" value="{{ response.user_name }}" class="FormDefault" type="text" id="user_name">
+			</div>
+			<div class="FormDefaultInputField">
 				<input class="AuthButton AuthFormLoginButton" onclick="Profile.Edit(event, this);" type="submit" value="Edit"/>
 			</div>
 			{% if msg != None %}

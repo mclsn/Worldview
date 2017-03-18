@@ -7,6 +7,7 @@
 </head>
 <body>
 	{% block errorPage %}
+	<div id="main_progressBar"></div>
 	<div id="scrollFix">
 		<div id="header">
 			<div id="headersHref">
@@ -14,30 +15,34 @@
 					<!-- <a href="/" id="headerLogotype">
 						<span id="headerLogotype"></span>
 					</a> -->
-					<a href="/" id="headerRef">
+					<a href="/" class="headerRef">
 						<span class="headerRef">Worldview</span>
 					</a>
 				</div>
-				{% if (session.login != 0) %}
+				{% if (session.user_id != 0) %}
 				<div id="headersHrefRight">
-					<a href="/logout?csrf={{csrf}}" id="headerRef">
+					<a onclick="Profile.Logout(event, this);" href="/logout?csrf={{csrf}}" class="headerRef" id="head_LogoutLink">
 						<span class="headerRef">Log out</span>
 					</a>					
 				</div>
-				<div id="headersHrefRight">			
-					<a href="/id{{ session.login }}" id="headerRef">
-							{% if session.avatar %}
-								<img id="headerAvatar" src="/usr/av/{{ response.user_avatar }}.jpg">
+				<div id="headersHrefRight">
+					{% if session.user_name %}
+					<a href="/{{ session.user_name }}" class="headerRef">
+					{% else %}
+					<a href="/id{{ session.user_id }}" class="headerRef">
+					{% endif %}
+							{% if session.user_avatar %}
+								<img id="headerAvatar" src="/usr/av/{{ session.user_avatar }}.jpg">
 							{% else %}
 								<img id="headerAvatar" src="/img/sys/noavatar.png">
 							{% endif %}
-						<span class="headerRef" id="headerName">{{ session.fname }} {{ session.lname }}</span>
+						<span class="headerRef" id="headerName">{{ session.first_name }} {{ session.last_name }}</span>
 					</a>						
 				</div>
 				{% endif %}
 			</div>
 		</div>
-		{% if (session.login == 0) %}
+		{% if (session.user_id == 0) %}
 				{% block content %}
 				<div id="highlevelBackground">
 					<div id="signup_rightColoumn">

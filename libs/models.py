@@ -6,6 +6,17 @@ import datetime
 import libs.utils
 from neo4j.v1 import GraphDatabase, basic_auth
 
+class Edit:
+	driver = GraphDatabase.driver("bolt://localhost:7687", auth=basic_auth("neo4j", "Mun152339"))
+	session = driver.session()	
+
+	def checkUsername(self, user_name):
+		result = self.session.run("MATCH (a:Person) WHERE a.user_name = {user_name} "
+		           "RETURN properties(a)", {"user_name": str(user_name)})
+
+		for i in result:
+			return i[0]
+
 class Users:
 	driver = GraphDatabase.driver("bolt://localhost:7687", auth=basic_auth("neo4j", "Mun152339"))
 	session = driver.session()
@@ -16,7 +27,12 @@ class Users:
 		return True
 
 	def getUser(self, userId):
-		result = self.session.run("MATCH (a:Person) WHERE a.user_id = {userId} "
+		result = False;
+		if(userId.isdigit()):
+			result = self.session.run("MATCH (a:Person) WHERE a.user_id = {userId} "
+		           "RETURN properties(a)", {"userId": str(userId)})
+		else:
+			result = self.session.run("MATCH (a:Person) WHERE a.user_name = {userId} "
 		           "RETURN properties(a)", {"userId": str(userId)})
 
 		user_information = False

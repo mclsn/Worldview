@@ -5,7 +5,7 @@ from libs import memcached
 app = web.application(route.urls, globals())
 store = memcached.MemCacheStore()
 web.config.session_parameters['cookie_name'] = 'wvid'
-session = web.session.Session(app, store, initializer={'login': 0, 'privilage': 0})
+session = web.session.Session(app, store, initializer={'user_id': 0, 'privilage': 0})
 web.config._session = session
 
 if __name__ == '__main__':

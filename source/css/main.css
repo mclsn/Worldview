@@ -1,6 +1,6 @@
 @font-face {
     font-family: "openSans";
-    src: url('/fonts/opensans/opensans.ttf') format("truetype");
+    src: url('/fonts/proxima/Light.otf') format("truetype");
 }
 
 * {
@@ -60,7 +60,13 @@ div#header{
     background: rgba(255,255,255,1);
     width: 100vw;
 }
-
+div#main_progressBar{
+    position: absolute;
+    height: 2px;
+    width: 0;
+    background:#add5ff;
+    z-index: 11;
+}
 a#headerLogotype{
 	border: none;
     color: black;
@@ -137,14 +143,14 @@ div#headersHref{
 	color: #292f33;
     font-size: 14px;
 }			
-a#headerRef{
+a.headerRef{
 	line-height: 40px;
     position: relative;
     float: left;
     cursor: pointer;
     padding: 0 10px;
 }
-a#headerRef:hover{
+a.headerRef:hover{
     box-shadow: inset 0px 2px 0px 0px #50ddff;
     background: rgba(049, 146, 211, 0.02);
 }
@@ -456,7 +462,8 @@ div#profileLinks > a > span{
     color: white;
 }
 div#profilePhotoBlock{
-	width: 100%;
+    width: 100%;
+    overflow: hidden;
 }
 div#profilePhotoBlockUpload{
     position: relative;

@@ -2,7 +2,7 @@
 
 import web
 import json
-import libs.template, libs.models, libs.utils
+import libs.template, libs.models, libs.utils, libs.image
 import urllib
 import os
 from urllib import parse
@@ -21,10 +21,12 @@ def csrf_protected(f):
 
 class edit:
 
+	_valid = ['first_name', 'last_name', 'user_name']
+
 	def GET(self):
 		Utils = libs.utils.utils()
 		session = web.config._session
-		user_information = libs.models.Users().getUser(session.login)
+		user_information = libs.models.Users().getUser(session.user_id)
 		if(user_information):
 			if('HTTP_X_REQUESTED_WITH' in web.ctx.env and web.ctx.env['HTTP_X_REQUESTED_WITH'] == "XMLHttpRequest"):
 				data = libs.template.renderTemp(doc = 'edit.html', jsonstr = user_information, csrf = Utils.csrf_token())
@@ -42,54 +44,51 @@ class edit:
 		session = web.config._session
 		fields = dict()
 
-		if 'user_avatar' in editData:
-			import uuid
-			from PIL import Image
+		_home = '/home/projects/snw'
+		_path = lambda x: '/usr/av/' + x + '.jpg'
+		_return = lambda attr,data,sel,typer='None': {'act' : attr, 'data' : data, 'selector' : sel, 'type' : typer}
 
-			unique_filename = str(uuid.uuid4())
-			_home = '/home/projects/snw'
-			_path = lambda x: '/usr/av/' + x + '.jpg'
+		try:
+			for key, value in editData.items():
 
-			with open(_home + _path(unique_filename), "wb") as out_file:
-				out_file.write(editData.user_avatar)
+				if (key == "user_avatar" and value != ""):
+					import uuid
+					Image = libs.image.image()
 
-			im = Image.open(_home + _path(unique_filename))
-			size = (512, 512)
-			im.thumbnail(size, Image.ANTIALIAS)
-			width, height = im.size[0], im.size[1]
-			sizeB = (0,0)
+					unique_filename = str(uuid.uuid4())
+					with open(_home + _path(unique_filename), "wb") as out_file:
+						out_file.write(editData.user_avatar)
 
-			if(width >= height):
-				sizeB = (height,height)
-			else:
-				sizeB = (width,width)
+					if Image.CropProfile(_home + _path(unique_filename), 512):
+						fields.update({'user_avatar' : unique_filename})
 
-			background = Image.new('RGBA', sizeB, (255, 255, 255, 0))
-			background.paste(im)
-			background.save(_home + _path(unique_filename), "JPEG")
+				elif (key == "user_name"):
+					if not (libs.models.Edit().checkUsername(parse.unquote(value))):
+						fields.update({key : parse.unquote(value)})
 
-			fields.update({'user_avatar' : unique_filename})
+				elif (key in self._valid and value != ""):
+					fields.update({key : parse.unquote(value)})
 
-		for key, value in editData.items():
-			if (key != "password" and key != "user_avatar" and key != "csrf" and value != ""):
-				fields.update({key : parse.unquote(value)})
+			if fields:
+				user_setProperties = libs.models.Users().setProperty(session.user_id, fields)
+			
+			user_information = libs.models.Users().getUser(session.user_id)
+			session.first_name = user_information['first_name']
+			session.last_name = user_information['last_name']
+			session.user_avatar = user_information['user_avatar']
+			session.user_name = user_information['user_name']
+			return [ 
+				_return('add', session.first_name + " " + session.last_name, '#headerName'),
+				_return('attr', _path(session.user_avatar), '#headerAvatar', 'src'),
+				_return('attr', _path(session.user_avatar), '#editPage_avatar', 'src'),
+				_return('attr', Utils.csrf_token(), '#csrf', 'value'),
+				_return('attr', '/logout?csrf=' + Utils.csrf_token(), '#head_LogoutLink', 'href')
+				] if (user_information) \
+				else libs.template.renderTemp(doc = '404.html')
 
-		if fields:
-			user_setProperties = libs.models.Users().setProperty(session.login, fields)
-		
-		user_information = libs.models.Users().getUser(session.login)
-		session.fname = user_information['first_name']
-		session.lname = user_information['last_name']
-		session.avatar = user_information['user_avatar']
-
-		data = libs.template.renderTemp(doc = 'edit.html', jsonstr = user_information, csrf = Utils.csrf_token())
-		return [
-			{'act' : 'add', 'data' : data, 'selector' : '#page'},
-			{'act' : 'add', 'data' : session.fname + " " + session.lname, 'selector' : '#headerName'},
-			{'act' : 'attr', 'data' : _path(session.avatar), 'selector' : '#headerAvatar', 'type' : 'src'}
-			] if (user_information) \
-			else libs.template.renderTemp(doc = '404.html')
-
+		except:
+			user_information = libs.models.Users().getUser(session.user_id)
+			return libs.template.renderTemp(doc = 'edit.html', jsonstr = user_information, csrf = Utils.csrf_token(), extender="main.html")
 
 class profile:
 
@@ -103,7 +102,11 @@ class profile:
 			else:
 				return libs.template.renderTemp(doc = 'profile.html', jsonstr = user_information, csrf = Utils.csrf_token(), extender="main.html")
 		else:
-			return libs.template.renderTemp(doc = '404.html')
+			if('HTTP_X_REQUESTED_WITH' in web.ctx.env and web.ctx.env['HTTP_X_REQUESTED_WITH'] == "XMLHttpRequest"):
+				data = libs.template.renderTemp(doc = '404.html')
+				return [{'act' : 'add', 'data' : data, 'selector' : '#scrollFix'}]
+			else:
+				return libs.template.renderTemp(doc = '404.html', extender="main.html")
 
 	def POST(self):
 		pass
@@ -113,7 +116,7 @@ class main:
 		session = web.config._session
 		Utils = libs.utils.utils()
 
-		if(session.login != 0):
+		if(session.user_id != 0):
 			if('HTTP_X_REQUESTED_WITH' in web.ctx.env and web.ctx.env['HTTP_X_REQUESTED_WITH'] == "XMLHttpRequest"):
 				data = libs.template.renderTemp(doc = 'im.html', csrf = Utils.csrf_token())
 				return [{'act' : 'add', 'data' : data, 'selector' : '#page'}]
@@ -132,7 +135,7 @@ class signup:
 
 		session = web.config._session
 		msg = dict()
-		if(session.login == 0):
+		if(session.user_id == 0):
 			if(params.__contains__('c') == True):
 				if(params.c == '1'):
 					msg['text'] = "Please, fill out all filds"
@@ -196,7 +199,7 @@ class login:
 		Utils = libs.utils.utils()
 
 		msg = dict()
-		if(session.login == 0):
+		if(session.user_id == 0):
 			if(params.__contains__('c') == True):
 				if(params.c == '1'):
 					msg['text'] = "Wrong login or password"
@@ -246,18 +249,18 @@ class login:
 			user_information = libs.models.Users().getUser(user)
 
 			session = web.config._session
-			session.login = user_information['user_id']
-			session.fname = user_information['first_name']
-			session.lname = user_information['last_name']
+			for key, value in user_information.items():
+				session[key] = value
+
 			return web.seeother('/%s' % str(''))
 
 		return web.seeother('/%s' % str('login?' + urllib.parse.urlencode(fields)))
 
 class logout:
 	@csrf_protected
-	def GET(self):
+	def POST(self):
 		session = web.config._session
-		if(session.login != 0):
+		if(session.user_id != 0):
 			session.kill()
 			return [{'act' : 'reload'}]
 		return libs.template.renderTemp('404.html')
