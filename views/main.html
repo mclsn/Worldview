@@ -27,7 +27,7 @@
 				<div id="headersHrefRight">			
 					<a href="/id{{ session.login }}" id="headerRef">
 							{% if session.avatar %}
-								<img id="headerAvatar" src="./Worldview_files/336690cf7e4a4766887fda3beeeeaa41.jpg">
+								<img id="headerAvatar" src="/usr/av/{{ response.user_avatar }}.jpg">
 							{% else %}
 								<img id="headerAvatar" src="/img/sys/noavatar.png">
 							{% endif %}

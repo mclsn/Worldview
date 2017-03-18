@@ -57,21 +57,73 @@
 						}
 						else{
 							console.log("[EnginePost]: success");
-							console.log("[EnginePost]: " + req.responseText)
+							//console.log("[EnginePost]: " + req.responseText)
 						}
 					}
 					else{
 						console.log("Error EngineGet: status " + req.status);
-						console.log(req.responseText)
+						//console.log(req.responseText)
 					}
 				}
 			}
 
 			req.open('POST', target, true);
-			req.setRequestHeader("Content-Type", type)
+			req.setRequestHeader("Content-type", type)
 			req.setRequestHeader("X-Requested-With", "XMLHttpRequest");
 
 			req.send(data);
+		}
+	},
+
+	EnginePut : function(target, callback, data, boundary) {
+		if(target && data){
+			var req = Core.getXmlHttp()         
+
+			req.open('POST', target, true);
+			req.setRequestHeader('Content-type', 'multipart/form-data; boundary="' + boundary + '"');
+			req.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+			req.setRequestHeader('Cache-Control', 'no-cache');
+
+			if (!XMLHttpRequest.prototype.sendAsBinary) {
+	            XMLHttpRequest.prototype.sendAsBinary = function(datastr) {
+	                function byteValue(x) {
+	                    return x.charCodeAt(0) & 0xff;
+	                }
+	                var ords = Array.prototype.map.call(datastr, byteValue);
+	                var ui8a = new Uint8Array(ords);
+	                this.send(ui8a.buffer);
+	            }
+	        }
+
+			req.upload.onprogress = function(event) {
+			  console.log( 'Загружено на сервер ' + event.loaded + ' байт из ' + event.total );
+			}
+
+			req.onreadystatechange = function() {  
+				if (req.readyState == 4) { 
+					if(req.status == 200){
+						if(callback){
+							console.log("[EnginePut]: callback");
+							callback(req.responseText);
+						}
+						else{
+							console.log("[EnginePut]: success");
+							//console.log("[EnginePut]: " + req.responseText)
+						}
+					}
+					else{
+						console.log("Error EnginePut: status " + req.status);
+						//console.log(req.responseText)
+					}
+				}
+			}
+
+			if(req.sendAsBinary) {
+            	req.sendAsBinary(data);
+        	}
+        	else{
+            	req.send(data);
+        	}
 		}
 	},
 
@@ -90,6 +142,36 @@
 }
 
 var Profile = {
+
+	UploadPhoto : function(event, obj){
+		_valid = ['user_avatar', 'csrf']
+		event.preventDefault();
+
+		var input = document.querySelector('input[type="file"]#user_avatar');
+		var csrf = document.querySelector('input#csrf').value;
+		file = input.files[0];
+		console.log(file);
+
+		var reader = new FileReader();
+
+		reader.onload = function() {
+			var boundary = "0xf53g5";
+			var body = "--" + boundary + "\r\n";
+				body += "Content-Disposition: form-data; name=\"user_avatar\"; filename=\"" + unescape(encodeURIComponent(file.name)) + "\"\r\n";
+	        	body += "Content-Type: application/octet-stream\r\n\r\n";
+	        	body += reader.result + "\r\n";
+	        	body += "--" + boundary + "\r\n";
+		        body += "Content-Disposition: form-data; name=\"csrf\"\r\n\r\n"; // unescape позволит отправлять файлы с русскоязычными именами без проблем.
+		        body += csrf + "\r\n";
+		        body += "--" + boundary + "--";
+
+			//console.log(body)
+			Core.EnginePut('/edit', Data.loader, body, boundary);
+		};
+
+		reader.readAsBinaryString(file);
+		return false; 
+	},
 
 	Edit : function(event, obj){
 		_valid = ['first_name', 'last_name', 'csrf']
@@ -121,6 +203,7 @@ var Profile = {
 var Data = {
 
 	loader : function(data){
+		console.log(data);
 		try{
 			data = (data.replace(/"/g, "\\'")).replace(/'/g, "\"");
 			data = JSON.parse(data);

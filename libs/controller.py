@@ -1,4 +1,5 @@
-﻿# -*- coding: utf-8 -*-
+﻿# sudo pip install -I pillow
+
 import web
 import json
 import libs.template, libs.models, libs.utils
@@ -41,24 +42,54 @@ class edit:
 		session = web.config._session
 		fields = dict()
 
+		if 'user_avatar' in editData:
+			import uuid
+			from PIL import Image
+
+			unique_filename = str(uuid.uuid4())
+			_home = '/home/projects/snw'
+			_path = lambda x: '/usr/av/' + x + '.jpg'
+
+			with open(_home + _path(unique_filename), "wb") as out_file:
+				out_file.write(editData.user_avatar)
+
+			im = Image.open(_home + _path(unique_filename))
+			size = (512, 512)
+			im.thumbnail(size, Image.ANTIALIAS)
+			width, height = im.size[0], im.size[1]
+			sizeB = (0,0)
+
+			if(width >= height):
+				sizeB = (height,height)
+			else:
+				sizeB = (width,width)
+
+			background = Image.new('RGBA', sizeB, (255, 255, 255, 0))
+			background.paste(im)
+			background.save(_home + _path(unique_filename), "JPEG")
+
+			fields.update({'user_avatar' : unique_filename})
+
 		for key, value in editData.items():
-			if (key != "password" and key != "csrf" and value != ""):
+			if (key != "password" and key != "user_avatar" and key != "csrf" and value != ""):
 				fields.update({key : parse.unquote(value)})
 
-		user_setProperties = libs.models.Users().setProperty(session.login, fields)
-		if(user_setProperties):
-			user_information = libs.models.Users().getUser(session.login)
-			session.fname = user_information['first_name']
-			session.lname = user_information['last_name']
+		if fields:
+			user_setProperties = libs.models.Users().setProperty(session.login, fields)
+		
+		user_information = libs.models.Users().getUser(session.login)
+		session.fname = user_information['first_name']
+		session.lname = user_information['last_name']
+		session.avatar = user_information['user_avatar']
 
-			data = libs.template.renderTemp(doc = 'edit.html', jsonstr = user_information, csrf = Utils.csrf_token())
-			return [
-				{'act' : 'add', 'data' : data, 'selector' : '#page'},
-				{'act' : 'add', 'data' : user_information['first_name'] + " " + user_information['last_name'], 'selector' : '#headerName'}
-				] if (user_information) \
-				else libs.template.renderTemp(doc = '404.html')
-		else:
-			libs.template.renderTemp(doc = '404.html')
+		data = libs.template.renderTemp(doc = 'edit.html', jsonstr = user_information, csrf = Utils.csrf_token())
+		return [
+			{'act' : 'add', 'data' : data, 'selector' : '#page'},
+			{'act' : 'add', 'data' : session.fname + " " + session.lname, 'selector' : '#headerName'},
+			{'act' : 'attr', 'data' : _path(session.avatar), 'selector' : '#headerAvatar', 'type' : 'src'}
+			] if (user_information) \
+			else libs.template.renderTemp(doc = '404.html')
+
 
 class profile:
 
