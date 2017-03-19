@@ -1,0 +1,14 @@
+div#im_contain{
+	margin-top: 80px;
+    margin: 80 auto 10;
+    height: calc(100vh - 120px);
+    -webkit-box-shadow: 0 0px 10px rgba(97,127,152,.2), 0px 0 0 rgba(97,127,152,.1), 0px 0 0 rgba(97,127,152,.1);
+    -moz-box-shadow: 0 0px 10px rgba(97,127,152,.2), 0px 0 0 rgba(97,127,152,.1), 0px 0 0 rgba(97,127,152,.1);
+    box-shadow: 0 0px 10px rgba(97,127,152,.2), 0px 0 0 rgba(97,127,152,.1), 0px 0 0 rgba(97,127,152,.1);
+    max-width: 800px;
+}
+div#im_contain_leftColoumn{
+	width: 31%;
+    height: 100%;
+    border-right: 1px solid #dedede;
+}

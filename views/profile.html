@@ -3,55 +3,52 @@
 {% endif %}
 
 {% block page %}
-<div id="profileCover" style="background: url(/img/sys/nocover2.jpg); background-size: cover"></div>
 	<div id="profileWrap">
 		<div id="profileAvatar">
-			<label>
+			<label for="user_avatar">
 				{% if response.user_avatar %}
-					<img id="profilveAvatarImg" src="/usr/av/{{ response.user_avatar }}.jpg">
+					<img id="editPage_avatar" src="/usr/av/{{ response.user_avatar }}.jpg" style="width: 150px;height: 150px;border-radius: 100px;">
 				{% else %}
-					<img id="profilveAvatarImg" src="/img/sys/noavatar.png">
+					<img id="editPage_avatar" src="/img/sys/noavatar.png" style="width: 150px;height: 150px;border-radius: 100px;">
 				{% endif%}
+
+				{% if session.user_id == response.user_id %}
+					<div id="editPage_avatarWrap" style="width: 150px;height: 150px;">
+						<div id="editPage_avatarWrapSuppose" style="padding: 68px 0px;">Upload photo</div>
+					</div>
+					<input type="file" id="user_avatar" class="UploadPhoto" style="visibility: hidden; display: none;" onchange="Profile.UploadPhoto(event, this.files);">
+					<input type="hidden" class="FormDefault UploadPhoto" id="csrf" value="{{ csrf }}">
+				{% endif %}
 			</label>
 		</div>
 		<div id="ProfileInformation">
 			<div id="profileName">{{ response.first_name }} {{response.last_name }}</div>
-		</div>
-		<div id="profileMenu">
-			<a class="profileMenuH" href="/id{{ response.user_id }}?friends">
-				<span>Friends</span>
-				<span>0</span>
-			</a>
-			<a class="profileMenuH" href="/id{{ response.user_id }}?photos">
-				<span>Photos</span>
-				<span>0</span>
-			</a>
-			<a class="profileMenuH" href="/id{{ response.user_id }}?photos">
-				<span>Followers</span>
-				<span>0</span>
-			</a>
-		</div>
-		<div id="profileLinks">
-			
-			<a class="profileLinksH" href="/edit">
-				<span>Edit</span>
-			</a>
-			
-			<a class="profileLinksH" href="/id{{ response.user_id }}?photos">
-				<span>Upload</span>
-			</a>
-			<a class="profileLinksH" href="/id{{ response.user_id }}?photos">
-				<span>All photos</span>
-			</a>
-			<a class="profileLinksH" href="/id{{ response.user_id }}?photos">
-				<span>Albums</span>
-			</a>
+			<div id="profileMenu">
+				<a class="profileMenuH" href="/id{{ response.user_id }}?friends">
+					<span>Friends</span>
+					<span>0</span>
+				</a>
+				<a class="profileMenuH" href="/id{{ response.user_id }}?photos">
+					<span>Photos</span>
+					<span>0</span>
+				</a>
+				<a class="profileMenuH" href="/id{{ response.user_id }}?photos">
+					<span>Followers</span>
+					<span>0</span>
+				</a>
+			</div>
+			{% if session.user_id != response.user_id %}
+			<div id="profileLinks">
+				<button class="profile_buttonMenu" onclick="Profile.AddFriend(this, {{ response.user_id }}, {{ csrf }})">Add to friend</button>			
+			</div>
+			{% endif %}
 		</div>
 	</div>
 	<div id="profilePhotoBlock">
-		
+		{% if session.user_id == response.user_id %}
 		<div id="profilePhotoBlockUpload">
 			<span>Click to add a new photo</span>
 		</div>
+		{% endif %}
 	</div>
 {% endblock page %}

@@ -2,7 +2,7 @@
 	{% extends extender %}
 {% endif %}
 
-{% block content %}
+{% block page %}
 <div id="AuthFieldBig">
 	<p class="Pupper">Sign up for Worldview</p>
 	<hr class="HRgreyline">
@@ -10,19 +10,26 @@
 		<form action="/signup" method="POST">
 			<input type="hidden" name="csrf" value="{{ csrf }}">
 			<div class="FormDefaultInputField">
-				<input placeholder="First Name" value="{{ response.signupFName }}" class="FormDefault" type="text" name="signupFName" id="signupFName">
+				<div class="FormDefault_predict">First name</div>
+				<input value="{{ response.signupFName }}" class="FormDefault" type="text" name="signupFName" id="signupFName">
 			</div>
 			<div class="FormDefaultInputField">
-				<input placeholder="Last Name" value="{{ response.signupLName }}" class="FormDefault" type="text" name="signupLName" id="signupLName">
+				<div class="FormDefault_predict">Last name</div>
+				<input value="{{ response.signupLName }}" class="FormDefault" type="text" name="signupLName" id="signupLName">
 			</div>
 			<div class="FormDefaultInputField">
-				<input placeholder="Email" value="{{ response.signupEmail }}" class="FormDefault" type="text" name="signupEmail" id="signupEmail">
+				<div class="FormDefault_predict">Email</div>
+				<input value="{{ response.signupEmail }}" class="FormDefault" type="text" name="signupEmail" id="signupEmail">
 			</div>
 			<div class="FormDefaultInputField">
-				<input placeholder="Password" value="{{ response.signupPassword }}" class="FormDefault" type="Password" name="signupPassword" id="signupPassword">
+				<div class="FormDefault_predict">Password</div>
+				<input value="{{ response.signupPassword }}" class="FormDefault" type="Password" name="signupPassword" id="signupPassword">
 			</div>
 			<div class="FormDefaultInputField">
 				<input class="AuthButton AuthFormSignupButton" type="submit" value="Sign up!"/>
+			</div>
+			<div class="FormDefaultInputField" style="text-align: center;">
+				<a class="a_mainUnder" href="/login">Have an account?</a>
 			</div>
 			{% if msg != None %}
 				<hr class="HRgreyline">
@@ -34,7 +41,8 @@
 				{{ msg.text }}
 			</div>
 			{% endif %}
+
 		</form>						
 	</div>
 </div>
-{% endblock content %}
+{% endblock page %}

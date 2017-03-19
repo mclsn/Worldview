@@ -4,12 +4,14 @@
     <title>Worldview</title>
     <link rel="shortcut icon" type="image/png" href="/img/sys/noavatar.png">
     <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <link rel="stylesheet" type="text/css" href="/css/im.css">
+    <link rel="stylesheet" type="text/css" href="/css/edit.css">
 </head>
 <body>
 	{% block errorPage %}
 	<div id="main_progressBar"></div>
-	<div id="scrollFix">
-		<div id="header">
+	<div id="main_scrollFix">
+		<div id="main_header">
 			<div id="headersHref">
 				<div id="headersHrefLeft">
 					<!-- <a href="/" id="headerLogotype">
@@ -21,6 +23,9 @@
 				</div>
 				{% if (session.user_id != 0) %}
 				<div id="headersHrefRight">
+					<a href="/edit" class="headerRef" id="head_LogoutLink">
+						<span class="headerRef">Edit</span>
+					</a>
 					<a onclick="Profile.Logout(event, this);" href="/logout?csrf={{csrf}}" class="headerRef" id="head_LogoutLink">
 						<span class="headerRef">Log out</span>
 					</a>					
@@ -42,28 +47,13 @@
 				{% endif %}
 			</div>
 		</div>
-		{% if (session.user_id == 0) %}
-				{% block content %}
-				<div id="highlevelBackground">
-					<div id="signup_rightColoumn">
-						<div id="searchBg"></div>
-						<div id="AuthWrap">
-							<div id="AuthField">
-								{% include "main.login.html"%}
-							</div>
-							<div id="AuthField">
-								{% include "main.signup.html"%}
-							</div>
-						</div>
-					</div>
+		<div id="main_content">
+				<div id="page">
+					{% block page %}
+
+					{% endblock %}
 				</div>
-				{% endblock content %}
-		{% else %}
-			<div id="page">
-				{% block page %}
-				{% endblock %}
-			</div>
-		{% endif %}
+		</div>
 		{% endblock errorPage %}
 	</div>
 	<script src="/js/core.js"></script>

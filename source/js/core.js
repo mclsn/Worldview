@@ -19,6 +19,40 @@
 		return xmlhttp;
 	},
 
+	EngineStaticFile : function(target, callback, preparedData, selector) {
+		preparedData = preparedData || null;
+		if(target){
+			var req = Core.getXmlHttp()         
+
+			req.onreadystatechange = function() {
+				if (req.readyState == 4) { 
+					if(req.status == 200){
+						console.log("[EngineGet]: callback");
+						_return = []
+
+						if(selector == "#viewer_wrap"){
+							_return.push({'act' : 'viewer'});
+						}
+
+						_return.push({'act' : 'add', 'data' : req.responseText, 'selector' : String(selector)});
+
+						if(preparedData){
+							_return.push(preparedData);
+						}
+						callback(JSON.stringify(_return));
+					}
+					else{
+						console.log("[EngineGet]: success with status " + req.status);
+					}
+				}
+			}
+
+			req.open('GET', target, true);  
+			req.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+			req.send(null);
+			return false;
+		}
+	},
 
 	EngineGet : function(target, callback) {
 		if(target){
@@ -96,11 +130,16 @@
 	        }
 
 			req.upload.onprogress = function(event) {
-				document.querySelector("#main_progressBar").style.width = event.total / 100 * event.loaded + "wv";
+				document.querySelector("div#main_progressBar").style.width = String(100 * event.loaded / event.total) + "vw";
 			}
 
 			req.onreadystatechange = function() {  
-				if (req.readyState == 4) { 
+				if (req.readyState == 4) {
+
+					setTimeout(
+						function(){document.querySelector("div#main_progressBar").style.width = "0vw"}
+						, 1000)
+
 					if(req.status == 200){
 						if(callback){
 							console.log("[EnginePut]: callback");
@@ -149,28 +188,34 @@ var Profile = {
 
 		var input = document.querySelector('input[type="file"]#user_avatar');
 		var csrf = document.querySelector('input#csrf').value;
+
 		file = input.files[0];
-		console.log(file);
+		var putSender = new FileReader();
+		//var getImage = new FileReader();
 
-		var reader = new FileReader();
+		//getImage.onload = function(event) {
+		//	preparedData = {'act' : 'attr', 'data' : event.target.result, 'selector' : '#edit_photoUpload_img', 'type' : 'src'};
+		//	Core.EngineStaticFile('/sys/editPhotoUpload.html', Data.Loader, preparedData, '#viewer_wrap');
+		//	putSender.readAsBinaryString(file);
+		//};
 
-		reader.onload = function() {
+		putSender.onload = function(){
 			var boundary = "0xf53g5";
 			var body = "--" + boundary + "\r\n";
 				body += "Content-Disposition: form-data; name=\"user_avatar\"; filename=\"" + unescape(encodeURIComponent(file.name)) + "\"\r\n";
 	        	body += "Content-Type: application/octet-stream\r\n\r\n";
-	        	body += reader.result + "\r\n";
+	        	body += putSender.result + "\r\n";
 	        	body += "--" + boundary + "\r\n";
 		        body += "Content-Disposition: form-data; name=\"csrf\"\r\n\r\n"; // unescape позволит отправлять файлы с русскоязычными именами без проблем.
 		        body += csrf + "\r\n";
 		        body += "--" + boundary + "--";
 
-			//console.log(body)
-			Core.EnginePut('/edit', Data.loader, body, boundary);
+			Core.EnginePut('/edit', Data.Loader, body, boundary);
 			input.value = null;
 		};
+		putSender.readAsBinaryString(file);
+		//getImage.readAsDataURL(file);
 
-		reader.readAsBinaryString(file);
 		return false; 
 	},
 
@@ -191,7 +236,7 @@ var Profile = {
 				}
 			});
 			multipart = Core.MultipartData(data);
-			Core.EnginePost('/edit', Data.loader, multipart[0], 'multipart/form-data; boundary=' + multipart[1])
+			Core.EnginePost('/edit', Data.Loader, multipart[0], 'multipart/form-data; boundary=' + multipart[1])
 			
 		}
 		catch(e){
@@ -207,8 +252,7 @@ var Profile = {
 		try{
 			var csrf = urlParams.get('csrf');
 			multipart = Core.MultipartData({'csrf' : encodeURIComponent(csrf)});
-			console.log(multipart);
-			Core.EnginePost('/logout', Data.loader, multipart[0], 'multipart/form-data; boundary=' + multipart[1])
+			Core.EnginePost('/logout', Data.Loader, multipart[0], 'multipart/form-data; boundary=' + multipart[1])
 		}
 		catch(e){
 			console.log(e)
@@ -220,21 +264,45 @@ var Profile = {
 
 var Data = {
 
-	loader : function(data){
-		console.log(data);
+	Viewer : function(data){
+		var element = document.getElementById('viewer_wrap');
+		if(element){
+			parentElem.removeChild(elem)
+		}
+		else{
+			data = data || null;
+			var div = document.createElement('div');
+			div.id = "viewer_wrap";
+			if(data)
+				div.innerHTML = data;
+			document.body.appendChild(div);			
+		}
+		console.log("[Viewer]: end")
+		return false;
+	},
+
+	Loader : function(data){
+		console.log(data)
 		try{
-			data = (data.replace(/"/g, "\\'")).replace(/'/g, "\"");
 			data = JSON.parse(data);
+			console.log(data)
 			data.forEach(function(entry) {
-				if(entry.act == "add"){
+				console.log(entry.act);
+				if(entry.act == "viewer"){
+					Data.Viewer();				
+				}
+				else if(entry.act == "add"){
 					targetBlock = document.querySelector(entry.selector)
+					console.log(entry.selector)
+					console.log(targetBlock)
 					targetBlock.innerHTML = entry.data;
 				}
-				if(entry.act == "attr"){
+				else if(entry.act == "attr"){
 					targetBlock = document.querySelector(entry.selector)
+					console.log(entry.selector)
 					targetBlock[entry.type] = entry.data;
 				}
-				if(entry.act == "reload"){
+				else if(entry.act == "reload"){
 					window.location.href = "/";
 				}
 			});

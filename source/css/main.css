@@ -19,11 +19,26 @@ body{
     overflow: hidden;
 }
 
+input {outline: none;}
+input:-webkit-autofill {
+    -webkit-box-shadow: inset 0 0 0 50px #fff !important; /* Цвет фона */
+    -webkit-text-fill-color: #999 !important; /* цвет текста */
+    color: #999 !important; /* цвет текста */
+}
+
 a{
 	text-decoration: none;
 	color: black;
 }
-div#scrollFix{
+a.a_mainUnder{
+    text-decoration: none;
+    border: 1px;
+    border-bottom: 1px dashed #c1c1c1;
+    color: black;
+    font-size: 13px;
+    text-align: center;
+}
+div#main_scrollFix{
 	overflow: hidden;
     width: calc(100vw - 20px);
 }
@@ -52,7 +67,7 @@ div#center, div#headersHref{
 	width: 900px;
 	margin: 0 auto;
 }
-div#header{
+div#main_header{
     position: fixed;
     top: 0;
     z-index: 10;
@@ -64,7 +79,7 @@ div#main_progressBar{
     position: absolute;
     height: 2px;
     width: 0;
-    background:#add5ff;
+    background:#50ddff;
     z-index: 11;
 }
 a#headerLogotype{
@@ -152,7 +167,6 @@ a.headerRef{
 }
 a.headerRef:hover{
     box-shadow: inset 0px 2px 0px 0px #50ddff;
-    background: rgba(049, 146, 211, 0.02);
 }
 img#headerAvatar{
     position: relative;
@@ -174,20 +188,6 @@ div#headersHref > div#headersHrefLeft{
 div#headersHref > div#headersHrefRight{
 	position: relative;
 	float: right;
-}
-div#headersHref >  * > input{
-    border: 1px solid rgba(0,0,0,0.1);
-    color: #292f33;
-    padding: 5px 5px 5px 12px;
-    font-size: 18px;
-    height: 30px;
-    border-radius: 15px;
-    font-weight: 200;
-    padding: 6px 6px 6px 19px;
-    margin: 15px auto
-}
-div#headersHref >  * > input:focus{
-	outline: none;
 }
 div#highlevelSearchLogo{
     width: 980px;
@@ -223,10 +223,16 @@ div#AuthField{
     padding: 25px;
 }
 div#AuthFieldBig{
-    margin: 100px auto;
-    padding: 30px 160px 30px 160px;
-    width: 280px;
-    box-shadow: 0 1px 0 0 #d7d8db, 0 0 0 1px #e3e4e8;
+    background: #fff;
+    padding: 44px 65px;
+    -webkit-box-shadow: 0 0px 10px rgba(97,127,152,.2), 0px 0 0 rgba(97,127,152,.1), 0px 0 0 rgba(97,127,152,.1);
+    -moz-box-shadow: 0 0px 10px rgba(97,127,152,.2), 0px 0 0 rgba(97,127,152,.1), 0px 0 0 rgba(97,127,152,.1);
+    box-shadow: 0 0px 10px rgba(97,127,152,.2), 0px 0 0 rgba(97,127,152,.1), 0px 0 0 rgba(97,127,152,.1);
+    border-radius: 2px;
+    border: 0;
+    margin: 90px auto;
+    /* margin: 0px auto 90px; */
+    max-width: 224px;
 }
 
 div#AuthForm{
@@ -253,28 +259,28 @@ label.FormExplain{
 	color: rgba(0,0,0,0.5)
 }
 input.FormDefault{
-	margin-bottom: 15px;
-    width: 270px;
-    color: #000;
-    padding: 3px 5px;
-    font-family: opensans;
-    margin: 0;
-    border: 1px solid #dbdbdb;
-	font-size: 13px;
-    padding: 6px 12px;
-    box-sizing: border-box;
-	height: 35px;
-    border-radius: 3px;
-
-    box-sizing: border-box;
-    -webkit-box-flex: 0;
-    -ms-flex: 0 1 355px;
-    flex: 0 1 355px;
-    padding: 0 10px;
-    height: 32px;
+    color: #999;
+    background: #fff;
+    display: inline-block;
+    border: 0;
+    outline: 0;
+    border-bottom: 1px solid #e6e6e6;
+    font-size: 13px;
+    padding: 3px 0;
+    margin: 3px 0 0;
+    width: 100%;
+    resize: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
 }
 input.FormDefault:focus{
-	border: 1px solid #dbdbdb;
+    color: #000;
+	border-bottom: 1px solid #4a7db5;
+}
+div.FormDefault_predict{
+    position: relative;
+    font-size: 12px;
 }
 
 input.AuthButton{
@@ -328,18 +334,25 @@ hr.HRgreyline{
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 div.FormDefaultInputField{
-	margin: 10px 0px;
+    padding: 0;
+    margin: 22px 0 0px;
 }
 
 div#loginpageContent{
-	 margin: 50px auto;
+	margin: 50px auto;
     padding: 37px 30px;
     width: 680px;
 }
 
-
-
-
+div#viewer_wrap{
+    position: fixed;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 5000;
+}
 
 
 
@@ -397,33 +410,33 @@ div#profileInformation{
     float: left;
     position: relative;
     text-align: left;
-    margin-top: 70px;
-    padding: 15px 20px;
+    margin-top: 30px;
+    padding: 10px 20px;
 }
 
 div#profileAvatar{
     float: left;
-    margin-top: 50px;
+    margin-top: 30px;
     position: relative;
     text-align: center;
 }
 img#profilveAvatarImg{
-    width: 90px;
-    background: white;
-    height: 90px;
+    width: 150px;
+    height: 150px;
     border-radius: 100px;
 }
 div#profileName{
-    color: white;
-    font-size: 29px;
+    height: 58px;
+    color: black;
+    font-size: 50px;
+    padding: 0px 14px;
 }
 div#profileMenu{
     left: 0;
     clear: both;
     float: left;
     position: relative;
-    height: 75px;
-    margin-top: 6px;
+    height: 70px;
 }
 div#profileMenu > a{
 	display: inline-block;
@@ -435,21 +448,32 @@ div#profileMenu > a > span{
 	display: block;
 }
 div#profileMenu > a > span:first-child{
-	display: block;
-    color: #fff;
+    display: block;
+    color: black;
     font-size: 14px;
 }
 div#profileMenu > a > span:last-child{
     display: block;
     font-size: 20px;
     font-weight: bold;
+    color: black;
+}
+button.profile_buttonMenu{
+    background: none;
+    padding: 13.5px;
+    border: 1px solid #eee;
+    cursor: pointer;
+    outline: none;
+}
+button.profile_buttonMenu:hover{
+    background: rgba(74, 125, 181, 1);
     color: white;
 }
 div#profileLinks{
-	left: 0;
+    left: 0;
     float: right;
     position: relative;
-    margin-top: 24px;
+    margin-top: 13.5px;
 }
 div#profileLinks > a{
 	display: inline-block;
@@ -549,8 +573,6 @@ div#editPage_avatarWrap > div{
 }
 
 
-
-
 /* ERROR PAGE */
 div#page404_Background{
     background: rgb(226, 98, 98);
@@ -566,11 +588,12 @@ div#page404_Request{
 
 /* EDIT PAGE */
 div#editPage_block{
-    top: 60px;
     height: 500px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 0px 10px rgba(97,127,152,.2), 0px 0 0 rgba(97,127,152,.1), 0px 0 0 rgba(97,127,152,.1);
+    -moz-box-shadow: 0 0px 10px rgba(97,127,152,.2), 0px 0 0 rgba(97,127,152,.1), 0px 0 0 rgba(97,127,152,.1);
+    box-shadow: 0 0px 10px rgba(97,127,152,.2), 0px 0 0 rgba(97,127,152,.1), 0px 0 0 rgba(97,127,152,.1);
     width: 600px;
-    margin: 60px auto 0;
+    margin: 64px auto 2;
 }
 div#editPage_field{
     padding: 40px;
@@ -578,7 +601,7 @@ div#editPage_field{
     height: 390px;
 }
 div#editPage_fieldAvatar{
-    height: 100%;
+    margin: 22px 0 0px;
     position: relative;
     float: left;
     width: 200px;

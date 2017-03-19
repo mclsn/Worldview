@@ -8,11 +8,7 @@
 		<div id="editPage_fieldAvatar">
 			<div>
 				<label for="user_avatar">
-					{% if response.user_avatar %}
-						<img src="/usr/av/{{ response.user_avatar }}.jpg" id="editPage_avatar">
-					{% else %}
-						<img src="/img/sys/nocover2.jpg" id="editPage_avatar">
-					{% endif%}
+					<img src="{% if response.user_avatar %}/usr/av/{{ response.user_avatar }}{% else %}/img/sys/noavatar{% endif%}.jpg" id="editPage_avatar">
 					<div id="editPage_avatarWrap">
 						<div id="editPage_avatarWrapSuppose">Upload photo</div>
 					</div>
@@ -23,13 +19,16 @@
 		<div id="editPage_fieldForm">
 			<input type="hidden" class="FormDefault UploadPhoto" id="csrf" value="{{ csrf }}">
 			<div class="FormDefaultInputField">
+				<div class="FormDefault_predict">First name</div>
 				<input placeholder="First Name" value="{{ response.first_name }}" class="FormDefault" type="text" id="first_name">
 			</div>
 			<div class="FormDefaultInputField">
+				<div class="FormDefault_predict">Last name</div>
 				<input placeholder="Last Name" value="{{ response.last_name }}" class="FormDefault" type="text" id="last_name">
 			</div>
 			<div class="FormDefaultInputField">
-				<input placeholder="Username" value="{{ response.user_name }}" class="FormDefault" type="text" id="user_name">
+				<div class="FormDefault_predict">Username</div>
+				<input placeholder="{% if not response.user_name %}You can use unique username{% endif %}" value="{{ response.user_name }}" class="FormDefault" type="text" id="user_name">
 			</div>
 			<div class="FormDefaultInputField">
 				<input class="AuthButton AuthFormLoginButton" onclick="Profile.Edit(event, this);" type="submit" value="Edit"/>

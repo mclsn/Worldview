@@ -1,0 +1,17 @@
+div#edit_photoUpload_wrap{
+    margin: 0 auto;
+    max-width: 650px;
+    background: white;
+    position: relative;
+}
+div#edit_photoUpload_photo{
+	max-width: 900px;
+    position: relative;
+}
+img#edit_photoUpload_img{
+    max-width: 610px;
+    padding: 20px;
+}
+div#edit_photoUpload_bodyResize{
+	
+}

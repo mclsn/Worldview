@@ -7,7 +7,7 @@
 	    	 e.preventDefault();
 	    	 elem = event.path[k];
 	    	 window.history.pushState('', '', elem.pathname + elem.search);
-	         Core.EngineGet(elem.pathname + elem.search, Data.loader)
+	         Core.EngineGet(elem.pathname + elem.search, Data.Loader)
 	         break;
 	    }
 	}

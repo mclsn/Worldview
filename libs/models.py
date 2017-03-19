@@ -28,7 +28,7 @@ class Users:
 
 	def getUser(self, userId):
 		result = False;
-		if(userId.isdigit()):
+		if(str(userId).isdigit()):
 			result = self.session.run("MATCH (a:Person) WHERE a.user_id = {userId} "
 		           "RETURN properties(a)", {"userId": str(userId)})
 		else:

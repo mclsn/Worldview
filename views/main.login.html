@@ -4,10 +4,12 @@
 	<form action="/login" method="POST">
 		<input type="hidden" name="csrf" value="{{ csrf }}">
 		<div class="FormDefaultInputField">
-			<input value="{{ response.email }}" placeholder="Email" class="FormDefault" type="text" name="email">
+			<div class="FormDefault_predict">Email</div>
+			<input value="{{ response.email }}" class="FormDefault" type="text" name="email">
 		</div>
 		<div class="FormDefaultInputField">
-			<input value="" placeholder="Password" class="FormDefault" type="Password" name="password">
+		<div class="FormDefault_predict">Password</div>
+			<input value="" class="FormDefault" type="Password" name="password">
 		</div>
 		<div class="FormDefaultInputField">
 			<input class="AuthButton AuthFormLoginButton" type="submit" value="Log In!"/>

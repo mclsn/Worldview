@@ -30,7 +30,7 @@ class edit:
 		if(user_information):
 			if('HTTP_X_REQUESTED_WITH' in web.ctx.env and web.ctx.env['HTTP_X_REQUESTED_WITH'] == "XMLHttpRequest"):
 				data = libs.template.renderTemp(doc = 'edit.html', jsonstr = user_information, csrf = Utils.csrf_token())
-				return [{'act' : 'add', 'data' : data, 'selector' : '#page'}]
+				return json.dumps([{'act' : 'add', 'data' : data, 'selector' : '#page'}])
 			else:
 				return libs.template.renderTemp(doc = 'edit.html', jsonstr = user_information, csrf = Utils.csrf_token(), extender="main.html")
 		else:
@@ -77,13 +77,13 @@ class edit:
 			session.last_name = user_information['last_name']
 			session.user_avatar = user_information['user_avatar']
 			session.user_name = user_information['user_name']
-			return [ 
+			return json.dumps([ 
 				_return('add', session.first_name + " " + session.last_name, '#headerName'),
 				_return('attr', _path(session.user_avatar), '#headerAvatar', 'src'),
 				_return('attr', _path(session.user_avatar), '#editPage_avatar', 'src'),
 				_return('attr', Utils.csrf_token(), '#csrf', 'value'),
 				_return('attr', '/logout?csrf=' + Utils.csrf_token(), '#head_LogoutLink', 'href')
-				] if (user_information) \
+				]) if (user_information) \
 				else libs.template.renderTemp(doc = '404.html')
 
 		except:
@@ -98,13 +98,13 @@ class profile:
 		if(user_information):
 			if('HTTP_X_REQUESTED_WITH' in web.ctx.env and web.ctx.env['HTTP_X_REQUESTED_WITH'] == "XMLHttpRequest"):
 				data = libs.template.renderTemp(doc = 'profile.html', jsonstr = user_information, csrf = Utils.csrf_token())
-				return [{'act' : 'add', 'data' : data, 'selector' : '#page'}]
+				return json.dumps([{'act' : 'add', 'data' :data, 'selector' : '#page'}])
 			else:
 				return libs.template.renderTemp(doc = 'profile.html', jsonstr = user_information, csrf = Utils.csrf_token(), extender="main.html")
 		else:
 			if('HTTP_X_REQUESTED_WITH' in web.ctx.env and web.ctx.env['HTTP_X_REQUESTED_WITH'] == "XMLHttpRequest"):
 				data = libs.template.renderTemp(doc = '404.html')
-				return [{'act' : 'add', 'data' : data, 'selector' : '#scrollFix'}]
+				return json.dumps([{'act' : 'add', 'data' : data, 'selector' : '#scrollFix'}])
 			else:
 				return libs.template.renderTemp(doc = '404.html', extender="main.html")
 
@@ -119,7 +119,7 @@ class main:
 		if(session.user_id != 0):
 			if('HTTP_X_REQUESTED_WITH' in web.ctx.env and web.ctx.env['HTTP_X_REQUESTED_WITH'] == "XMLHttpRequest"):
 				data = libs.template.renderTemp(doc = 'im.html', csrf = Utils.csrf_token())
-				return [{'act' : 'add', 'data' : data, 'selector' : '#page'}]
+				return json.dumps([{'act' : 'add', 'data' : data, 'selector' : '#page'}])
 			else:
 				return libs.template.renderTemp(doc = 'im.html', csrf = Utils.csrf_token(), extender="main.html")
 		else:
@@ -135,6 +135,7 @@ class signup:
 
 		session = web.config._session
 		msg = dict()
+		data = ""
 		if(session.user_id == 0):
 			if(params.__contains__('c') == True):
 				if(params.c == '1'):
@@ -146,17 +147,19 @@ class signup:
 				elif(params.c == '3'):
 					msg['text'] = "Something went wrong..."
 					msg['status'] = 0
-				return libs.template.renderTemp(
-					doc = 'signup.html', 
-					jsonstr = params, 
-					sys = msg, 
-					csrf = Utils.csrf_token()
-				)
-
-			return libs.template.renderTemp(
+					
+			data = libs.template.renderTemp(
 				doc = 'signup.html', 
+				jsonstr = params, 
+				sys = msg, 
 				csrf = Utils.csrf_token()
-			)	
+			)
+
+			if('HTTP_X_REQUESTED_WITH' in web.ctx.env and web.ctx.env['HTTP_X_REQUESTED_WITH'] == "XMLHttpRequest"):
+				return json.dumps([{'act' : 'add', 'data' : data, 'selector' : '#main_content', 'type' : 'add'}])
+			else:
+				return libs.template.renderTemp(doc = 'signup.html', csrf = Utils.csrf_token(), extender="main.html")
+
 		else:
 			return web.seeother('/')
 
@@ -208,20 +211,19 @@ class login:
 				elif(params.c == '2'):
 					msg['text'] = "Successful registration"
 					msg['status'] = 1
-
-				return libs.template.renderTemp(
+					
+			data = libs.template.renderTemp(
 					doc = 'login.html',
 					jsonstr = params,
 					sys = msg,
 					csrf = Utils.csrf_token(),
-					extender="main.html"
 				)
 
-			return libs.template.renderTemp(
-				doc = 'login.html',
-				csrf = Utils.csrf_token(),
-				extender="main.html"
-			)
+			if('HTTP_X_REQUESTED_WITH' in web.ctx.env and web.ctx.env['HTTP_X_REQUESTED_WITH'] == "XMLHttpRequest"):
+				return json.dumps([{'act' : 'add', 'data' : data, 'selector' : '#main_content', 'type' : 'add'}])
+			else:
+				return libs.template.renderTemp(doc = 'login.html', csrf = Utils.csrf_token(), extender="main.html")
+
 		else:
 			return web.found(web.ctx.env.get(u'HTTP_REFERER', u'/'))
 
@@ -262,5 +264,5 @@ class logout:
 		session = web.config._session
 		if(session.user_id != 0):
 			session.kill()
-			return [{'act' : 'reload'}]
+			return json.dumps([{'act' : 'reload'}])
 		return libs.template.renderTemp('404.html')
