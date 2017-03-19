@@ -220,8 +220,8 @@ var Profile = {
 	},
 
 	Edit : function(event, obj){
-		_valid = ['first_name', 'last_name', 'csrf', 'user_name']
-		_error = ['', '', '']
+		_valid = ['first_name', 'last_name', 'csrf', 'user_name', 'user_birth_day', 'user_birth_month', 'user_birth_year']
+		_error = ['', '', ''];
 		var data = {}
 
 		event.preventDefault();
@@ -235,6 +235,8 @@ var Profile = {
 					throw "[Edit]: error key";
 				}
 			});
+
+
 			multipart = Core.MultipartData(data);
 			Core.EnginePost('/edit', Data.Loader, multipart[0], 'multipart/form-data; boundary=' + multipart[1])
 			

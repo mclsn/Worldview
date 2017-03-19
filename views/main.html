@@ -14,16 +14,13 @@
 		<div id="main_header">
 			<div id="headersHref">
 				<div id="headersHrefLeft">
-					<!-- <a href="/" id="headerLogotype">
-						<span id="headerLogotype"></span>
-					</a> -->
 					<a href="/" class="headerRef">
 						<span class="headerRef">Worldview</span>
 					</a>
 				</div>
 				{% if (session.user_id != 0) %}
 				<div id="headersHrefRight">
-					<a href="/edit" class="headerRef" id="head_LogoutLink">
+					<a href="/edit" class="headerRef">
 						<span class="headerRef">Edit</span>
 					</a>
 					<a onclick="Profile.Logout(event, this);" href="/logout?csrf={{csrf}}" class="headerRef" id="head_LogoutLink">

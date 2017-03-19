@@ -28,6 +28,10 @@ class edit:
 		session = web.config._session
 		user_information = libs.models.Users().getUser(session.user_id)
 		if(user_information):
+			if('user_birthday' in user_information):
+				birth = user_information['user_birthday'].split('-')
+				user_information['user_birth_year'], user_information['user_birth_month'], user_information['user_birth_day'] = int(birth[0]), int(birth[1]), int(birth[2])
+
 			if('HTTP_X_REQUESTED_WITH' in web.ctx.env and web.ctx.env['HTTP_X_REQUESTED_WITH'] == "XMLHttpRequest"):
 				data = libs.template.renderTemp(doc = 'edit.html', jsonstr = user_information, csrf = Utils.csrf_token())
 				return json.dumps([{'act' : 'add', 'data' : data, 'selector' : '#page'}])
@@ -39,6 +43,8 @@ class edit:
 
 	@csrf_protected
 	def POST(self):
+		from datetime import datetime
+
 		Utils = libs.utils.utils()
 		editData = web.input(_method='post')
 		session = web.config._session
@@ -49,6 +55,13 @@ class edit:
 		_return = lambda attr,data,sel,typer='None': {'act' : attr, 'data' : data, 'selector' : sel, 'type' : typer}
 
 		try:
+
+			if('user_birth_year' in editData):
+				year = editData['user_birth_year'];
+				month = editData['user_birth_month'];
+				day = editData['user_birth_day'];
+				fields.update({'user_birthday' : '{:%Y-%m-%d}'.format(datetime(int(year), int(month), int(day)))})
+
 			for key, value in editData.items():
 
 				if (key == "user_avatar" and value != ""):
@@ -76,7 +89,8 @@ class edit:
 			session.first_name = user_information['first_name']
 			session.last_name = user_information['last_name']
 			session.user_avatar = user_information['user_avatar']
-			session.user_name = user_information['user_name']
+			session.user_name = user_information['user_name'] if 'user_name' in user_information else None
+
 			return json.dumps([ 
 				_return('add', session.first_name + " " + session.last_name, '#headerName'),
 				_return('attr', _path(session.user_avatar), '#headerAvatar', 'src'),

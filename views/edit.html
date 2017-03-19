@@ -8,7 +8,7 @@
 		<div id="editPage_fieldAvatar">
 			<div>
 				<label for="user_avatar">
-					<img src="{% if response.user_avatar %}/usr/av/{{ response.user_avatar }}{% else %}/img/sys/noavatar{% endif%}.jpg" id="editPage_avatar">
+					<img src="{% if response.user_avatar %}/usr/av/{{ response.user_avatar }}.jpg{% else %}/img/sys/noavatar.png{% endif%}" id="editPage_avatar">
 					<div id="editPage_avatarWrap">
 						<div id="editPage_avatarWrapSuppose">Upload photo</div>
 					</div>
@@ -29,6 +29,18 @@
 			<div class="FormDefaultInputField">
 				<div class="FormDefault_predict">Username</div>
 				<input placeholder="{% if not response.user_name %}You can use unique username{% endif %}" value="{{ response.user_name }}" class="FormDefault" type="text" id="user_name">
+			</div>
+			<div class="FormDefaultInputField">
+				<div class="FormDefault_predict">Birthday</div>
+				<select class="FormDefault FormDefaultShort" id="user_birth_day">
+					{% for n in range(1,31) %}<option {% if n == response.user_birth_day|default(1) %} selected {% endif %} id="{{n}}" value="{{n}}">{{ n }}</option>{% endfor %}
+				</select>
+				<select class="FormDefault FormDefaultShort" id="user_birth_month">
+					{% for n in range(1,13) %}<option {% if n == response.user_birth_month|default(1) %} selected {% endif %} id="{{n}}" value="{{n}}">{{ n }}</option>{% endfor %}
+				</select>
+				<select class="FormDefault FormDefaultShort" id="user_birth_year">
+					{% for n in range(1901,2017) %}<option {% if n == response.user_birth_year|default(1970) %} selected {% endif %} id="{{n}}" value="{{n}}">{{ n }}</option>{% endfor %}
+				</select>
 			</div>
 			<div class="FormDefaultInputField">
 				<input class="AuthButton AuthFormLoginButton" onclick="Profile.Edit(event, this);" type="submit" value="Edit"/>

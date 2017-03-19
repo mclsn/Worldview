@@ -258,7 +258,7 @@ label.FormExplain{
 	margin: 0px 0px 4px 0px;
 	color: rgba(0,0,0,0.5)
 }
-input.FormDefault{
+.FormDefault{
     color: #999;
     background: #fff;
     display: inline-block;
@@ -274,7 +274,15 @@ input.FormDefault{
     -moz-box-shadow: none;
     box-shadow: none;
 }
-input.FormDefault:focus{
+.FormDefaultShort{
+    width: 60px;
+    text-align: center;
+}
+.FormDefaultMiddle{
+    width: 140px;
+    text-align: center;
+}
+.FormDefault:focus{
     color: #000;
 	border-bottom: 1px solid #4a7db5;
 }
@@ -541,16 +549,6 @@ input.editSaveButton{
     border: 1px solid rgba(74, 125, 181, 1);
     background: none;
     padding: 4px;
-}
-select.formDefault{
-    background: 0 0;
-    border: 1px solid #dbdbdb;
-    border-radius: 3px;
-    color: #262626;
-    font-family: openSans;
-    height: 32px;
-    padding: 0 30px 0 10px;
-    -moz-appearance: none;
 }
 div#editPage_avatarWrap{
     cursor: pointer;

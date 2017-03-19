@@ -1,384 +1,124 @@
-[2017-03-19 14:41:30 +0300] [6283] [DEBUG] Current configuration:
-  limit_request_fields: 100
-  syslog_facility: user
-  chdir: /home/projects/snw
-  daemon: True
-  forwarded_allow_ips: ['127.0.0.1']
+[2017-03-19 19:24:26 +0300] [5682] [DEBUG] Current configuration:
   loglevel: debug
-  syslog_addr: udp://localhost:514
-  enable_stdio_inheritance: False
-  proxy_allow_ips: ['127.0.0.1']
-  capture_output: False
-  logger_class: gunicorn.glogging.Logger
-  worker_class: gthread
-  on_reload: <function OnReload.on_reload at 0x7f371fce7c80>
-  pre_fork: <function Prefork.pre_fork at 0x7f371fcf4048>
-  max_requests: 0
-  when_ready: <function WhenReady.when_ready at 0x7f371fce7e18>
-  worker_abort: <function WorkerAbort.worker_abort at 0x7f371fcf46a8>
-  pre_request: <function PreRequest.pre_request at 0x7f371fcf49d8>
-  ca_certs: None
-  post_request: <function PostRequest.post_request at 0x7f371fcf4ae8>
   statsd_host: None
-  pidfile: None
-  secure_scheme_headers: {'X-FORWARDED-PROTO': 'https', 'X-FORWARDED-SSL': 'on', 'X-FORWARDED-PROTOCOL': 'ssl'}
-  paste: None
-  limit_request_line: 4094
-  worker_int: <function WorkerInt.worker_int at 0x7f371fcf4510>
-  spew: False
-  certfile: None
-  suppress_ragged_eofs: True
-  statsd_prefix: 
-  cert_reqs: 0
-  pre_exec: <function PreExec.pre_exec at 0x7f371fcf4840>
-  do_handshake_on_connect: False
-  sendfile: None
-  group: 0
-  accesslog: None
-  graceful_timeout: 30
-  limit_request_field_size: 8190
-  syslog: False
-  check_config: False
-  keyfile: None
-  on_exit: <function OnExit.on_exit at 0x7f371fcf7048>
-  worker_tmp_dir: None
-  access_log_format: %(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s"
-  worker_connections: 1000
-  raw_env: []
-  syslog_prefix: None
-  django_settings: None
-  threads: 4
-  max_requests_jitter: 0
-  backlog: 2048
-  post_worker_init: <function PostWorkerInit.post_worker_init at 0x7f371fcf4378>
-  proc_name: None
-  pythonpath: None
-  on_starting: <function OnStarting.on_starting at 0x7f371fce7ae8>
-  timeout: 30
-  preload_app: False
-  reload: False
+  on_reload: <function OnReload.on_reload at 0x7fe6262f7c80>
+  post_fork: <function Postfork.post_fork at 0x7fe6263041e0>
   umask: 0
-  tmp_upload_dir: None
-  ciphers: TLSv1
-  proxy_protocol: False
-  config: core/etc/gunicorn-wsgi.conf
-  post_fork: <function Postfork.post_fork at 0x7f371fcf41e0>
-  nworkers_changed: <function NumWorkersChanged.nworkers_changed at 0x7f371fcf4e18>
+  keyfile: None
+  certfile: None
+  worker_class: gthread
+  django_settings: None
+  proxy_allow_ips: ['127.0.0.1']
+  spew: False
+  threads: 4
+  accesslog: None
+  access_log_format: %(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s"
+  logger_class: gunicorn.glogging.Logger
+  syslog: False
+  syslog_prefix: None
   ssl_version: 3
-  workers: 1
-  bind: ['0.0.0.0:8000']
-  keepalive: 2
-  default_proc_name: wsgi:application
-  worker_exit: <function WorkerExit.worker_exit at 0x7f371fcf4c80>
-  user: 0
+  suppress_ragged_eofs: True
+  worker_exit: <function WorkerExit.worker_exit at 0x7fe626304c80>
+  limit_request_fields: 100
+  limit_request_field_size: 8190
+  pidfile: None
+  on_exit: <function OnExit.on_exit at 0x7fe626307048>
   errorlog: /home/projects/snw/core/etc/logs/gunicorn.log
+  config: core/etc/gunicorn-wsgi.conf
+  reload: False
+  forwarded_allow_ips: ['127.0.0.1']
+  do_handshake_on_connect: False
+  ciphers: TLSv1
+  check_config: False
+  group: 0
+  paste: None
+  proc_name: None
+  syslog_addr: udp://localhost:514
+  syslog_facility: user
+  enable_stdio_inheritance: False
+  bind: ['0.0.0.0:8000']
+  daemon: True
+  pythonpath: None
+  timeout: 30
+  capture_output: False
+  cert_reqs: 0
+  user: 0
+  workers: 1
+  statsd_prefix: 
+  worker_connections: 1000
+  keepalive: 2
+  raw_env: []
+  on_starting: <function OnStarting.on_starting at 0x7fe6262f7ae8>
+  when_ready: <function WhenReady.when_ready at 0x7fe6262f7e18>
+  pre_fork: <function Prefork.pre_fork at 0x7fe626304048>
+  post_worker_init: <function PostWorkerInit.post_worker_init at 0x7fe626304378>
+  worker_abort: <function WorkerAbort.worker_abort at 0x7fe6263046a8>
+  pre_exec: <function PreExec.pre_exec at 0x7fe626304840>
+  pre_request: <function PreRequest.pre_request at 0x7fe6263049d8>
+  post_request: <function PostRequest.post_request at 0x7fe626304ae8>
+  nworkers_changed: <function NumWorkersChanged.nworkers_changed at 0x7fe626304e18>
+  max_requests_jitter: 0
+  graceful_timeout: 30
+  preload_app: False
+  sendfile: None
+  limit_request_line: 4094
+  max_requests: 0
+  worker_tmp_dir: None
   logconfig: None
-[2017-03-19 14:41:30 +0300] [6283] [INFO] Starting gunicorn 19.6.0
-[2017-03-19 14:41:30 +0300] [6283] [DEBUG] Arbiter booted
-[2017-03-19 14:41:30 +0300] [6283] [INFO] Listening at: http://0.0.0.0:8000 (6283)
-[2017-03-19 14:41:30 +0300] [6283] [INFO] Using worker: gthread
-[2017-03-19 14:41:30 +0300] [6286] [INFO] Booting worker with pid: 6286
-[2017-03-19 14:41:30 +0300] [6283] [DEBUG] 1 workers
-[2017-03-19 14:41:31 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 14:41:34 +0300] [6286] [DEBUG] POST /edit
-[2017-03-19 14:41:40 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 14:41:55 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 14:41:55 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 14:41:57 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 14:42:32 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 14:42:33 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 14:42:41 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 14:43:33 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 14:43:36 +0300] [6286] [DEBUG] POST /edit
-[2017-03-19 14:43:38 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 14:43:39 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 14:43:42 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 14:43:46 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 14:43:47 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 14:43:53 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 14:43:54 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 14:43:55 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 14:43:55 +0300] [6286] [DEBUG] GET /
-[2017-03-19 14:43:56 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 14:44:05 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 14:44:06 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 14:44:07 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 14:44:07 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 14:44:08 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 14:44:11 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 14:44:11 +0300] [6286] [DEBUG] POST /logout
-[2017-03-19 14:44:11 +0300] [6286] [DEBUG] GET /
-[2017-03-19 14:44:11 +0300] [6286] [DEBUG] GET /login
-[2017-03-19 14:44:44 +0300] [6286] [DEBUG] GET /login
-[2017-03-19 14:45:05 +0300] [6286] [DEBUG] GET /login
-[2017-03-19 14:46:00 +0300] [6286] [DEBUG] GET /login
-[2017-03-19 14:46:01 +0300] [6286] [DEBUG] GET /signup
-[2017-03-19 14:46:57 +0300] [6286] [DEBUG] GET /signup
-[2017-03-19 14:47:20 +0300] [6286] [DEBUG] GET /signup
-[2017-03-19 14:47:29 +0300] [6286] [DEBUG] GET /signup
-[2017-03-19 14:47:40 +0300] [6286] [DEBUG] GET /signup
-[2017-03-19 14:50:47 +0300] [6286] [DEBUG] GET /signup
-[2017-03-19 14:50:56 +0300] [6286] [DEBUG] GET /signup
-[2017-03-19 14:51:25 +0300] [6286] [DEBUG] GET /signup
-[2017-03-19 14:51:41 +0300] [6286] [DEBUG] GET /signup
-[2017-03-19 14:51:42 +0300] [6286] [DEBUG] GET /login
-[2017-03-19 14:51:49 +0300] [6286] [DEBUG] GET /signup
-[2017-03-19 14:51:50 +0300] [6286] [DEBUG] GET /signup
-[2017-03-19 14:51:50 +0300] [6286] [DEBUG] GET /signup
-[2017-03-19 14:53:18 +0300] [6286] [DEBUG] GET /signup
-[2017-03-19 14:53:19 +0300] [6286] [DEBUG] GET /login
-[2017-03-19 14:54:34 +0300] [6286] [DEBUG] GET /login
-[2017-03-19 14:54:35 +0300] [6286] [DEBUG] GET /signup
-[2017-03-19 14:54:47 +0300] [6286] [DEBUG] GET /signup
-[2017-03-19 14:54:51 +0300] [6286] [DEBUG] GET /login
-[2017-03-19 14:54:55 +0300] [6286] [DEBUG] POST /login
-[2017-03-19 14:54:55 +0300] [6286] [DEBUG] GET /
-[2017-03-19 14:54:56 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 14:54:58 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 14:54:59 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 14:55:10 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 14:55:11 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 14:55:11 +0300] [6286] [DEBUG] POST /logout
-[2017-03-19 14:55:11 +0300] [6286] [DEBUG] GET /
-[2017-03-19 14:55:11 +0300] [6286] [DEBUG] GET /login
-[2017-03-19 14:55:15 +0300] [6286] [DEBUG] GET /login
-[2017-03-19 14:55:22 +0300] [6286] [DEBUG] GET /signup
-[2017-03-19 14:55:25 +0300] [6286] [DEBUG] GET /login
-[2017-03-19 14:55:34 +0300] [6286] [DEBUG] GET /signup
-[2017-03-19 14:55:43 +0300] [6286] [DEBUG] GET /signup
-[2017-03-19 14:55:44 +0300] [6286] [DEBUG] GET /
-[2017-03-19 14:55:44 +0300] [6286] [DEBUG] GET /login
-[2017-03-19 14:55:52 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 14:56:27 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 14:56:28 +0300] [6286] [DEBUG] GET /
-[2017-03-19 14:56:28 +0300] [6286] [DEBUG] GET /login
-[2017-03-19 14:56:31 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 14:56:39 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 14:56:42 +0300] [6286] [DEBUG] GET /
-[2017-03-19 14:56:42 +0300] [6286] [DEBUG] GET /login
-[2017-03-19 14:56:44 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 14:57:21 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 14:58:39 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 14:59:02 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 14:59:05 +0300] [6286] [DEBUG] GET /
-[2017-03-19 14:59:05 +0300] [6286] [DEBUG] GET /login
-[2017-03-19 14:59:09 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 14:59:15 +0300] [6286] [DEBUG] GET /
-[2017-03-19 14:59:15 +0300] [6286] [DEBUG] GET /login
-[2017-03-19 14:59:18 +0300] [6286] [DEBUG] GET /
-[2017-03-19 14:59:18 +0300] [6286] [DEBUG] GET /login
-[2017-03-19 14:59:39 +0300] [6286] [DEBUG] GET /login
-[2017-03-19 14:59:40 +0300] [6286] [DEBUG] GET /
-[2017-03-19 14:59:40 +0300] [6286] [DEBUG] GET /login
-[2017-03-19 14:59:42 +0300] [6286] [DEBUG] GET /
-[2017-03-19 14:59:42 +0300] [6286] [DEBUG] GET /login
-[2017-03-19 14:59:42 +0300] [6286] [DEBUG] GET /signup
-[2017-03-19 14:59:47 +0300] [6286] [DEBUG] GET /login
-[2017-03-19 14:59:50 +0300] [6286] [DEBUG] POST /login
-[2017-03-19 14:59:50 +0300] [6286] [DEBUG] GET /
-[2017-03-19 14:59:51 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 14:59:52 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 14:59:55 +0300] [6286] [DEBUG] POST /logout
-[2017-03-19 14:59:55 +0300] [6286] [DEBUG] GET /
-[2017-03-19 14:59:55 +0300] [6286] [DEBUG] GET /login
-[2017-03-19 14:59:56 +0300] [6286] [DEBUG] GET /
-[2017-03-19 14:59:56 +0300] [6286] [DEBUG] GET /login
-[2017-03-19 15:00:00 +0300] [6286] [DEBUG] POST /login
-[2017-03-19 15:00:00 +0300] [6286] [DEBUG] GET /
-[2017-03-19 15:00:00 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:02:26 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:02:28 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:02:29 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 15:02:30 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:02:30 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 15:02:31 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:02:32 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 15:02:33 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:02:34 +0300] [6286] [DEBUG] GET /
-[2017-03-19 15:02:34 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:02:35 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 15:02:37 +0300] [6286] [DEBUG] POST /edit
-[2017-03-19 15:02:39 +0300] [6286] [DEBUG] POST /edit
-[2017-03-19 15:02:40 +0300] [6286] [DEBUG] POST /edit
-[2017-03-19 15:02:47 +0300] [6286] [DEBUG] POST /edit
-[2017-03-19 15:02:55 +0300] [6286] [DEBUG] POST /edit
-[2017-03-19 15:02:56 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 15:03:01 +0300] [6286] [DEBUG] POST /edit
-[2017-03-19 15:03:05 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:03:07 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:03:08 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:03:08 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:03:09 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 15:03:10 +0300] [6286] [DEBUG] POST /logout
-[2017-03-19 15:03:10 +0300] [6286] [DEBUG] GET /
-[2017-03-19 15:03:10 +0300] [6286] [DEBUG] GET /login
-[2017-03-19 15:03:14 +0300] [6286] [DEBUG] POST /login
-[2017-03-19 15:03:14 +0300] [6286] [DEBUG] GET /
-[2017-03-19 15:03:14 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:03:15 +0300] [6286] [DEBUG] POST /logout
-[2017-03-19 15:03:15 +0300] [6286] [DEBUG] GET /
-[2017-03-19 15:03:15 +0300] [6286] [DEBUG] GET /login
-[2017-03-19 15:04:01 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:04:03 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:04:05 +0300] [6286] [DEBUG] GET /
-[2017-03-19 15:04:05 +0300] [6286] [DEBUG] GET /login
-[2017-03-19 15:04:06 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:04:07 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:04:08 +0300] [6286] [DEBUG] GET /
-[2017-03-19 15:04:08 +0300] [6286] [DEBUG] GET /login
-[2017-03-19 15:04:11 +0300] [6286] [DEBUG] POST /login
-[2017-03-19 15:04:11 +0300] [6286] [DEBUG] GET /
-[2017-03-19 15:04:12 +0300] [6286] [DEBUG] GET /
-[2017-03-19 15:04:13 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:04:14 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:04:15 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 15:04:25 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 15:04:25 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 15:04:26 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 15:04:28 +0300] [6286] [DEBUG] POST /edit
-[2017-03-19 15:04:30 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 15:04:31 +0300] [6286] [DEBUG] POST /edit
-[2017-03-19 15:04:31 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 15:04:35 +0300] [6286] [DEBUG] POST /edit
-[2017-03-19 15:04:39 +0300] [6286] [DEBUG] POST /edit
-[2017-03-19 15:04:43 +0300] [6286] [DEBUG] POST /edit
-[2017-03-19 15:04:44 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:05:19 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:05:23 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 15:05:25 +0300] [6286] [DEBUG] POST /edit
-[2017-03-19 15:05:29 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:05:46 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:06:04 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:06:19 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:06:57 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:06:58 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:06:59 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 15:07:23 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 15:07:29 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 15:07:34 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 15:07:37 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:07:38 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 15:07:48 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:07:49 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 15:07:51 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 15:07:52 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:07:55 +0300] [6286] [DEBUG] GET /
-[2017-03-19 15:08:00 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:08:00 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 15:08:01 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:08:01 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 15:08:02 +0300] [6286] [DEBUG] POST /logout
-[2017-03-19 15:08:02 +0300] [6286] [DEBUG] GET /
-[2017-03-19 15:08:02 +0300] [6286] [DEBUG] GET /login
-[2017-03-19 15:08:36 +0300] [6286] [DEBUG] GET /login
-[2017-03-19 15:08:40 +0300] [6286] [DEBUG] GET /signup
-[2017-03-19 15:08:52 +0300] [6286] [DEBUG] POST /signup
-[2017-03-19 15:08:52 +0300] [6286] [DEBUG] GET /login
-[2017-03-19 15:11:06 +0300] [6286] [DEBUG] POST /login
-[2017-03-19 15:11:06 +0300] [6286] [DEBUG] GET /login
-[2017-03-19 15:11:12 +0300] [6286] [DEBUG] POST /login
-[2017-03-19 15:11:12 +0300] [6286] [DEBUG] GET /
-[2017-03-19 15:11:13 +0300] [6286] [DEBUG] GET /id2
-[2017-03-19 15:11:35 +0300] [6286] [DEBUG] GET /login
-[2017-03-19 15:11:35 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:11:37 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:11:38 +0300] [6286] [DEBUG] GET /id2
-[2017-03-19 15:12:35 +0300] [6286] [DEBUG] GET /id2
-[2017-03-19 15:12:36 +0300] [6286] [DEBUG] GET /id2
-[2017-03-19 15:12:44 +0300] [6286] [DEBUG] GET /id2
-[2017-03-19 15:12:55 +0300] [6286] [DEBUG] GET /id2
-[2017-03-19 15:13:53 +0300] [6286] [DEBUG] GET /id2
-[2017-03-19 15:14:00 +0300] [6286] [DEBUG] GET /id2
-[2017-03-19 15:14:02 +0300] [6286] [DEBUG] GET /
-[2017-03-19 15:14:03 +0300] [6286] [DEBUG] GET /id2
-[2017-03-19 15:14:10 +0300] [6286] [DEBUG] GET /id2
-[2017-03-19 15:14:12 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 15:14:33 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 15:14:35 +0300] [6286] [DEBUG] GET /id2
-[2017-03-19 15:14:36 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 15:18:56 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 15:19:02 +0300] [6286] [DEBUG] GET /id2
-[2017-03-19 15:19:08 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:19:11 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:21:13 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:21:14 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:21:15 +0300] [6286] [DEBUG] GET /id2
-[2017-03-19 15:23:27 +0300] [6286] [DEBUG] GET /id2
-[2017-03-19 15:23:36 +0300] [6286] [DEBUG] GET /id2
-[2017-03-19 15:23:42 +0300] [6286] [DEBUG] GET /id2
-[2017-03-19 15:25:08 +0300] [6286] [DEBUG] GET /id2
-[2017-03-19 15:27:39 +0300] [6286] [DEBUG] GET /id2
-[2017-03-19 15:27:53 +0300] [6286] [DEBUG] GET /id2
-[2017-03-19 15:29:45 +0300] [6286] [DEBUG] GET /id2
-[2017-03-19 15:30:02 +0300] [6286] [DEBUG] GET /id2
-[2017-03-19 15:30:56 +0300] [6286] [DEBUG] GET /id2
-[2017-03-19 15:32:16 +0300] [6286] [DEBUG] GET /id2
-[2017-03-19 15:32:22 +0300] [6286] [DEBUG] GET /id2
-[2017-03-19 15:32:55 +0300] [6286] [DEBUG] GET /id2
-[2017-03-19 15:33:36 +0300] [6286] [DEBUG] GET /id2
-[2017-03-19 15:33:38 +0300] [6286] [DEBUG] GET /id2
-[2017-03-19 15:33:41 +0300] [6286] [DEBUG] GET /id2
-[2017-03-19 15:33:47 +0300] [6286] [DEBUG] GET /id2
-[2017-03-19 15:33:48 +0300] [6286] [DEBUG] GET /id2
-[2017-03-19 15:33:50 +0300] [6286] [DEBUG] GET /id1
-[2017-03-19 15:34:04 +0300] [6286] [DEBUG] GET /id1
-[2017-03-19 15:34:06 +0300] [6286] [DEBUG] GET /id2
-[2017-03-19 15:37:01 +0300] [6286] [DEBUG] GET /id2
-[2017-03-19 15:37:12 +0300] [6286] [DEBUG] GET /id2
-[2017-03-19 15:37:15 +0300] [6286] [DEBUG] GET /
-[2017-03-19 15:37:17 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:37:22 +0300] [6286] [DEBUG] GET /id1
-[2017-03-19 15:37:27 +0300] [6286] [DEBUG] GET /id2
-[2017-03-19 15:37:30 +0300] [6286] [DEBUG] GET /id1
-[2017-03-19 15:37:34 +0300] [6286] [DEBUG] GET /id2
-[2017-03-19 15:37:35 +0300] [6286] [DEBUG] GET /
-[2017-03-19 15:37:36 +0300] [6286] [DEBUG] GET /id2
-[2017-03-19 15:37:36 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 15:37:51 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 15:40:34 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 15:41:05 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 15:41:35 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 15:41:38 +0300] [6286] [DEBUG] GET /id2
-[2017-03-19 15:41:38 +0300] [6286] [DEBUG] POST /logout
-[2017-03-19 15:41:38 +0300] [6286] [DEBUG] GET /
-[2017-03-19 15:41:38 +0300] [6286] [DEBUG] GET /login
-[2017-03-19 15:41:41 +0300] [6286] [DEBUG] POST /login
-[2017-03-19 15:41:41 +0300] [6286] [DEBUG] GET /
-[2017-03-19 15:41:42 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:41:42 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 15:41:44 +0300] [6286] [DEBUG] POST /logout
-[2017-03-19 15:41:44 +0300] [6286] [DEBUG] GET /
-[2017-03-19 15:41:44 +0300] [6286] [DEBUG] GET /login
-[2017-03-19 15:42:34 +0300] [6286] [DEBUG] GET /login
-[2017-03-19 15:42:37 +0300] [6286] [DEBUG] POST /login
-[2017-03-19 15:42:37 +0300] [6286] [DEBUG] GET /
-[2017-03-19 15:42:38 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:42:39 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 15:42:46 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 15:42:48 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:42:49 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 15:42:49 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:42:51 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 15:42:57 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:42:58 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 15:43:03 +0300] [6286] [DEBUG] GET /
-[2017-03-19 15:43:04 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:43:04 +0300] [6286] [DEBUG] GET /
-[2017-03-19 15:43:06 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:43:06 +0300] [6286] [DEBUG] GET /
-[2017-03-19 15:43:10 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:43:11 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 15:43:13 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:43:13 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 15:43:14 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:43:18 +0300] [6286] [DEBUG] POST /logout
-[2017-03-19 15:43:18 +0300] [6286] [DEBUG] GET /
-[2017-03-19 15:43:18 +0300] [6286] [DEBUG] GET /login
-[2017-03-19 15:43:21 +0300] [6286] [DEBUG] POST /login
-[2017-03-19 15:43:21 +0300] [6286] [DEBUG] GET /
-[2017-03-19 15:43:21 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:43:22 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 15:44:31 +0300] [6286] [DEBUG] GET /edit
-[2017-03-19 15:44:33 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:44:34 +0300] [6286] [DEBUG] GET /meose
-[2017-03-19 15:44:35 +0300] [6286] [DEBUG] GET /edit
+  backlog: 2048
+  default_proc_name: wsgi:application
+  ca_certs: None
+  worker_int: <function WorkerInt.worker_int at 0x7fe626304510>
+  chdir: /home/projects/snw
+  tmp_upload_dir: None
+  secure_scheme_headers: {'X-FORWARDED-PROTOCOL': 'ssl', 'X-FORWARDED-PROTO': 'https', 'X-FORWARDED-SSL': 'on'}
+  proxy_protocol: False
+[2017-03-19 19:24:26 +0300] [5682] [INFO] Starting gunicorn 19.6.0
+[2017-03-19 19:24:26 +0300] [5682] [DEBUG] Arbiter booted
+[2017-03-19 19:24:26 +0300] [5682] [INFO] Listening at: http://0.0.0.0:8000 (5682)
+[2017-03-19 19:24:26 +0300] [5682] [INFO] Using worker: gthread
+[2017-03-19 19:24:26 +0300] [5685] [INFO] Booting worker with pid: 5685
+[2017-03-19 19:24:26 +0300] [5682] [DEBUG] 1 workers
+[2017-03-19 19:24:27 +0300] [5685] [DEBUG] GET /edit
+[2017-03-19 19:24:29 +0300] [5685] [DEBUG] POST /edit
+[2017-03-19 19:24:31 +0300] [5685] [DEBUG] GET /id2
+[2017-03-19 19:24:32 +0300] [5685] [DEBUG] GET /edit
+[2017-03-19 19:24:34 +0300] [5685] [DEBUG] GET /id2
+[2017-03-19 19:24:36 +0300] [5685] [DEBUG] GET /id2
+[2017-03-19 19:24:36 +0300] [5685] [DEBUG] GET /edit
+[2017-03-19 19:24:36 +0300] [5685] [DEBUG] POST /logout
+[2017-03-19 19:24:36 +0300] [5685] [DEBUG] GET /
+[2017-03-19 19:24:36 +0300] [5685] [DEBUG] GET /login
+[2017-03-19 19:24:39 +0300] [5685] [DEBUG] POST /login
+[2017-03-19 19:24:39 +0300] [5685] [DEBUG] GET /
+[2017-03-19 19:24:40 +0300] [5685] [DEBUG] GET /meose
+[2017-03-19 19:24:41 +0300] [5685] [DEBUG] GET /edit
+[2017-03-19 19:24:41 +0300] [5685] [DEBUG] GET /meose
+[2017-03-19 19:24:42 +0300] [5685] [DEBUG] GET /edit
+[2017-03-19 19:24:44 +0300] [5685] [DEBUG] GET /meose
+[2017-03-19 19:24:45 +0300] [5685] [DEBUG] GET /edit
+[2017-03-19 19:25:08 +0300] [5685] [DEBUG] GET /edit
+[2017-03-19 19:25:09 +0300] [5685] [DEBUG] GET /meose
+[2017-03-19 19:25:27 +0300] [5685] [DEBUG] GET /meose
+[2017-03-19 19:25:31 +0300] [5685] [DEBUG] GET /meose
+[2017-03-19 19:25:32 +0300] [5685] [DEBUG] GET /meose
+[2017-03-19 19:25:35 +0300] [5685] [DEBUG] GET /edit
+[2017-03-19 19:25:36 +0300] [5685] [DEBUG] GET /
+[2017-03-19 19:25:37 +0300] [5685] [DEBUG] GET /meose
+[2017-03-19 19:25:37 +0300] [5685] [DEBUG] GET /edit
+[2017-03-19 19:25:42 +0300] [5685] [DEBUG] POST /edit
+[2017-03-19 19:25:54 +0300] [5685] [DEBUG] GET /edit
+[2017-03-19 19:25:56 +0300] [5685] [DEBUG] POST /edit
+[2017-03-19 19:26:01 +0300] [5685] [DEBUG] POST /edit
+[2017-03-19 19:26:26 +0300] [5685] [DEBUG] GET /edit
+[2017-03-19 19:26:27 +0300] [5685] [DEBUG] GET /meose
+[2017-03-19 19:26:28 +0300] [5685] [DEBUG] GET /edit
+[2017-03-19 19:26:32 +0300] [5685] [DEBUG] GET /meose
+[2017-03-19 19:26:34 +0300] [5685] [DEBUG] GET /id1
+[2017-03-19 19:26:34 +0300] [5685] [DEBUG] GET /id2
+[2017-03-19 19:26:41 +0300] [5685] [DEBUG] GET /meose
+[2017-03-19 19:26:46 +0300] [5685] [DEBUG] GET /meose
+[2017-03-19 19:26:46 +0300] [5685] [DEBUG] GET /meose
+[2017-03-19 19:26:47 +0300] [5685] [DEBUG] GET /meose
+[2017-03-19 19:26:50 +0300] [5685] [DEBUG] GET /meose
+[2017-03-19 19:26:50 +0300] [5685] [DEBUG] GET /meose
