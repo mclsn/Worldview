@@ -21,13 +21,17 @@ def csrf_protected(f):
 
 class edit:
 
-	_valid = ['first_name', 'last_name', 'user_name']
+	_valid 	= ['first_name', 'last_name', 'user_name']
+	_months = ['January', 'February', 'March', 'April', 
+			'May', 'June', 'July', 'August', 'September', 
+			'October', 'November','December']
 
 	def GET(self):
 		Utils = libs.utils.utils()
 		session = web.config._session
 		user_information = libs.models.Users().getUser(session.user_id)
 		if(user_information):
+			user_information['months'] = self._months
 			if('user_birthday' in user_information):
 				birth = user_information['user_birthday'].split('-')
 				user_information['user_birth_year'], user_information['user_birth_month'], user_information['user_birth_day'] = int(birth[0]), int(birth[1]), int(birth[2])

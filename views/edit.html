@@ -35,8 +35,8 @@
 				<select class="FormDefault FormDefaultShort" id="user_birth_day">
 					{% for n in range(1,31) %}<option {% if n == response.user_birth_day|default(1) %} selected {% endif %} id="{{n}}" value="{{n}}">{{ n }}</option>{% endfor %}
 				</select>
-				<select class="FormDefault FormDefaultShort" id="user_birth_month">
-					{% for n in range(1,13) %}<option {% if n == response.user_birth_month|default(1) %} selected {% endif %} id="{{n}}" value="{{n}}">{{ n }}</option>{% endfor %}
+				<select class="FormDefault FormDefaultMiddle" id="user_birth_month">
+					{% for n in range(1,13) %}<option {% if n == response.user_birth_month|default(1) %} selected {% endif %} id="{{n}}" value="{{n}}">{{ response.months[n-1] }}</option>{% endfor %}
 				</select>
 				<select class="FormDefault FormDefaultShort" id="user_birth_year">
 					{% for n in range(1901,2017) %}<option {% if n == response.user_birth_year|default(1970) %} selected {% endif %} id="{{n}}" value="{{n}}">{{ n }}</option>{% endfor %}

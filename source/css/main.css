@@ -279,7 +279,7 @@ label.FormExplain{
     text-align: center;
 }
 .FormDefaultMiddle{
-    width: 140px;
+    width: 100px;
     text-align: center;
 }
 .FormDefault:focus{

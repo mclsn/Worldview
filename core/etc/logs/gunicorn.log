@@ -1,124 +1,106 @@
-[2017-03-19 19:24:26 +0300] [5682] [DEBUG] Current configuration:
-  loglevel: debug
-  statsd_host: None
-  on_reload: <function OnReload.on_reload at 0x7fe6262f7c80>
-  post_fork: <function Postfork.post_fork at 0x7fe6263041e0>
-  umask: 0
-  keyfile: None
+[2017-03-19 19:38:08 +0300] [6175] [DEBUG] Current configuration:
+  user: 0
   certfile: None
-  worker_class: gthread
-  django_settings: None
-  proxy_allow_ips: ['127.0.0.1']
-  spew: False
-  threads: 4
+  cert_reqs: 0
+  syslog_addr: udp://localhost:514
+  workers: 1
+  umask: 0
+  secure_scheme_headers: {'X-FORWARDED-SSL': 'on', 'X-FORWARDED-PROTOCOL': 'ssl', 'X-FORWARDED-PROTO': 'https'}
+  check_config: False
   accesslog: None
-  access_log_format: %(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s"
+  errorlog: /home/projects/snw/core/etc/logs/gunicorn.log
+  on_starting: <function OnStarting.on_starting at 0x7f7fe0d94ae8>
+  on_reload: <function OnReload.on_reload at 0x7f7fe0d94c80>
+  post_worker_init: <function PostWorkerInit.post_worker_init at 0x7f7fe0da1378>
+  bind: ['0.0.0.0:8000']
   logger_class: gunicorn.glogging.Logger
+  threads: 4
+  raw_env: []
+  limit_request_line: 4094
+  pythonpath: None
+  keyfile: None
+  backlog: 2048
+  access_log_format: %(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s"
   syslog: False
   syslog_prefix: None
-  ssl_version: 3
-  suppress_ragged_eofs: True
-  worker_exit: <function WorkerExit.worker_exit at 0x7fe626304c80>
-  limit_request_fields: 100
-  limit_request_field_size: 8190
-  pidfile: None
-  on_exit: <function OnExit.on_exit at 0x7fe626307048>
-  errorlog: /home/projects/snw/core/etc/logs/gunicorn.log
-  config: core/etc/gunicorn-wsgi.conf
-  reload: False
-  forwarded_allow_ips: ['127.0.0.1']
-  do_handshake_on_connect: False
-  ciphers: TLSv1
-  check_config: False
-  group: 0
-  paste: None
+  max_requests_jitter: 0
+  worker_tmp_dir: None
+  proxy_protocol: False
+  proxy_allow_ips: ['127.0.0.1']
+  when_ready: <function WhenReady.when_ready at 0x7f7fe0d94e18>
   proc_name: None
-  syslog_addr: udp://localhost:514
-  syslog_facility: user
-  enable_stdio_inheritance: False
-  bind: ['0.0.0.0:8000']
-  daemon: True
-  pythonpath: None
+  post_request: <function PostRequest.post_request at 0x7f7fe0da1ae8>
   timeout: 30
-  capture_output: False
-  cert_reqs: 0
-  user: 0
-  workers: 1
+  reload: False
+  enable_stdio_inheritance: False
+  statsd_host: None
+  spew: False
   statsd_prefix: 
   worker_connections: 1000
-  keepalive: 2
-  raw_env: []
-  on_starting: <function OnStarting.on_starting at 0x7fe6262f7ae8>
-  when_ready: <function WhenReady.when_ready at 0x7fe6262f7e18>
-  pre_fork: <function Prefork.pre_fork at 0x7fe626304048>
-  post_worker_init: <function PostWorkerInit.post_worker_init at 0x7fe626304378>
-  worker_abort: <function WorkerAbort.worker_abort at 0x7fe6263046a8>
-  pre_exec: <function PreExec.pre_exec at 0x7fe626304840>
-  pre_request: <function PreRequest.pre_request at 0x7fe6263049d8>
-  post_request: <function PostRequest.post_request at 0x7fe626304ae8>
-  nworkers_changed: <function NumWorkersChanged.nworkers_changed at 0x7fe626304e18>
-  max_requests_jitter: 0
-  graceful_timeout: 30
-  preload_app: False
-  sendfile: None
-  limit_request_line: 4094
-  max_requests: 0
-  worker_tmp_dir: None
-  logconfig: None
-  backlog: 2048
-  default_proc_name: wsgi:application
+  post_fork: <function Postfork.post_fork at 0x7f7fe0da11e0>
+  group: 0
+  forwarded_allow_ips: ['127.0.0.1']
   ca_certs: None
-  worker_int: <function WorkerInt.worker_int at 0x7fe626304510>
+  pre_fork: <function Prefork.pre_fork at 0x7f7fe0da1048>
+  suppress_ragged_eofs: True
+  worker_exit: <function WorkerExit.worker_exit at 0x7f7fe0da1c80>
+  worker_class: gthread
+  loglevel: debug
+  capture_output: False
+  do_handshake_on_connect: False
+  logconfig: None
+  sendfile: None
+  default_proc_name: wsgi:application
+  django_settings: None
+  config: core/etc/gunicorn-wsgi.conf
+  daemon: True
+  pre_exec: <function PreExec.pre_exec at 0x7f7fe0da1840>
+  on_exit: <function OnExit.on_exit at 0x7f7fe0da4048>
+  syslog_facility: user
+  preload_app: False
   chdir: /home/projects/snw
+  worker_abort: <function WorkerAbort.worker_abort at 0x7f7fe0da16a8>
+  ciphers: TLSv1
+  pidfile: None
   tmp_upload_dir: None
-  secure_scheme_headers: {'X-FORWARDED-PROTOCOL': 'ssl', 'X-FORWARDED-PROTO': 'https', 'X-FORWARDED-SSL': 'on'}
-  proxy_protocol: False
-[2017-03-19 19:24:26 +0300] [5682] [INFO] Starting gunicorn 19.6.0
-[2017-03-19 19:24:26 +0300] [5682] [DEBUG] Arbiter booted
-[2017-03-19 19:24:26 +0300] [5682] [INFO] Listening at: http://0.0.0.0:8000 (5682)
-[2017-03-19 19:24:26 +0300] [5682] [INFO] Using worker: gthread
-[2017-03-19 19:24:26 +0300] [5685] [INFO] Booting worker with pid: 5685
-[2017-03-19 19:24:26 +0300] [5682] [DEBUG] 1 workers
-[2017-03-19 19:24:27 +0300] [5685] [DEBUG] GET /edit
-[2017-03-19 19:24:29 +0300] [5685] [DEBUG] POST /edit
-[2017-03-19 19:24:31 +0300] [5685] [DEBUG] GET /id2
-[2017-03-19 19:24:32 +0300] [5685] [DEBUG] GET /edit
-[2017-03-19 19:24:34 +0300] [5685] [DEBUG] GET /id2
-[2017-03-19 19:24:36 +0300] [5685] [DEBUG] GET /id2
-[2017-03-19 19:24:36 +0300] [5685] [DEBUG] GET /edit
-[2017-03-19 19:24:36 +0300] [5685] [DEBUG] POST /logout
-[2017-03-19 19:24:36 +0300] [5685] [DEBUG] GET /
-[2017-03-19 19:24:36 +0300] [5685] [DEBUG] GET /login
-[2017-03-19 19:24:39 +0300] [5685] [DEBUG] POST /login
-[2017-03-19 19:24:39 +0300] [5685] [DEBUG] GET /
-[2017-03-19 19:24:40 +0300] [5685] [DEBUG] GET /meose
-[2017-03-19 19:24:41 +0300] [5685] [DEBUG] GET /edit
-[2017-03-19 19:24:41 +0300] [5685] [DEBUG] GET /meose
-[2017-03-19 19:24:42 +0300] [5685] [DEBUG] GET /edit
-[2017-03-19 19:24:44 +0300] [5685] [DEBUG] GET /meose
-[2017-03-19 19:24:45 +0300] [5685] [DEBUG] GET /edit
-[2017-03-19 19:25:08 +0300] [5685] [DEBUG] GET /edit
-[2017-03-19 19:25:09 +0300] [5685] [DEBUG] GET /meose
-[2017-03-19 19:25:27 +0300] [5685] [DEBUG] GET /meose
-[2017-03-19 19:25:31 +0300] [5685] [DEBUG] GET /meose
-[2017-03-19 19:25:32 +0300] [5685] [DEBUG] GET /meose
-[2017-03-19 19:25:35 +0300] [5685] [DEBUG] GET /edit
-[2017-03-19 19:25:36 +0300] [5685] [DEBUG] GET /
-[2017-03-19 19:25:37 +0300] [5685] [DEBUG] GET /meose
-[2017-03-19 19:25:37 +0300] [5685] [DEBUG] GET /edit
-[2017-03-19 19:25:42 +0300] [5685] [DEBUG] POST /edit
-[2017-03-19 19:25:54 +0300] [5685] [DEBUG] GET /edit
-[2017-03-19 19:25:56 +0300] [5685] [DEBUG] POST /edit
-[2017-03-19 19:26:01 +0300] [5685] [DEBUG] POST /edit
-[2017-03-19 19:26:26 +0300] [5685] [DEBUG] GET /edit
-[2017-03-19 19:26:27 +0300] [5685] [DEBUG] GET /meose
-[2017-03-19 19:26:28 +0300] [5685] [DEBUG] GET /edit
-[2017-03-19 19:26:32 +0300] [5685] [DEBUG] GET /meose
-[2017-03-19 19:26:34 +0300] [5685] [DEBUG] GET /id1
-[2017-03-19 19:26:34 +0300] [5685] [DEBUG] GET /id2
-[2017-03-19 19:26:41 +0300] [5685] [DEBUG] GET /meose
-[2017-03-19 19:26:46 +0300] [5685] [DEBUG] GET /meose
-[2017-03-19 19:26:46 +0300] [5685] [DEBUG] GET /meose
-[2017-03-19 19:26:47 +0300] [5685] [DEBUG] GET /meose
-[2017-03-19 19:26:50 +0300] [5685] [DEBUG] GET /meose
-[2017-03-19 19:26:50 +0300] [5685] [DEBUG] GET /meose
+  paste: None
+  max_requests: 0
+  keepalive: 2
+  nworkers_changed: <function NumWorkersChanged.nworkers_changed at 0x7f7fe0da1e18>
+  graceful_timeout: 30
+  limit_request_fields: 100
+  limit_request_field_size: 8190
+  worker_int: <function WorkerInt.worker_int at 0x7f7fe0da1510>
+  ssl_version: 3
+  pre_request: <function PreRequest.pre_request at 0x7f7fe0da19d8>
+[2017-03-19 19:38:08 +0300] [6175] [INFO] Starting gunicorn 19.6.0
+[2017-03-19 19:38:08 +0300] [6175] [DEBUG] Arbiter booted
+[2017-03-19 19:38:08 +0300] [6175] [INFO] Listening at: http://0.0.0.0:8000 (6175)
+[2017-03-19 19:38:08 +0300] [6175] [INFO] Using worker: gthread
+[2017-03-19 19:38:08 +0300] [6178] [INFO] Booting worker with pid: 6178
+[2017-03-19 19:38:08 +0300] [6175] [DEBUG] 1 workers
+[2017-03-19 19:38:09 +0300] [6178] [DEBUG] GET /edit
+[2017-03-19 19:38:13 +0300] [6178] [DEBUG] POST /edit
+[2017-03-19 19:38:14 +0300] [6178] [DEBUG] GET /edit
+[2017-03-19 19:38:15 +0300] [6178] [DEBUG] GET /edit
+[2017-03-19 19:38:16 +0300] [6178] [DEBUG] GET /edit
+[2017-03-19 19:38:36 +0300] [6178] [DEBUG] GET /edit
+[2017-03-19 19:39:42 +0300] [6178] [DEBUG] GET /meose
+[2017-03-19 19:39:43 +0300] [6178] [DEBUG] GET /meose
+[2017-03-19 19:39:44 +0300] [6178] [DEBUG] GET /edit
+[2017-03-19 19:39:45 +0300] [6178] [DEBUG] GET /edit
+[2017-03-19 19:39:49 +0300] [6178] [DEBUG] POST /edit
+[2017-03-19 19:39:53 +0300] [6178] [DEBUG] POST /edit
+[2017-03-19 19:39:55 +0300] [6178] [DEBUG] POST /edit
+[2017-03-19 19:39:56 +0300] [6178] [DEBUG] GET /meose
+[2017-03-19 19:39:58 +0300] [6178] [DEBUG] GET /edit
+[2017-03-19 19:40:01 +0300] [6178] [DEBUG] POST /edit
+[2017-03-19 19:40:03 +0300] [6178] [DEBUG] GET /meose
+[2017-03-19 19:40:04 +0300] [6178] [DEBUG] GET /edit
+[2017-03-19 19:40:55 +0300] [6178] [DEBUG] GET /edit
+[2017-03-19 19:40:58 +0300] [6178] [DEBUG] GET /meose
+[2017-03-19 19:41:49 +0300] [6178] [DEBUG] GET /meose
+[2017-03-19 19:41:50 +0300] [6178] [DEBUG] GET /edit
+[2017-03-19 19:41:53 +0300] [6178] [DEBUG] GET /meose
+[2017-03-19 19:41:55 +0300] [6178] [DEBUG] GET /
+[2017-03-19 19:41:56 +0300] [6178] [DEBUG] GET /meose
