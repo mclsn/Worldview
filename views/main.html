@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="/css/edit.css">
 </head>
 <body>
-	{% block errorPage %}
+	{%- block errorPage %}
 	<div id="main_progressBar"></div>
 	<div id="main_scrollFix">
 		<div id="main_header">
@@ -17,41 +17,44 @@
 					<a href="/" class="headerRef">
 						<span class="headerRef">Worldview</span>
 					</a>
+					<a href="/around" class="headerRef">
+						<span class="headerRef">Around</span>
+					</a>
 				</div>
-				{% if (session.user_id != 0) %}
+				{%- if (session.user_id != 0) %}
 				<div id="headersHrefRight">
 					<a href="/edit" class="headerRef">
 						<span class="headerRef">Edit</span>
 					</a>
-					<a onclick="Profile.Logout(event, this);" href="/logout?csrf={{csrf}}" class="headerRef" id="head_LogoutLink">
+					<a hash={{ csrf }} onclick="Profile.Logout(event, this);" href="/logout" class="headerRef" id="head_LogoutLink">
 						<span class="headerRef">Log out</span>
 					</a>					
 				</div>
 				<div id="headersHrefRight">
-					{% if session.user_name %}
+					{%- if session.user_name %}
 					<a href="/{{ session.user_name }}" class="headerRef">
-					{% else %}
+					{%- else -%}
 					<a href="/id{{ session.user_id }}" class="headerRef">
-					{% endif %}
-							{% if session.user_avatar %}
+					{% endif -%}
+							{%- if session.user_avatar %}
 								<img id="headerAvatar" src="/usr/av/{{ session.user_avatar }}.jpg">
-							{% else %}
+							{% else -%}
 								<img id="headerAvatar" src="/img/sys/noavatar.png">
-							{% endif %}
+							{% endif -%}
 						<span class="headerRef" id="headerName">{{ session.first_name }} {{ session.last_name }}</span>
 					</a>						
 				</div>
-				{% endif %}
+				{% endif -%}
 			</div>
 		</div>
 		<div id="main_content">
 				<div id="page">
-					{% block page %}
+					{%- block page %}
 
-					{% endblock %}
+					{% endblock -%}
 				</div>
 		</div>
-		{% endblock errorPage %}
+		{% endblock errorPage -%}
 	</div>
 	<script src="/js/core.js"></script>
 	<script src="/js/handler.js"></script>

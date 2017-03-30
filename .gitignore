@@ -1,2 +1,5 @@
 __pycache__
 usr
+output.log
+node_modules
+core

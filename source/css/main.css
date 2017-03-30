@@ -621,3 +621,33 @@ div#editPage_fieldAvatar > div > * > img{
     border: none;
     border-radius: 100%;
 }
+
+
+
+div#around_main{
+    margin-top: 62px;
+    z-index: 2;
+    padding: 0px 20px;
+    overflow: hidden;
+    position: relative;
+}
+div#around_mainUser{
+    padding: 20px;
+    position: relative;
+    margin: 10px 0;
+    height: 60px;
+    -webkit-box-shadow: 0 0px 10px rgba(97,127,152,.2), 0px 0 0 rgba(97,127,152,.1), 0px 0 0 rgba(97,127,152,.1);
+    -moz-box-shadow: 0 0px 10px rgba(97,127,152,.2), 0px 0 0 rgba(97,127,152,.1), 0px 0 0 rgba(97,127,152,.1);
+    box-shadow: 0 0px 10px rgba(97,127,152,.2), 0px 0 0 rgba(97,127,152,.1), 0px 0 0 rgba(97,127,152,.1);
+}
+img#around_mainUserImg{
+    float: left;
+    max-width: 60px;
+    border-radius: 100%;
+}
+div#around_mainUserName{
+    float: left;
+    font-size: 28px;
+    max-width: 800px;
+    padding: 13px 20px;
+}

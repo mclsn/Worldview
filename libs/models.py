@@ -21,6 +21,13 @@ class Users:
 	driver = GraphDatabase.driver("bolt://localhost:7687", auth=basic_auth("neo4j", "Mun152339"))
 	session = driver.session()
 
+	def getAll(self):
+		_return = []
+		result = self.session.run("MATCH (a:Person) RETURN a ORDER BY a.user_id")
+		for i in result:
+			_return.append(i)	
+		return _return
+
 	def insertOnce(self, userId, dataPart):
 		self.session.run("CREATE (a:Person {first_name: {first_name}, last_name: {last_name}, user_id: {user_id}})",
 			{"first_name": str(dataPart.signupFName), "last_name": str(dataPart.signupLName), "user_id": str(userId)})
@@ -47,6 +54,22 @@ class Users:
 			return True
 		else:
 			return False
+
+	def addFriend(self, selfId, userId):
+		result = self.session.run("MATCH (u:Person {user_id:'{selfId}'}), (r:Person {user_id:'{userId}'})"
+		           "CREATE (u)-[:Friend_Relation]->(r)", {"selfId": str(selfId), "userId": str(userId)})
+		if(result): 
+			return True
+		else:
+			return False
+
+	def delFriend(self, selfID, userID):
+		result = self.session.run("MATCH (u:Person {user_id:'{selfId}'})-[rel:Friend_Relation]->(r:Person {user_id:'{userId}'})"
+		           "DELETE (rel)", {"selfId": str(selfId), "userId": str(userId)})
+		if(result): 
+			return True
+		else:
+			return False			
 
 class Auth:
 

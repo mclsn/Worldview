@@ -1,0 +1,16 @@
+{%- if extender %}
+	{% extends extender %}
+{%- endif %}
+{%- block page %}
+	<div id="around_main">
+		{%- for i in response -%}
+			<a href="/{%- if i.a.user_name -%}{{ i.a.user_name }}{%- else -%}id{{ i.a.user_id }}{%- endif -%}">
+			<div id="around_mainUser">
+				<img src="{%- if i.a.user_avatar -%}/usr/av/{{ i.a.user_avatar }}.jpg{%- else -%}/img/sys/noavatar.png{%- endif -%}" id="around_mainUserImg">
+				<div id="around_mainUserName">{{- i.a.first_name }} {{ i.a.last_name -}}</div>
+				<br>
+			</div>
+			</a>
+		{%- endfor -%}	
+	</div>
+{% endblock page -%}

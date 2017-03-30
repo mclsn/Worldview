@@ -1,4 +1,26 @@
-﻿var Core = {
+﻿var Sys = {
+
+	_logTimer : (new Date()).getTime(),
+
+	console : function(msg){
+		var t = '[' + (((new Date()).getTime() - this._logTimer) / 1000) + '] ';
+		console.log(t + ": " + String(msg));	
+	},
+
+	jsonToParam : function(obj){
+		var str = Object.keys(obj).map(function(key){ 
+			return encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]); 
+		}).join('&');
+		return str;
+	},
+
+	csrf : function(){
+		Core.EnginePost('/api', Data.Loader, null)
+	},
+
+}
+
+var Core = {
 
 	getXmlHttp : function(){
 		var xmlhttp;
@@ -25,9 +47,10 @@
 			var req = Core.getXmlHttp()         
 
 			req.onreadystatechange = function() {
-				if (req.readyState == 4) { 
+				if (req.readyState == 4) {
+					Sys.console("EngineStaticFile -end with status " + req.status)
+					
 					if(req.status == 200){
-						console.log("[EngineGet]: callback");
 						_return = []
 
 						if(selector == "#viewer_wrap"){
@@ -40,9 +63,6 @@
 							_return.push(preparedData);
 						}
 						callback(JSON.stringify(_return));
-					}
-					else{
-						console.log("[EngineGet]: success with status " + req.status);
 					}
 				}
 			}
@@ -60,13 +80,12 @@
 
 			req.onreadystatechange = function() {
 				if (req.readyState == 4) { 
-					if(req.status == 200){
-						console.log("[EngineGet]: callback");
-						callback(req.responseText);
+					Sys.console("EngineGet -end with status " + req.status)
+
+					if(req.status == 200 && callback){
+						callback(req.responseText, true);
 					}
-					else{
-						console.log("[EngineGet]: success with status " + req.status);
-					}
+					console.log(req.responseText);
 				}
 			}
 
@@ -77,26 +96,19 @@
 		}
 	},
 
-	EnginePost : function(target, callback, data, typer) {
-		if(target && data){
+	EnginePost : function(target, callback, sendData, typer) {
+		if(target){
 			type = typer || 'application/x-www-form-urlencoded';
+			data = sendData || null;
+
 			var req = Core.getXmlHttp()         
 
 			req.onreadystatechange = function() {  
 				if (req.readyState == 4) { 
-					if(req.status == 200){
-						if(callback){
-							console.log("[EnginePost]: callback");
-							callback(req.responseText);
-						}
-						else{
-							console.log("[EnginePost]: success");
-							//console.log("[EnginePost]: " + req.responseText)
-						}
-					}
-					else{
-						console.log("Error EngineGet: status " + req.status);
-						console.log(req.responseText)
+					Sys.console("EnginePost -end with status " + req.status)
+					if(req.status == 200) {
+						if(data && callback) callback(req.responseText, true);
+						else if(callback) callback(req.responseText, false);
 					}
 				}
 			}
@@ -139,20 +151,12 @@
 					setTimeout(
 						function(){document.querySelector("div#main_progressBar").style.width = "0vw"}
 						, 1000)
-
+					Sys.console("EnginePut -end with status " + req.status)
+					
 					if(req.status == 200){
 						if(callback){
-							console.log("[EnginePut]: callback");
-							callback(req.responseText);
+							callback(req.responseText, true);
 						}
-						else{
-							console.log("[EnginePut]: success");
-							//console.log("[EnginePut]: " + req.responseText)
-						}
-					}
-					else{
-						console.log("Error EnginePut: status " + req.status);
-						//console.log(req.responseText)
 					}
 				}
 			}
@@ -181,6 +185,11 @@
 }
 
 var Profile = {
+
+	AddFriend : function(obj, uid, csrf){
+		data = {"csrf" : csrf, "uid" : uid, "act" : "addfriend"};
+		Core.EngineGet('/api?' + Sys.jsonToParam(data), null);
+	},
 
 	UploadPhoto : function(event, obj){
 		_valid = ['user_avatar', 'csrf']
@@ -236,7 +245,6 @@ var Profile = {
 				}
 			});
 
-
 			multipart = Core.MultipartData(data);
 			Core.EnginePost('/edit', Data.Loader, multipart[0], 'multipart/form-data; boundary=' + multipart[1])
 			
@@ -278,41 +286,52 @@ var Data = {
 			if(data)
 				div.innerHTML = data;
 			document.body.appendChild(div);			
-		}
-		console.log("[Viewer]: end")
+		}	
 		return false;
 	},
 
-	Loader : function(data){
-		console.log(data)
+	Loader : function(data, csrf){
+		Sys.console("Loader -start")
 		try{
-			data = JSON.parse(data);
 			console.log(data)
+			data = JSON.parse(data);
 			data.forEach(function(entry) {
-				console.log(entry.act);
 				if(entry.act == "viewer"){
 					Data.Viewer();				
 				}
 				else if(entry.act == "add"){
-					targetBlock = document.querySelector(entry.selector)
-					console.log(entry.selector)
-					console.log(targetBlock)
+					targetBlock = document.querySelector(entry.selector);
 					targetBlock.innerHTML = entry.data;
 				}
 				else if(entry.act == "attr"){
-					targetBlock = document.querySelector(entry.selector)
-					console.log(entry.selector)
-					targetBlock[entry.type] = entry.data;
+					if('selector' in entry){
+						targetBlock = document.querySelector(entry.selector)
+						targetBlock[entry.type] = entry.data;
+					}
+					else if('selectors' in entry){
+						targetBlocks = document.querySelectorAll(entry.selectors);
+						targetBlocks.forEach(function(e) {
+							if(e.nodeName == "A" || "BUTTON"){
+								e.setAttribute("hash", entry.data);
+							}
+							else if(e.nodeName == "INPUT"){
+								e.setAttribute("value", entry.data);
+							}
+						});
+					}
 				}
 				else if(entry.act == "reload"){
 					window.location.href = "/";
 				}
 			});
+
+			Sys.console("Loader -end")	
 		}
 		catch(e){
 			console.log(e)
 		}
-
+		console.log(csrf)
+		if(csrf == true) Sys.csrf();
 		return false;
 	}
 

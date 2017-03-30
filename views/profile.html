@@ -39,7 +39,7 @@
 			</div>
 			{% if session.user_id != response.user_id %}
 			<div id="profileLinks">
-				<button class="profile_buttonMenu" onclick="Profile.AddFriend(this, {{ response.user_id }}, {{ csrf }})">Add to friend</button>			
+				<button hash="{{ csrf }}" class="profile_buttonMenu" onclick="Profile.AddFriend(this, {{ response.user_id }}, this.getAttribute('hash'))">Add to friend</button>			
 			</div>
 			{% endif %}
 		</div>

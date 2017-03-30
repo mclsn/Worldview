@@ -5,8 +5,10 @@ urls = (
     "/logout", controller.logout,
     "/signup", controller.signup,
 	'/login', controller.login,
+	'/api', controller.api,
 	'/id([0-9]+)', controller.profile,
 	'/edit', controller.edit,
+	'/around', controller.around,
 	'/', controller.main,
     '/(.*)', controller.profile,
 )
