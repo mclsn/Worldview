@@ -466,17 +466,6 @@ div#profileMenu > a > span:last-child{
     font-weight: bold;
     color: black;
 }
-button.profile_buttonMenu{
-    background: none;
-    padding: 13.5px;
-    border: 1px solid #eee;
-    cursor: pointer;
-    outline: none;
-}
-button.profile_buttonMenu:hover{
-    background: rgba(74, 125, 181, 1);
-    color: white;
-}
 div#profileLinks{
     left: 0;
     float: right;
@@ -484,9 +473,13 @@ div#profileLinks{
     margin-top: 13.5px;
 }
 div#profileLinks > a{
+    padding: 9.5px;
+    cursor: pointer;
 	display: inline-block;
-    padding: 15.5px;
-    color: white;
+    border: 1px dashed rgba(0,0,0,0.2);
+}
+div#profileLinks > a:hover{
+    box-shadow: 0px 0px 2px rgba(0,0,0,0.5);
 }
 div#profileLinks > a > span{
 	display: inline-block;

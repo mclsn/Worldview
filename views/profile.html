@@ -17,7 +17,7 @@
 						<div id="editPage_avatarWrapSuppose" style="padding: 68px 0px;">Upload photo</div>
 					</div>
 					<input type="file" id="user_avatar" class="UploadPhoto" style="visibility: hidden; display: none;" onchange="Profile.UploadPhoto(event, this.files);">
-					<input type="hidden" class="FormDefault UploadPhoto" id="csrf" value="{{ csrf }}">
+					<input hash type="hidden" class="FormDefault UploadPhoto" id="csrf" value="{{ csrf }}">
 				{% endif %}
 			</label>
 		</div>
@@ -39,7 +39,7 @@
 			</div>
 			{% if session.user_id != response.user_id %}
 			<div id="profileLinks">
-				<button hash="{{ csrf }}" class="profile_buttonMenu" onclick="Profile.AddFriend(this, {{ response.user_id }}, this.getAttribute('hash'))">Add to friend</button>			
+				<a hash="{{ csrf }}" class="profile_buttonMenu" onclick="Profile.AddFriend(this, {{ response.user_id }}, this.getAttribute('hash'))">Add to friend</a>			
 			</div>
 			{% endif %}
 		</div>

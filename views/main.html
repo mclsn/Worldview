@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" href="/css/main.css">
     <link rel="stylesheet" type="text/css" href="/css/im.css">
     <link rel="stylesheet" type="text/css" href="/css/edit.css">
+    <script src="http://192.168.1.9:8080/socket.io/socket.io.js"></script>
 </head>
 <body>
 	{%- block errorPage %}
@@ -26,7 +27,7 @@
 					<a href="/edit" class="headerRef">
 						<span class="headerRef">Edit</span>
 					</a>
-					<a hash={{ csrf }} onclick="Profile.Logout(event, this);" href="/logout" class="headerRef" id="head_LogoutLink">
+					<a hash={{ csrf }} onclick="Profile.Logout(event, this.getAttribute('hash'));" class="headerRef" id="head_LogoutLink">
 						<span class="headerRef">Log out</span>
 					</a>					
 				</div>

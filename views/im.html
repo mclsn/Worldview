@@ -4,7 +4,13 @@
 
 {% block page %}
 	<div id="im_contain">
-		<div id="im_contain_leftColoumn"></div>
-		<div id="im_contain_rightColoumn"></div>
+		<div id="im_log"></div>
+		<div id="im_contain_message">
+			<input type="text" id="im_contain_message_textarea" autofocus>
+			<label for="upload_attachment" id="im_contain_message_labelAttach">
+				<input type="file" id="upload_attachment" style="visibility: hidden; display: none;">
+			</label>
+			<button id="im_contain_message_sender" type="submit"></button>
+		</div>
 	</div>
 {% endblock page %}

@@ -56,7 +56,7 @@ class Users:
 			return False
 
 	def addFriend(self, selfId, userId):
-		result = self.session.run("MATCH (u:Person {user_id:'{selfId}'}), (r:Person {user_id:'{userId}'})"
+		result = self.session.run("MATCH (u:Person {user_id:{selfId}}), (r:Person {user_id:{userId}})"
 		           "CREATE (u)-[:Friend_Relation]->(r)", {"selfId": str(selfId), "userId": str(userId)})
 		if(result): 
 			return True

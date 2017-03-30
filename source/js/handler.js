@@ -1,4 +1,11 @@
-﻿document.body.addEventListener("click", function(e) {
+﻿window.onload = function(){
+	if((document.querySelector("#im_contain")) !== null){
+		RealTime.Message();
+	}
+	return false;	
+}
+
+document.body.addEventListener("click", function(e) {
 	event = e;
 
 	for (var k in event.path){

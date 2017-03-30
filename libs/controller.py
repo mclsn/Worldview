@@ -6,6 +6,7 @@ import libs.template, libs.models, libs.utils, libs.image
 import urllib
 import os
 from urllib import parse
+from libs import api
 		
 def csrf_protected(f):
 	def decorated(*args,**kwargs):
@@ -20,7 +21,7 @@ def csrf_protected(f):
 	return decorated
 
 
-class api:
+class spi:
 
 	@csrf_protected
 	def GET(self):
@@ -29,31 +30,8 @@ class api:
 
 		if('act' in request):
 
-			if(request['act'] == 'addfriend' \
-				and 'uid' in request \
-				and request['uid'] != session.user_id
-				and str(request['uid']).isdigit()):
-				try:
-					action = libs.models.Users().addFriend(session.user_id, request['uid'])
-					if(action):
-						return True
-					else:
-						return False
-				except:
-					return False
-
-			if(request['act'] == 'delfriend' \
-				and 'uid' in request \
-				and request['uid'] != session.user_id
-				and str(request['uid']).isdigit()):
-				try:
-					action = libs.models.Users().delFriend(session.user_id, request['uid'])
-					if(action):
-						return json.dumps([{'act' : 'add', 'data' : data, 'selector' : '#page'}])
-					else:
-						return False
-				except:
-					return False
+			if(request['act'] == 'addfriend'): return (True if api.Api().addFriend(session.user_id, request['uid']) else False)
+			if(request['act'] == 'delfriend'): return (True if api.Api().delFriend(session.user_id, request['uid']) else False)
 
 		return False
 
@@ -75,7 +53,6 @@ class around:
 
 class edit:
 
-	_valid 	= ['first_name', 'last_name', 'user_name']
 	_months = ['January', 'February', 'March', 'April', 
 			'May', 'June', 'July', 'August', 'September', 
 			'October', 'November','December']
@@ -101,49 +78,16 @@ class edit:
 
 	@csrf_protected
 	def POST(self):
-		from datetime import datetime
-
-		Utils = libs.utils.utils()
 		editData = web.input(_method='post')
 		session = web.config._session
-		fields = dict()
-
-		_home = '/home/projects/snw'
+		
 		_path = lambda x: '/usr/av/' + x + '.jpg'
 		_return = lambda attr,data,sel,typer='None': {'act' : attr, 'data' : data, 'selector' : sel, 'type' : typer}
-
-		try:
-
-			if('user_birth_year' in editData):
-				year = editData['user_birth_year'];
-				month = editData['user_birth_month'];
-				day = editData['user_birth_day'];
-				fields.update({'user_birthday' : '{:%Y-%m-%d}'.format(datetime(int(year), int(month), int(day)))})
-
-			for key, value in editData.items():
-
-				if (key == "user_avatar" and value != ""):
-					import uuid
-					Image = libs.image.image()
-
-					unique_filename = str(uuid.uuid4())
-					with open(_home + _path(unique_filename), "wb") as out_file:
-						out_file.write(editData.user_avatar)
-
-					if Image.CropProfile(_home + _path(unique_filename), 512):
-						fields.update({'user_avatar' : unique_filename})
-
-				elif (key == "user_name"):
-					if not (libs.models.Edit().checkUsername(parse.unquote(value))):
-						fields.update({key : parse.unquote(value)})
-
-				elif (key in self._valid and value != ""):
-					fields.update({key : parse.unquote(value)})
-
-			if fields:
-				user_setProperties = libs.models.Users().setProperty(session.user_id, fields)
-			
+		_success = api.Api().editProfile(session, editData)
+		
+		if(_success):
 			user_information = libs.models.Users().getUser(session.user_id)
+			user_information['months'] = self._months
 			session.first_name = user_information['first_name']
 			session.last_name = user_information['last_name']
 			session.user_avatar = user_information['user_avatar']
@@ -155,8 +99,8 @@ class edit:
 				_return('attr', _path(session.user_avatar), '#editPage_avatar', 'src'),
 				]) if (user_information) \
 				else libs.template.renderTemp(doc = '404.html')
-
-		except:
+		else:
+			return False
 			user_information = libs.models.Users().getUser(session.user_id)
 			return libs.template.renderTemp(doc = 'edit.html', jsonstr = user_information, extender="main.html")
 
@@ -178,9 +122,6 @@ class profile:
 			else:
 				return libs.template.renderTemp(doc = '404.html', extender="main.html")
 
-	def POST(self):
-		pass
-
 class main:
 	def GET(self):
 		session = web.config._session
@@ -189,14 +130,13 @@ class main:
 		if(session.user_id != 0):
 			if('HTTP_X_REQUESTED_WITH' in web.ctx.env and web.ctx.env['HTTP_X_REQUESTED_WITH'] == "XMLHttpRequest"):
 				data = libs.template.renderTemp(doc = 'im.html')
-				return json.dumps([{'act' : 'add', 'data' : data, 'selector' : '#page'}])
+				return json.dumps(
+					[{'act' : 'add', 'data' : data, 'selector' : '#page' },
+					{'act' : 'callback', 'data' : 'RealTime.Message()'}])
 			else:
 				return libs.template.renderTemp(doc = 'im.html', csrf = Utils.csrf_token(), extender="main.html")
 		else:
 			return web.seeother('/login')
-
-	def POST(self):
-		pass
 
 class signup:
 	def GET(self):

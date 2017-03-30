@@ -20,6 +20,41 @@
 
 }
 
+var RealTime = {
+
+	Message : function(){
+		console.log("1");
+		// Создаем текст сообщений для событий
+		strings = {
+			'connected': '[sys][time]%time%[/time]: Вы успешно соединились к сервером как [user]%name%[/user].[/sys]',
+			'userJoined': '[sys][time]%time%[/time]: Пользователь [user]%name%[/user] присоединился к чату.[/sys]',
+			'messageSent': '[out][time]%time%[/time]: [user]%name%[/user]: %text%[/out]',
+			'messageReceived': '[in][time]%time%[/time]: [user]%name%[/user]: %text%[/in]',
+			'userSplit': '[sys][time]%time%[/time]: Пользователь [user]%name%[/user] покинул чат.[/sys]'
+		};
+
+		socket = io.connect('http://192.168.1.9:8080');
+		socket.on('connect', function () {
+			socket.on('message', function (msg) {
+				console.log(msg);
+				document.querySelector('#im_log').innerHTML += msg;
+				document.querySelector('#im_log').scrollTop = document.querySelector('#im_log').scrollHeight;
+			});
+			document.querySelector('#im_contain_message_textarea').onkeypress = function(e) {
+				if (e.which == '13') {
+					socket.send(escape(document.querySelector('#im_contain_message_textarea').value));
+					document.querySelector('#im_contain_message_textarea').value = '';
+				}
+			};
+			document.querySelector('#im_contain_message_sender').onclick = function() {
+				socket.send(escape(document.querySelector('#im_contain_message_textarea').value));
+				document.querySelector('#im_contain_message_textarea').value = '';
+			};		
+		});
+
+	},
+}
+
 var Core = {
 
 	getXmlHttp : function(){
@@ -85,7 +120,9 @@ var Core = {
 					if(req.status == 200 && callback){
 						callback(req.responseText, true);
 					}
-					console.log(req.responseText);
+					else{
+						console.log(req.responseText);
+					}
 				}
 			}
 
@@ -188,7 +225,7 @@ var Profile = {
 
 	AddFriend : function(obj, uid, csrf){
 		data = {"csrf" : csrf, "uid" : uid, "act" : "addfriend"};
-		Core.EngineGet('/api?' + Sys.jsonToParam(data), null);
+		Core.EngineGet('/api?' + Sys.jsonToParam(data), Data.Loader);
 	},
 
 	UploadPhoto : function(event, obj){
@@ -256,11 +293,8 @@ var Profile = {
 		return false; 
 	},
 
-	Logout : function(event, obj){
-		event.preventDefault();
-		var urlParams = new URLSearchParams(obj.search);
+	Logout : function(event, csrf){
 		try{
-			var csrf = urlParams.get('csrf');
 			multipart = Core.MultipartData({'csrf' : encodeURIComponent(csrf)});
 			Core.EnginePost('/logout', Data.Loader, multipart[0], 'multipart/form-data; boundary=' + multipart[1])
 		}
@@ -310,8 +344,9 @@ var Data = {
 					}
 					else if('selectors' in entry){
 						targetBlocks = document.querySelectorAll(entry.selectors);
+						console.log(targetBlocks);
 						targetBlocks.forEach(function(e) {
-							if(e.nodeName == "A" || "BUTTON"){
+							if(e.nodeName == ("A" || "BUTTON")){
 								e.setAttribute("hash", entry.data);
 							}
 							else if(e.nodeName == "INPUT"){
@@ -319,6 +354,10 @@ var Data = {
 							}
 						});
 					}
+				}
+				else if(entry.act == "callback"){
+					console.log(data);
+					eval(entry.data);
 				}
 				else if(entry.act == "reload"){
 					window.location.href = "/";
@@ -328,9 +367,9 @@ var Data = {
 			Sys.console("Loader -end")	
 		}
 		catch(e){
-			console.log(e)
+			//console.log(e)
 		}
-		console.log(csrf)
+		//console.log(csrf)
 		if(csrf == true) Sys.csrf();
 		return false;
 	}
