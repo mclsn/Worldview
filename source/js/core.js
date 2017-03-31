@@ -20,6 +20,13 @@ var Sys = {
 		Core.EnginePost('/api', Data.Loader, null)
 	},
 
+	HtmlEncode : function(s){
+		var el = document.createElement("div");
+		el.innerText = el.textContent = s;
+		s = el.innerHTML;
+		return s;
+	}
+
 }
 
 var RealTime = {
@@ -35,29 +42,43 @@ var RealTime = {
 		};
 
 		if(__socket)
-			__socket.disconnect('http://192.168.1.9:8080')
-		__socket = io.connect('http://192.168.1.9:8080');
+			__socket.disconnect('http://192.168.1.200:8001')
+		__socket = io.connect('http://192.168.1.200:8001');
 
 		__socket.on('connect', function () {
-			__socket.on('message', function (msg) {
-				document.querySelector('#im_log').innerHTML += msg;
-				document.querySelector('#im_log').scrollTop = document.querySelector('#im_log').scrollHeight;
-			});
-			document.querySelector('#im_contain_message_textarea').onkeypress = function(e) {
-				if (e.which == '13') {
-					__socket.send(escape(document.querySelector('#im_contain_message_textarea').value));
-					document.querySelector('#im_contain_message_textarea').value = '';
+			__socket.on('message', function (data) {
+				try{
+					data = JSON.parse(data);
+					console.log(data.user_fullname);
+					document.querySelector('#im_log').innerHTML += 
+						"<div class='im_contain_messageUser'>" + 
+							"<img src='/usr/av/" + data.user_avatar + ".jpg'>" +
+							"<div>" +
+								"<span>" + data.user_fullname + "</span>"+
+								"<div>" + data.msg + "</div>"+
+							"</div>" +
+						"</div>";
 				}
-			};
-			document.querySelector('#im_contain_message_sender').onclick = function() {
-				__socket.send(escape(document.querySelector('#im_contain_message_textarea').value));
-				document.querySelector('#im_contain_message_textarea').value = '';
-			};	
+				catch(e){
+					console.log(e);
+				}
+			});
 		});
 
 		return false;
 
 	},
+
+	SendMessage : function(){
+		elem = document.querySelector('#im_contain_message_textarea');
+		multipart = Core.MultipartData({'data' : Sys.HtmlEncode(elem.value)});
+		Core.EnginePost('/msg', console.log, multipart[0], 'multipart/form-data; boundary=' + multipart[1])
+		elem.value = '';
+		document.querySelector('#im_log').scrollTop = document.querySelector('#im_log').scrollHeight;
+		elem.focus();
+		return false;
+	}
+
 }
 
 var Core = {

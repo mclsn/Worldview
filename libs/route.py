@@ -2,6 +2,7 @@ from libs import controller
 import web
 
 urls = (
+	"/msg", controller.msg,
     "/logout", controller.logout,
     "/signup", controller.signup,
 	'/login', controller.login,

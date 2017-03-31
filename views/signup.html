@@ -8,7 +8,7 @@
 	<hr class="HRgreyline">
 	<div id="highlevelSignupForm">
 		<form action="/signup" method="POST">
-			<input type="hidden" name="csrf" value="{{ csrf }}">
+			<input hash type="hidden" name="csrf" value="{{ csrf }}">
 			<div class="FormDefaultInputField">
 				<div class="FormDefault_predict">First name</div>
 				<input value="{{ response.signupFName }}" class="FormDefault" type="text" name="signupFName" id="signupFName">
@@ -31,7 +31,7 @@
 			<div class="FormDefaultInputField" style="text-align: center;">
 				<a class="a_mainUnder" href="/login">Have an account?</a>
 			</div>
-			{% if msg != None %}
+			{% if (msg is defined and msg) %}
 				<hr class="HRgreyline">
 				{% if msg.status == 1 %}
 				<div class="success AuthFormError">
@@ -40,8 +40,11 @@
 				{% endif %}
 				{{ msg.text }}
 			</div>
+			{% else %}
+				<div class="error AuthFormError">
+				Signup service doesn't work
+				</div>			
 			{% endif %}
-
 		</form>						
 	</div>
 </div>

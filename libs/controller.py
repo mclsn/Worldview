@@ -20,6 +20,15 @@ def csrf_protected(f):
 		return f(*args,**kwargs)
 	return decorated
 
+class msg:
+
+	def POST(self):
+		session = web.config._session
+		request = web.input(_method='post')
+		from socketIO_client import SocketIO
+		with SocketIO('http://192.168.1.200', 8001) as socketIO:
+			socketIO.send('{"user_id":"' + session.user_id + '", "user_avatar" : "' + session.user_avatar + '", "user_fullname" : "' + session.first_name + ' ' + session.last_name + '", "msg": "' + request['data'] +'", "to" : "0"}')
+		return False
 
 class spi:
 
@@ -160,7 +169,10 @@ class signup:
 
 			if('HTTP_X_REQUESTED_WITH' in web.ctx.env and web.ctx.env['HTTP_X_REQUESTED_WITH'] == "XMLHttpRequest"):
 				data = libs.template.renderTemp(doc = 'signup.html', jsonstr = params, sys = msg)
-				return json.dumps([{'act' : 'add', 'data' : data, 'selector' : '#page', 'type' : 'add'}])
+				return json.dumps(
+					[{'act' : 'add', 'data' : data, 'selector' : '#page' },
+					{'act' : 'callback', 'data' : 'Sys.csrf()'}])
+
 			else:
 				return libs.template.renderTemp(doc = 'signup.html', csrf = Utils.csrf_token(), jsonstr = params, sys = msg, extender="main.html")
 
@@ -218,7 +230,9 @@ class login:
 
 			if('HTTP_X_REQUESTED_WITH' in web.ctx.env and web.ctx.env['HTTP_X_REQUESTED_WITH'] == "XMLHttpRequest"):
 				data = libs.template.renderTemp(doc = 'login.html',jsonstr = params,sys = msg)
-				return json.dumps([{'act' : 'add', 'data' : data, 'selector' : '#page', 'type' : 'add'}])
+				return json.dumps(
+					[{'act' : 'add', 'data' : data, 'selector' : '#page'},
+					{'act' : 'callback', 'data' : 'Sys.csrf()'}])
 			else:
 				return libs.template.renderTemp(doc = 'login.html', csrf = Utils.csrf_token(), jsonstr = params,sys = msg, extender="main.html")
 

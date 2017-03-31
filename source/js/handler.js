@@ -5,6 +5,14 @@
 	return false;	
 }
 
+document.body.addEventListener("keydown", function(e){
+	if(e.target.id == "im_contain_message_textarea"){
+		if (e.which == '13') {
+			RealTime.SendMessage();
+		}		
+	}
+});
+
 document.body.addEventListener("click", function(e) {
 	event = e;
 
@@ -16,6 +24,11 @@ document.body.addEventListener("click", function(e) {
 	    	 window.history.pushState('', '', elem.pathname + elem.search);
 	         Core.EngineGet(elem.pathname + elem.search, Data.Loader)
 	         break;
+	    }
+	    else if(el.nodeName == "BUTTON" && !(el.hasAttribute("onclick"))){
+	    	if(el.id == "im_contain_message_sender"){
+	    		RealTime.SendMessage();
+	    	}
 	    }
 	}
 

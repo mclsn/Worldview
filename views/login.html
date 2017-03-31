@@ -22,7 +22,7 @@
 			<div class="FormDefaultInputField" style="text-align: center;">
 				<a class="a_mainUnder" href="/signup">Signup!</a>
 			</div>
-			<input type=hidden name=csrf value="{{ csrf }}">
+			<input hash type=hidden name=csrf value="{{ csrf }}">
 			{% if msg != None %}
 				<hr class="HRgreyline">
 				{% if msg.status == 1 %}
